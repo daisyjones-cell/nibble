@@ -1,0 +1,21 @@
+/* =================================================================
+   Selina Finance — Design System · global entry point
+   Consumers link THIS one file. It is a manifest of @import lines only;
+   every token, font and component style ships through this closure.
+   ================================================================= */
+
+/* 1 — Webfonts (Sora + Inter) */
+@import "./tokens/fonts.css";
+
+/* 2 — Design tokens (colour ramps, semantics, type, spacing, radius,
+        border, grid, elevation; + dark theme) */
+@import "./tokens/tokens.css";
+
+/* 3 — Working form-component styles (.f-* family) */
+@import "./styles/forms.css";
+
+/* 4 — Button (flagship) */
+@import "./styles/buttons.css";
+
+/* 5 — Other component styles (nav, trust bar, cards, badges, callout…) */
+@import "./styles/components.css";

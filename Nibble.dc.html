@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/tokens/tokens.css">
+  <link rel="stylesheet" href="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/styles/forms.css">
+  <link rel="stylesheet" href="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/styles/buttons.css">
+  <link rel="stylesheet" href="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/styles/components.css">
+  <link rel="stylesheet" href="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/styles.css">
+  <script src="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/_ds_bundle.js"></script>
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{background:var(--color-bg-primary);color:var(--color-text-primary);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+    a{color:var(--color-text-link);text-decoration:none}
+    a:hover{color:var(--color-text-primary)}
+    ::selection{background:var(--color-peppermint)}
+    @keyframes nb-fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    @keyframes nb-pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+    @keyframes nb-toast{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+    @keyframes nb-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+    .nb-screen{animation:nb-fade .38s cubic-bezier(.22,1,.36,1) both}
+    .nb-skel{background:linear-gradient(90deg,var(--color-bg-light-tint) 0px,var(--color-almond) 200px,var(--color-bg-light-tint) 400px);background-size:800px 100%;animation:nb-shimmer 1.2s linear infinite;border-radius:var(--radius-m)}
+    .nb-scroll::-webkit-scrollbar{height:8px}
+    .nb-scroll::-webkit-scrollbar-thumb{background:var(--color-almond);border-radius:9999px}
+    .sel-tag,.sel-badge{white-space:nowrap}
+  </style>
+</helmet>
+
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--color-bg-primary);color:var(--color-text-primary)">
+
+  <!-- ============ NAV ============ -->
+  <sc-if value="{{ isApp }}" hint-placeholder-val="{{ true }}">
+  <nav class="sel-nav" style="position:sticky;top:0;z-index:40;height:68px;backdrop-filter:blur(8px);background:color-mix(in srgb,var(--color-bg-primary) 88%,transparent)">
+    <a class="sel-nav__logo" href="#" onClick="{{ goHome }}" aria-label="Nibble home" style="display:inline-flex;align-items:center;gap:10px">
+      <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 15h24a12 12 0 0 1-24 0Z" fill="var(--color-peppermint)" stroke="var(--color-midnight)" stroke-width="2" stroke-linejoin="round"/><path d="M3.5 15h25" stroke="var(--color-midnight)" stroke-width="2" stroke-linecap="round"/><path d="M16 14.5V8" stroke="var(--color-midnight)" stroke-width="2" stroke-linecap="round"/><path d="M16 12c-1.2-3.6-4.8-3.6-6.4-2 .5 3.2 3.6 4 6.4 2Z" fill="var(--color-peppermint)" stroke="var(--color-midnight)" stroke-width="1.7" stroke-linejoin="round"/><path d="M16 12.6c1.2-3.6 4.8-3.6 6.4-2-.5 3.2-3.6 4-6.4 2Z" fill="var(--color-peppermint)" stroke="var(--color-midnight)" stroke-width="1.7" stroke-linejoin="round"/></svg>
+      <span style="font-family:var(--font-heading);font-weight:800;font-size:20px;letter-spacing:-1px;color:var(--color-text-primary)">nibble</span>
+    </a>
+    <div class="sel-nav__links" style="margin-left:12px">
+      <a class="sel-nav__link" href="#" onClick="{{ goHome }}" style="{{ navHomeStyle }}">Home</a>
+      <a class="sel-nav__link" href="#" onClick="{{ goBrowse }}" style="{{ navBrowseStyle }}">Browse stalls</a>
+      <a class="sel-nav__link" href="#" onClick="{{ goProfile }}" style="{{ navProfileStyle }}">My profile</a>
+      <sc-if value="{{ isAdminUser }}" hint-placeholder-val="{{ true }}"><a class="sel-nav__link" href="#" onClick="{{ goAdmin }}" style="{{ navAdminStyle }}">Admin</a></sc-if>
+    </div>
+    <span class="sel-nav__spacer"></span>
+    <button type="button" onClick="{{ toggleDark }}" aria-label="Toggle dark mode" title="Toggle dark mode" style="width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:var(--border-m) solid var(--color-midnight);background:var(--color-fill-pure);border-radius:var(--radius-m);color:var(--color-text-primary);cursor:pointer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{{ themeIcon }}</svg>
+    </button>
+    <button type="button" onClick="{{ goProfile }}" aria-label="Profile" style="width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:var(--border-m) solid var(--color-midnight);background:var(--color-periwinkle);border-radius:9999px;font-family:var(--font-heading);font-weight:800;font-size:14px;color:var(--color-midnight);cursor:pointer;box-shadow:var(--shadow-hard-s)">DJ</button>
+  </nav>
+  </sc-if>
+
+  <!-- ============ HOME ============ -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <div class="nb-screen">
+    <!-- Hero -->
+    <section style="max-width:1280px;margin:0 auto;padding:56px 24px 8px;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center">
+      <div>
+        <span class="sel-badge sel-badge--mint" style="box-shadow:var(--shadow-hard-s)">Made for {{ orgName }}</span>
+        <h1 style="font-family:var(--font-heading);font-weight:600;font-size:clamp(40px,5.2vw,72px);line-height:.98;letter-spacing:-3px;margin:18px 0 0">Find your next<br>favourite lunch.</h1>
+        <p style="font-family:var(--font-body);font-size:19px;line-height:1.45;color:var(--color-text-secondary);max-width:34ch;margin:18px 0 26px">Every stall on the market square, rated and reviewed by the people you sit next to. No queues for the wrong pick.</p>
+        <form onSubmit="{{ onHeroSearch }}" style="display:flex;gap:10px;max-width:460px">
+          <div style="flex:1;display:flex;align-items:center;gap:10px;background:var(--color-fill-pure);border:var(--border-m) solid var(--color-midnight);border-radius:var(--radius-m);padding:0 14px;box-shadow:var(--shadow-hard-s)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <input value="{{ query }}" onInput="{{ onSearch }}" placeholder="Search stalls, cuisines, dishes…" aria-label="Search stalls" style="flex:1;border:0;outline:none;background:transparent;font-family:var(--font-body);font-size:16px;height:50px;color:var(--color-text-primary)">
+          </div>
+          <button type="submit" class="sel-btn sel-btn--primary sel-btn--l">Search</button>
+        </form>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px">
+          <sc-for list="{{ quickChips }}" as="chip" hint-placeholder-count="4">
+            <button type="button" onClick="{{ chip.onClick }}" style="font-family:var(--font-heading);font-weight:700;font-size:13px;padding:7px 14px;border-radius:9999px;border:var(--border-s) solid var(--color-form-border);background:var(--color-fill-pure);color:var(--color-text-primary);cursor:pointer" style-hover="border-color:var(--color-midnight);background:var(--color-bg-light-tint)">{{ chip.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <!-- Illustration -->
+      <div style="position:relative">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(var(--color-almond) 2px,transparent 2px);background-size:20px 20px;opacity:.7;border-radius:var(--radius-xl)"></div>
+        <div style="position:relative;padding:8px">
+          {{ heroArt }}
+        </div>
+      </div>
+    </section>
+
+    <!-- Stat band -->
+    <section style="max-width:1280px;margin:24px auto 0;padding:0 24px">
+      <div class="sel-card" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:22px 28px;background:var(--color-midnight);border-color:var(--color-midnight);color:#fff">
+        <sc-for list="{{ heroStats }}" as="st" hint-placeholder-count="4">
+          <div style="display:flex;flex-direction:column;gap:2px;padding:4px 0">
+            <span style="font-family:var(--font-heading);font-weight:700;font-size:34px;letter-spacing:-1px;color:var(--color-peppermint)">{{ st.value }}</span>
+            <span style="font-family:var(--font-body);font-size:14px;color:var(--color-almond)">{{ st.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- Stall of the Week -->
+    <section style="max-width:1280px;margin:56px auto 0;padding:0 24px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px">
+        <div>
+          <span class="sel-eyebrow">This week's pick</span>
+          <h2 style="font-family:var(--font-heading);font-weight:700;font-size:32px;letter-spacing:-1px;margin:6px 0 0">Stall of the week</h2>
+        </div>
+      </div>
+      <div class="sel-card" style="padding:0;overflow:hidden;display:grid;grid-template-columns:1.05fr 1fr;gap:0">
+        <div style="{{ week.imgStyle }};position:relative;min-height:340px;display:flex;align-items:flex-end;padding:24px">
+          <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(9,11,42,.10) 2px,transparent 2px);background-size:18px 18px"></div>
+          <span style="position:absolute;top:20px;left:20px" class="sel-badge sel-badge--ink">{{ week.reason }}</span>
+          <span style="position:relative;font-family:var(--font-heading);font-weight:800;font-size:60px;letter-spacing:-2px;color:rgba(9,11,42,.14)">{{ week.cuisine }}</span>
+        </div>
+        <div style="padding:32px">
+          <h3 style="font-family:var(--font-heading);font-weight:700;font-size:30px;letter-spacing:-1px;margin:0">{{ week.name }}</h3>
+          <div style="display:flex;align-items:center;gap:12px;margin:10px 0 0;flex-wrap:wrap">
+            <sc-if value="{{ week.hasRating }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:5px;font-family:var(--font-heading);font-weight:700"><svg width="18" height="18" viewBox="0 0 24 24" fill="var(--color-peach-700,#d38d38)"><path d="M12 4l2.4 5 5.6.7-4 3.9 1 5.5L12 16.9 7 19l1-5.5-4-3.9 5.6-.7L12 4Z"/></svg>{{ week.rating }}</span></sc-if>
+            <span style="color:var(--color-text-secondary);font-size:14px">{{ week.reviewsLabel }}</span>
+            <span class="sel-tag" style="background:var(--color-bg-light-tint)">{{ week.cuisine }}</span>
+          </div>
+          <p style="font-family:var(--font-body);font-size:16px;line-height:1.5;color:var(--color-text-secondary);margin:16px 0 20px">{{ week.description }}</p>
+          <sc-if value="{{ week.hasTopDishes }}" hint-placeholder-val="{{ false }}">
+          <div style="font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--color-text-link);margin-bottom:8px">Top dishes</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">
+            <sc-for list="{{ week.topDishes }}" as="d" hint-placeholder-count="3">
+              <span class="sel-tag">{{ d }}</span>
+            </sc-for>
+          </div>
+          </sc-if>
+          <button type="button" onClick="{{ week.onOpen }}" class="sel-btn sel-btn--primary sel-btn--l">Visit {{ week.name }}</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trending dishes -->
+    <sc-if value="{{ hasTrending }}" hint-placeholder-val="{{ false }}">
+    <section style="max-width:1280px;margin:56px auto 0;padding:0 24px">
+      <span class="sel-eyebrow">Loved right now</span>
+      <h2 style="font-family:var(--font-heading);font-weight:700;font-size:32px;letter-spacing:-1px;margin:6px 0 18px">Trending dishes</h2>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+        <sc-for list="{{ trending }}" as="d" hint-placeholder-count="4">
+          <div class="sel-card" style="padding:0;overflow:hidden;cursor:pointer" onClick="{{ d.onOpen }}" style-hover="transform:translateY(-3px)">
+            <div style="{{ d.imgStyle }};height:120px;position:relative"><div style="position:absolute;inset:0;background-image:radial-gradient(rgba(9,11,42,.10) 1.5px,transparent 1.5px);background-size:14px 14px"></div></div>
+            <div style="padding:16px">
+              <div style="font-family:var(--font-heading);font-weight:700;font-size:17px">{{ d.name }}</div>
+              <div style="font-family:var(--font-body);font-size:13px;color:var(--color-text-secondary);margin-top:2px">{{ d.stallName }}</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px">
+                <span style="display:inline-flex;align-items:center;gap:5px;font-family:var(--font-heading);font-weight:700;font-size:13px;background:var(--color-peppermint);border:var(--border-s) solid var(--color-midnight);padding:3px 9px;border-radius:9999px;color:var(--color-midnight)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>{{ d.upvotes }}</span>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- Browse preview -->
+    <section style="max-width:1280px;margin:56px auto 0;padding:0 24px 72px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px">
+        <h2 style="font-family:var(--font-heading);font-weight:700;font-size:32px;letter-spacing:-1px;margin:0">Browse the market</h2>
+        <a href="#" onClick="{{ goBrowse }}" style="font-family:var(--font-heading);font-weight:700;display:inline-flex;align-items:center;gap:6px;color:var(--color-text-primary)">See all {{ stallCount }} stalls <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+        <sc-for list="{{ previewStalls }}" as="s" hint-placeholder-count="3">
+          <dc-import name="StallCard" stall="{{ s }}" hint-size="100%,360px"></dc-import>
+        </sc-for>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ BROWSE ============ -->
+  <sc-if value="{{ isBrowse }}" hint-placeholder-val="{{ true }}">
+  <div class="nb-screen" style="max-width:1280px;margin:0 auto;padding:40px 24px 72px">
+    <span class="sel-eyebrow">The market square</span>
+    <h1 style="font-family:var(--font-heading);font-weight:700;font-size:40px;letter-spacing:-2px;margin:6px 0 20px">Browse stalls</h1>
+    <div style="display:flex;align-items:center;gap:10px;background:var(--color-fill-pure);border:var(--border-m) solid var(--color-midnight);border-radius:var(--radius-m);padding:0 16px;box-shadow:var(--shadow-hard-s);max-width:560px;margin-bottom:24px">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input value="{{ query }}" onInput="{{ onSearch }}" placeholder="Search stalls, cuisines, dishes…" aria-label="Search stalls" style="flex:1;border:0;outline:none;background:transparent;font-family:var(--font-body);font-size:16px;height:52px;color:var(--color-text-primary)">
+      <sc-if value="{{ query }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ clearSearch }}" aria-label="Clear" style="border:0;background:transparent;cursor:pointer;color:var(--color-text-secondary);display:inline-flex"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></sc-if>
+    </div>
+
+    <div style="display:grid;grid-template-columns:260px 1fr;gap:32px;align-items:start">
+      <!-- Filters -->
+      <aside style="position:sticky;top:88px;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="font-family:var(--font-heading);font-weight:800;font-size:12px;letter-spacing:3px;text-transform:uppercase">Filters</span>
+          <button type="button" onClick="{{ clearFilters }}" style="border:0;background:transparent;font-family:var(--font-heading);font-weight:700;font-size:13px;color:var(--color-text-link);cursor:pointer">Clear all</button>
+        </div>
+        <div>
+          <div style="font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:10px">Sort by</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ sortChips }}" as="c" hint-placeholder-count="3"><button type="button" onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button></sc-for></div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:10px">Cuisine</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ cuisineChips }}" as="c" hint-placeholder-count="6"><button type="button" onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button></sc-for></div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:10px">Dietary</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ dietChips }}" as="c" hint-placeholder-count="4"><button type="button" onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button></sc-for></div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:10px">Minimum rating</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ ratingChips }}" as="c" hint-placeholder-count="3"><button type="button" onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button></sc-for></div>
+        </div>
+      </aside>
+
+      <!-- Results -->
+      <div>
+        <div style="font-family:var(--font-body);font-size:14px;color:var(--color-text-secondary);margin-bottom:16px">{{ resultsLabel }}</div>
+        <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+            <sc-for list="{{ skeletons }}" as="s" hint-placeholder-count="6"><div class="nb-skel" style="height:340px"></div></sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ showResults }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+            <sc-for list="{{ filteredStalls }}" as="s" hint-placeholder-count="6">
+              <dc-import name="StallCard" stall="{{ s }}" hint-size="100%,360px"></dc-import>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ showEmpty }}" hint-placeholder-val="{{ false }}">
+          <div class="sel-card" style="text-align:center;padding:48px 32px;display:flex;flex-direction:column;align-items:center;gap:16px">
+            <svg width="88" height="88" viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="46" fill="var(--color-bg-light-tint)" stroke="var(--color-midnight)" stroke-width="3"/><path d="M42 66c4 6 10 9 18 9s14-3 18-9" stroke="var(--color-midnight)" stroke-width="3" stroke-linecap="round"/><circle cx="47" cy="50" r="3.5" fill="var(--color-midnight)"/><circle cx="73" cy="50" r="3.5" fill="var(--color-midnight)"/></svg>
+            <div><div style="font-family:var(--font-heading);font-weight:700;font-size:22px">No stalls match that</div><p style="font-family:var(--font-body);color:var(--color-text-secondary);margin:6px 0 0">Try loosening a filter or clearing your search.</p></div>
+            <button type="button" onClick="{{ clearFilters }}" class="sel-btn sel-btn--tertiary sel-btn--m">Clear filters</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ STALL DETAIL ============ -->
+  <sc-if value="{{ isStall }}" hint-placeholder-val="{{ false }}">
+  <div class="nb-screen" style="max-width:1180px;margin:0 auto;padding:24px 24px 96px">
+    <button type="button" onClick="{{ goBrowse }}" style="display:inline-flex;align-items:center;gap:6px;border:0;background:transparent;font-family:var(--font-heading);font-weight:700;font-size:14px;color:var(--color-text-secondary);cursor:pointer;margin-bottom:16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to market</button>
+
+    <!-- Gallery -->
+    <div style="height:360px;border-radius:var(--radius-l);border:var(--border-m) solid var(--color-midnight);overflow:hidden;position:relative;margin-bottom:28px;box-shadow:var(--shadow-hard-s)">
+      <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="stallimg-{{ stall.id }}" src="{{ stall.headerImg }}" shape="rect" fit="cover" placeholder="Drop a photo of this stall" hint-size="100%,100%"></x-import>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 340px;gap:36px;align-items:start">
+      <!-- Main -->
+      <div>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+          <div>
+            <h1 style="font-family:var(--font-heading);font-weight:700;font-size:40px;letter-spacing:-2px;margin:0">{{ stall.name }}</h1>
+            <div style="display:flex;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap">
+              <sc-if value="{{ stall.hasRating }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:5px;font-family:var(--font-heading);font-weight:700"><svg width="18" height="18" viewBox="0 0 24 24" fill="var(--color-peach-700,#d38d38)"><path d="M12 4l2.4 5 5.6.7-4 3.9 1 5.5L12 16.9 7 19l1-5.5-4-3.9 5.6-.7L12 4Z"/></svg>{{ stall.rating }}</span></sc-if>
+              <span style="color:var(--color-text-secondary);font-size:14px">{{ stall.reviewsLabel }}</span>
+              <span class="sel-tag">{{ stall.cuisine }}</span>
+            </div>
+          </div>
+          <button type="button" onClick="{{ stall.onFav }}" aria-label="Favourite" style="{{ stall.favBtnStyle }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="{{ stall.favFill }}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.6-7-9.5A3.5 3.5 0 0 1 12 8a3.5 3.5 0 0 1 7 1.5c0 4.9-7 10.5-7 10.5Z"/></svg></button>
+        </div>
+
+        <p style="font-family:var(--font-body);font-size:17px;line-height:1.55;color:var(--color-text-secondary);margin:20px 0">{{ stall.description }}</p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px"><sc-for list="{{ stall.dietTags }}" as="t" hint-placeholder-count="2"><span class="sel-tag" style="background:var(--color-peppermint-100,#eafbee);border:var(--border-s) solid var(--color-peppermint)">{{ t }}</span></sc-for></div>
+
+        <!-- Food items -->
+        <h2 style="font-family:var(--font-heading);font-weight:700;font-size:26px;letter-spacing:-1px;margin:0 0 4px">On the menu</h2>
+        <p style="font-family:var(--font-body);font-size:14px;color:var(--color-text-secondary);margin:0 0 18px">Upvote what you loved — it moves the dish up the board.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:40px">
+          <sc-for list="{{ stall.dishes }}" as="d" hint-placeholder-count="4">
+            <div class="sel-card" style="display:flex;align-items:center;gap:16px;padding:14px 16px">
+              <div style="{{ d.imgStyle }};width:64px;height:64px;border-radius:var(--radius-m);flex:none;border:var(--border-s) solid var(--color-midnight)"></div>
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;align-items:center;gap:8px"><span style="font-family:var(--font-heading);font-weight:700;font-size:17px">{{ d.name }}</span><sc-if value="{{ d.isTop }}" hint-placeholder-val="{{ false }}"><span class="sel-badge sel-badge--mint" style="font-size:10px;padding:2px 6px">Top dish</span></sc-if></div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:4px;font-size:13px;color:var(--color-text-secondary)"><span style="font-family:var(--font-heading);font-weight:700;color:var(--color-text-primary)">{{ d.price }}</span><span>·</span><span style="display:inline-flex;align-items:center;gap:4px"><svg width="13" height="13" viewBox="0 0 24 24" fill="var(--color-peach-700,#d38d38)"><path d="M12 4l2.4 5 5.6.7-4 3.9 1 5.5L12 16.9 7 19l1-5.5-4-3.9 5.6-.7L12 4Z"/></svg>{{ d.score }}</span></div>
+              </div>
+              <button type="button" onClick="{{ d.onUpvote }}" style="{{ d.upvoteStyle }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>{{ d.upvotes }}</button>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ stall.noDishes }}" hint-placeholder-val="{{ true }}"><div class="sel-card sel-card--tint" style="text-align:center;padding:28px;margin:0 0 40px"><div style="font-family:var(--font-heading);font-weight:700;font-size:16px">No dishes yet</div><p style="font-family:var(--font-body);color:var(--color-text-secondary);margin:6px 0 0">Dishes appear here once they're added in the admin CMS.</p></div></sc-if>
+
+        <!-- Reviews -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+          <h2 style="font-family:var(--font-heading);font-weight:700;font-size:26px;letter-spacing:-1px;margin:0">Reviews</h2>
+          <button type="button" onClick="{{ stall.onWriteReview }}" class="sel-btn sel-btn--secondary sel-btn--m">Write a review</button>
+        </div>
+        <sc-if value="{{ stall.hasReviews }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ stall.reviews }}" as="r" hint-placeholder-count="3">
+            <div class="sel-card sel-card--soft" style="padding:18px 20px">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="width:38px;height:38px;border-radius:9999px;background:{{ r.avatarBg }};display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:800;font-size:14px;color:var(--color-midnight);flex:none">{{ r.initials }}</span>
+                <div style="flex:1"><div style="font-family:var(--font-heading);font-weight:700;font-size:15px">{{ r.author }}</div><div style="font-size:12px;color:var(--color-text-secondary)">{{ r.date }}</div></div>
+                <span style="display:inline-flex;gap:2px"><sc-for list="{{ r.stars }}" as="s" hint-placeholder-count="5"><svg width="15" height="15" viewBox="0 0 24 24" fill="{{ s.fill }}"><path d="M12 4l2.4 5 5.6.7-4 3.9 1 5.5L12 16.9 7 19l1-5.5-4-3.9 5.6-.7L12 4Z"/></svg></sc-for></span>
+              </div>
+              <sc-if value="{{ r.dish }}" hint-placeholder-val="{{ false }}"><span class="sel-tag" style="margin-top:12px;font-size:12px">{{ r.dish }}</span></sc-if>
+              <p style="font-family:var(--font-body);font-size:15px;line-height:1.5;color:var(--color-text-primary);margin:12px 0 0">{{ r.text }}</p>
+            </div>
+          </sc-for>
+        </div>
+        </sc-if>
+        <sc-if value="{{ stall.noReviews }}" hint-placeholder-val="{{ false }}">
+          <div class="sel-card sel-card--tint" style="text-align:center;padding:32px">
+            <div style="font-family:var(--font-heading);font-weight:700;font-size:18px">No reviews yet</div>
+            <p style="font-family:var(--font-body);color:var(--color-text-secondary);margin:6px 0 16px">Be the first to tell the office what to order.</p>
+            <button type="button" onClick="{{ stall.onWriteReview }}" class="sel-btn sel-btn--primary sel-btn--m">Write the first review</button>
+          </div>
+        </sc-if>
+      </div>
+
+      <!-- Sidebar -->
+      <aside style="position:sticky;top:88px;display:flex;flex-direction:column;gap:16px">
+        <div class="sel-card">
+          <button type="button" onClick="{{ stall.onVisit }}" class="sel-btn sel-btn--primary sel-btn--l sel-btn--block" style="width:100%">{{ stall.visitLabel }}</button>
+          <p style="font-family:var(--font-body);font-size:12px;color:var(--color-text-secondary);text-align:center;margin:10px 0 0">Anonymous — we only count the visit, never your name.</p>
+        </div>
+        <sc-if value="{{ stall.hasTags }}" hint-placeholder-val="{{ false }}">
+        <div class="sel-card">
+          <div style="font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--color-text-link);margin-bottom:12px">Dietary &amp; tags</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ stall.tags }}" as="t" hint-placeholder-count="2"><span class="sel-tag" style="background:var(--color-peppermint-100,#eafbee);border:var(--border-s) solid var(--color-peppermint)">{{ t }}</span></sc-for></div>
+        </div>
+        </sc-if>
+      </aside>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ PROFILE ============ -->
+  <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+  <div class="nb-screen" style="max-width:1180px;margin:0 auto;padding:40px 24px 96px">
+    <div class="sel-card" style="display:flex;align-items:center;gap:22px;padding:28px 32px;background:var(--color-midnight);border-color:var(--color-midnight);color:#fff;margin-bottom:32px">
+      <span style="width:76px;height:76px;border-radius:9999px;background:var(--color-periwinkle);display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:800;font-size:28px;color:var(--color-midnight);flex:none;border:var(--border-m) solid var(--color-midnight)">DJ</span>
+      <div style="flex:1">
+        <h1 style="font-family:var(--font-heading);font-weight:700;font-size:30px;letter-spacing:-1px;margin:0;color:#fff">Daisy Jones</h1>
+        <div style="font-family:var(--font-body);font-size:14px;color:var(--color-almond);margin-top:2px">daisy@selina.co</div>
+      </div>
+      <div style="text-align:right"><div style="font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--color-peppermint)">Leaderboard</div><div style="font-family:var(--font-heading);font-weight:700;font-size:28px;letter-spacing:-1px;color:var(--color-text-light)">#{{ leaderPos }}</div><div style="font-size:12px;color:var(--color-almond)">of {{ leaderTotal }} explorers</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px">
+      <sc-for list="{{ profileStats }}" as="st" hint-placeholder-count="3"><div class="sel-card"><div style="font-family:var(--font-heading);font-weight:700;font-size:34px;letter-spacing:-1px">{{ st.value }}</div><div style="font-family:var(--font-body);font-size:14px;color:var(--color-text-secondary)">{{ st.label }}</div></div></sc-for>
+    </div>
+
+    <h2 style="font-family:var(--font-heading);font-weight:700;font-size:24px;letter-spacing:-1px;margin:0 0 12px">Demo · your access</h2>
+    <div class="sel-card" style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:32px;flex-wrap:wrap">
+      <p style="font-family:var(--font-body);font-size:14px;color:var(--color-text-secondary);margin:0;max-width:52ch">In production, access is set by your Google Workspace role — only administrators can open the admin CMS. Switch role here to preview both experiences.</p>
+      <div style="display:inline-flex;border:var(--border-m) solid var(--color-midnight);border-radius:9999px;overflow:hidden;flex:none">
+        <button type="button" onClick="{{ onRoleEmp }}" style="font-family:var(--font-heading);font-weight:700;font-size:14px;padding:9px 18px;border:0;cursor:pointer;background:{{ roleEmpBg }};color:var(--color-midnight)">Employee</button>
+        <button type="button" onClick="{{ onRoleAdmin }}" style="font-family:var(--font-heading);font-weight:700;font-size:14px;padding:9px 18px;border:0;cursor:pointer;background:{{ roleAdminBg }};color:var(--color-midnight)">Admin</button>
+      </div>
+    </div>
+
+    <h2 style="font-family:var(--font-heading);font-weight:700;font-size:24px;letter-spacing:-1px;margin:0 0 8px">Badges earned</h2>
+    <sc-if value="{{ hasBadges }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:40px">
+      <sc-for list="{{ badges }}" as="b" hint-placeholder-count="3">
+        <div class="sel-card sel-card--soft" style="display:flex;align-items:center;gap:12px;padding:12px 16px"><span style="width:40px;height:40px;border-radius:var(--radius-m);background:{{ b.bg }};display:inline-flex;align-items:center;justify-content:center;color:var(--color-midnight);flex:none">{{ b.icon }}</span><div><div style="font-family:var(--font-heading);font-weight:700;font-size:15px">{{ b.name }}</div><div style="font-size:12px;color:var(--color-text-secondary)">{{ b.sub }}</div></div></div>
+      </sc-for>
+    </div>
+    </sc-if>
+    <sc-if value="{{ noBadges }}" hint-placeholder-val="{{ true }}">
+    <div class="sel-card sel-card--tint" style="padding:20px 22px;margin-bottom:40px"><p style="font-family:var(--font-body);color:var(--color-text-secondary);margin:0">No badges yet — log visits and write reviews to start earning them.</p></div>
+    </sc-if>
+
+    <h2 style="font-family:var(--font-heading);font-weight:700;font-size:24px;letter-spacing:-1px;margin:0 0 16px">Your favourites</h2>
+    <sc-if value="{{ hasFavs }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:40px"><sc-for list="{{ favStalls }}" as="s" hint-placeholder-count="3"><dc-import name="StallCard" stall="{{ s }}" hint-size="100%,360px"></dc-import></sc-for></div>
+    </sc-if>
+    <sc-if value="{{ noFavs }}" hint-placeholder-val="{{ true }}">
+      <div class="sel-card sel-card--tint" style="text-align:center;padding:36px;margin-bottom:40px"><div style="font-family:var(--font-heading);font-weight:700;font-size:18px">No favourites yet</div><p style="font-family:var(--font-body);color:var(--color-text-secondary);margin:6px 0 16px">Tap the heart on any stall to save it here.</p><button type="button" onClick="{{ goBrowse }}" class="sel-btn sel-btn--primary sel-btn--m">Browse stalls</button></div>
+    </sc-if>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+      <div>
+        <h2 style="font-family:var(--font-heading);font-weight:700;font-size:24px;letter-spacing:-1px;margin:0 0 16px">Reviews you've written</h2>
+        <sc-if value="{{ hasMyReviews }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:12px"><sc-for list="{{ myReviews }}" as="r" hint-placeholder-count="2"><div class="sel-card sel-card--soft" style="padding:16px 18px"><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-family:var(--font-heading);font-weight:700;font-size:15px">{{ r.stallName }}</span><span style="display:inline-flex;gap:2px"><sc-for list="{{ r.stars }}" as="s" hint-placeholder-count="5"><svg width="13" height="13" viewBox="0 0 24 24" fill="{{ s.fill }}"><path d="M12 4l2.4 5 5.6.7-4 3.9 1 5.5L12 16.9 7 19l1-5.5-4-3.9 5.6-.7L12 4Z"/></svg></sc-for></span></div><p style="font-family:var(--font-body);font-size:14px;color:var(--color-text-secondary);margin:8px 0 0">{{ r.text }}</p></div></sc-for></div></sc-if>
+        <sc-if value="{{ noMyReviews }}" hint-placeholder-val="{{ true }}"><div class="sel-card sel-card--tint" style="padding:20px 22px"><p style="font-family:var(--font-body);color:var(--color-text-secondary);margin:0">You haven't written any reviews yet.</p></div></sc-if>
+      </div>
+      <div>
+        <h2 style="font-family:var(--font-heading);font-weight:700;font-size:24px;letter-spacing:-1px;margin:0 0 16px">Visit history</h2>
+        <sc-if value="{{ hasVisitHistory }}" hint-placeholder-val="{{ false }}"><div class="sel-card" style="padding:8px 4px"><sc-for list="{{ visitHistory }}" as="v" hint-placeholder-count="4"><div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:var(--border-s) solid var(--color-form-border)"><div style="display:flex;align-items:center;gap:12px"><span style="{{ v.dotStyle }}"></span><span style="font-family:var(--font-heading);font-weight:700;font-size:15px">{{ v.stallName }}</span></div><span style="font-size:13px;color:var(--color-text-secondary)">{{ v.date }}</span></div></sc-for></div></sc-if>
+        <sc-if value="{{ noVisitHistory }}" hint-placeholder-val="{{ true }}"><div class="sel-card sel-card--tint" style="padding:20px 22px"><p style="font-family:var(--font-body);color:var(--color-text-secondary);margin:0">No visits logged yet — tap "I visited today" on a stall page.</p></div></sc-if>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ ADMIN CMS ============ -->
+  <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
+  <sc-if value="{{ deniedView }}" hint-placeholder-val="{{ false }}">
+  <div class="nb-screen" style="max-width:560px;margin:80px auto;padding:0 24px">
+    <div class="sel-card" style="text-align:center;padding:44px 32px;display:flex;flex-direction:column;align-items:center;gap:16px">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--color-midnight)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+      <div><div style="font-family:var(--font-heading);font-weight:700;font-size:24px">Admins only</div><p style="font-family:var(--font-body);color:var(--color-text-secondary);margin:8px 0 0">You’re signed in as an employee. The admin CMS is restricted to administrators — switch your role on the profile page to preview it.</p></div>
+      <button type="button" onClick="{{ goHome }}" class="sel-btn sel-btn--primary sel-btn--m">Back to app</button>
+    </div>
+  </div>
+  </sc-if>
+  <sc-if value="{{ cmsView }}" hint-placeholder-val="{{ true }}">
+  <div class="nb-screen" style="display:grid;grid-template-columns:250px 1fr;min-height:100vh;align-items:start">
+    <!-- Sidebar -->
+    <aside style="background:var(--color-midnight);color:#fff;padding:22px 16px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh">
+      <div style="display:flex;align-items:center;gap:10px;padding:4px 8px 20px">
+        <svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 15h24a12 12 0 0 1-24 0Z" fill="var(--color-peppermint)" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M3.5 15h25" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M16 14.5V8" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M16 12c-1.2-3.6-4.8-3.6-6.4-2 .5 3.2 3.6 4 6.4 2Z" fill="var(--color-peppermint)" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/><path d="M16 12.6c1.2-3.6 4.8-3.6 6.4-2-.5 3.2-3.6 4-6.4 2Z" fill="var(--color-peppermint)" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        <span style="font-family:var(--font-heading);font-weight:800;font-size:18px;letter-spacing:-.5px;color:#fff">nibble <span style="color:var(--color-peppermint)">admin</span></span>
+      </div>
+      <sc-for list="{{ adminNav }}" as="n" hint-placeholder-count="8">
+        <button type="button" onClick="{{ n.onClick }}" style="{{ n.style }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex:none">{{ n.icon }}</svg>
+          <span style="flex:1">{{ n.label }}</span>
+          <sc-if value="{{ n.hasBadge }}" hint-placeholder-val="{{ false }}"><span style="font-family:var(--font-heading);font-weight:800;font-size:11px;background:rgba(255,255,255,.16);padding:2px 8px;border-radius:9999px">{{ n.badge }}</span></sc-if>
+        </button>
+      </sc-for>
+      <span style="flex:1"></span>
+      <a href="#" onClick="{{ goHome }}" style="display:flex;align-items:center;gap:10px;font-family:var(--font-heading);font-weight:700;font-size:14px;padding:11px 12px;border-radius:var(--radius-m);color:rgba(255,255,255,.72)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l-6 6 6 6"/></svg>Exit to app</a>
+    </aside>
+
+    <!-- Main -->
+    <div style="padding:28px 34px 80px;max-width:1120px">
+      <header style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:26px">
+        <div>
+          <h1 style="font-family:var(--font-heading);font-weight:700;font-size:32px;letter-spacing:-1.5px;margin:0">{{ adminSectionTitle }}</h1>
+          <p style="font-family:var(--font-body);font-size:15px;color:var(--color-text-secondary);margin:4px 0 0">{{ adminSectionSub }}</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex:none">
+          <span style="width:40px;height:40px;border-radius:9999px;background:var(--color-peach);display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:800;font-size:14px;color:var(--color-midnight);border:var(--border-m) solid var(--color-midnight)">DJ</span>
+          <div style="line-height:1.2"><div style="font-family:var(--font-heading);font-weight:700;font-size:14px">Daisy Jones</div><div style="font-size:12px;color:var(--color-text-secondary)">Administrator</div></div>
+        </div>
+      </header>
+
+      <!-- DASHBOARD -->
+      <sc-if value="{{ secDashboard }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px">
+          <sc-for list="{{ adminKpis }}" as="k" hint-placeholder-count="4">
+            <div class="sel-card"><div style="font-family:var(--font-body);font-size:13px;color:var(--color-text-secondary)">{{ k.label }}</div><div style="font-family:var(--font-heading);font-weight:700;font-size:34px;letter-spacing:-1px;margin:4px 0 2px">{{ k.value }}</div><div style="font-family:var(--font-heading);font-weight:700;font-size:12px;color:var(--color-peppermint-700,#2f8a52)">{{ k.delta }}</div></div>
+          </sc-for>
+        </div>
+        <div class="sel-card sel-card--tint" style="text-align:center;padding:48px 32px">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--color-midnight)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:6px"><path d="M4 20V4M4 20h16M8 16v-5M12 16V8M16 16v-8"/></svg>
+          <div style="font-family:var(--font-heading);font-weight:700;font-size:20px">Analytics will appear here</div>
+          <p style="font-family:var(--font-body);color:var(--color-text-secondary);margin:8px auto 0;max-width:46ch">Visits, reviews and leaderboards populate automatically as the team starts using Nibble.</p>
+        </div>
+      </sc-if>
+
+      <!-- MARKET STALLS -->
+      <sc-if value="{{ secStalls }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:16px"><button type="button" onClick="{{ onAddStall }}" class="sel-btn sel-btn--primary sel-btn--m">+ Add stall</button></div>
+        <div class="sel-card" style="padding:0;overflow:hidden">
+          <div style="display:grid;grid-template-columns:minmax(150px,2.2fr) .9fr .6fr .7fr .8fr auto;gap:12px;padding:14px 20px;font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--color-text-secondary);border-bottom:var(--border-m) solid var(--color-form-border)">
+            <span>Stall</span><span>Cuisine</span><span>Rating</span><span>Reviews</span><span>Status</span><span></span>
+          </div>
+          <sc-for list="{{ adminStalls }}" as="s" hint-placeholder-count="7">
+            <div style="display:grid;grid-template-columns:minmax(150px,2.2fr) .9fr .6fr .7fr .8fr auto;gap:12px;align-items:center;padding:12px 20px;border-bottom:var(--border-s) solid var(--color-form-border)">
+              <div style="display:flex;align-items:center;gap:12px;min-width:0"><span style="{{ s.swatch }};width:40px;height:40px;border-radius:var(--radius-s);flex:none;border:var(--border-s) solid var(--color-midnight)"></span><span style="font-family:var(--font-heading);font-weight:700;font-size:15px">{{ s.name }}</span></div>
+              <span style="font-size:14px;color:var(--color-text-secondary)">{{ s.cuisine }}</span>
+              <span style="font-family:var(--font-heading);font-weight:700;font-size:14px">{{ s.rating }}</span>
+              <span style="font-size:14px;color:var(--color-text-secondary)">{{ s.reviews }}</span>
+              <span><span style="{{ s.statusStyle }}">{{ s.statusLabel }}</span></span>
+              <div style="display:flex;gap:8px;justify-content:flex-end">
+                <button type="button" onClick="{{ s.onFeature }}" style="{{ s.featureStyle }}">{{ s.featureLabel }}</button>
+                <button type="button" onClick="{{ s.onEdit }}" style="font-family:var(--font-heading);font-weight:700;font-size:12px;padding:6px 12px;border-radius:var(--radius-s);cursor:pointer;border:var(--border-s) solid var(--color-midnight);background:var(--color-fill-pure);color:var(--color-midnight)">Edit</button>
+                <button type="button" onClick="{{ s.onArchive }}" style="font-family:var(--font-heading);font-weight:700;font-size:12px;padding:6px 12px;border-radius:var(--radius-s);cursor:pointer;border:var(--border-s) solid var(--color-midnight);background:var(--color-bg-light-tint);color:var(--color-midnight)">{{ s.archiveLabel }}</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- FOOD ITEMS -->
+      <sc-if value="{{ secFood }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><span style="font-family:var(--font-body);font-size:14px;color:var(--color-text-secondary)">{{ adminFoodCount }} dishes across all stalls</span><button type="button" onClick="{{ onAddFood }}" class="sel-btn sel-btn--primary sel-btn--m">+ Add food item</button></div>
+        <div class="sel-card" style="padding:0;overflow:hidden">
+          <div style="display:grid;grid-template-columns:minmax(150px,2fr) 1.2fr .7fr .7fr .8fr auto;gap:12px;padding:14px 20px;font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--color-text-secondary);border-bottom:var(--border-m) solid var(--color-form-border)">
+            <span>Dish</span><span>Stall</span><span>Price</span><span>Score</span><span>Upvotes</span><span></span>
+          </div>
+          <sc-for list="{{ adminFood }}" as="d" hint-placeholder-count="8">
+            <div style="display:grid;grid-template-columns:minmax(150px,2fr) 1.2fr .7fr .7fr .8fr auto;gap:12px;align-items:center;padding:12px 20px;border-bottom:var(--border-s) solid var(--color-form-border)">
+              <div style="display:flex;align-items:center;gap:12px;min-width:0"><span style="{{ d.swatch }};width:36px;height:36px;border-radius:var(--radius-s);flex:none;border:var(--border-s) solid var(--color-midnight)"></span><span style="font-family:var(--font-heading);font-weight:700;font-size:14px">{{ d.name }}</span><sc-if value="{{ d.top }}" hint-placeholder-val="{{ false }}"><span class="sel-badge sel-badge--mint" style="font-size:10px;padding:2px 6px">Top</span></sc-if></div>
+              <span style="font-size:14px;color:var(--color-text-secondary)">{{ d.stall }}</span>
+              <span style="font-family:var(--font-heading);font-weight:700;font-size:14px">{{ d.price }}</span>
+              <span style="font-family:var(--font-heading);font-weight:700;font-size:14px">{{ d.score }}</span>
+              <span style="font-size:14px;color:var(--color-text-secondary)">{{ d.upvotes }}</span>
+              <button type="button" onClick="{{ d.onEdit }}" style="font-family:var(--font-heading);font-weight:700;font-size:12px;padding:6px 12px;border-radius:var(--radius-s);cursor:pointer;border:var(--border-s) solid var(--color-midnight);background:var(--color-fill-pure);color:var(--color-midnight)">Edit</button>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- REVIEWS -->
+      <sc-if value="{{ secReviews }}" hint-placeholder-val="{{ false }}">
+        <div style="font-family:var(--font-body);font-size:14px;color:var(--color-text-secondary);margin-bottom:16px">{{ reviewsTotal }} reviews · {{ reviewsHidden }} hidden</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ adminReviews }}" as="r" hint-placeholder-count="6">
+            <div class="sel-card" style="{{ r.cardStyle }}">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="width:38px;height:38px;border-radius:9999px;background:{{ r.avatarBg }};display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:800;font-size:14px;color:var(--color-midnight);flex:none">{{ r.initials }}</span>
+                <div style="flex:1;min-width:0"><div style="font-family:var(--font-heading);font-weight:700;font-size:15px">{{ r.author }} <span style="color:var(--color-text-secondary);font-weight:400">· {{ r.stallName }}</span></div><div style="font-size:12px;color:var(--color-text-secondary)">{{ r.date }}</div></div>
+                <span style="display:inline-flex;gap:2px"><sc-for list="{{ r.stars }}" as="s" hint-placeholder-count="5"><svg width="14" height="14" viewBox="0 0 24 24" fill="{{ s.fill }}"><path d="M12 4l2.4 5 5.6.7-4 3.9 1 5.5L12 16.9 7 19l1-5.5-4-3.9 5.6-.7L12 4Z"/></svg></sc-for></span>
+                <button type="button" onClick="{{ r.onToggle }}" style="{{ r.toggleStyle }}">{{ r.toggleLabel }}</button>
+              </div>
+              <p style="font-family:var(--font-body);font-size:15px;line-height:1.5;margin:12px 0 0">{{ r.text }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- USERS -->
+      <sc-if value="{{ secUsers }}" hint-placeholder-val="{{ false }}">
+        <div class="sel-card" style="padding:0;overflow:hidden">
+          <div style="display:grid;grid-template-columns:2fr 1fr .7fr .7fr .7fr;gap:12px;padding:14px 20px;font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--color-text-secondary);border-bottom:var(--border-m) solid var(--color-form-border)">
+            <span>Person</span><span>Role</span><span>Visits</span><span>Reviews</span><span>Badges</span>
+          </div>
+          <sc-for list="{{ adminUsers }}" as="u" hint-placeholder-count="6">
+            <div style="display:grid;grid-template-columns:2fr 1fr .7fr .7fr .7fr;gap:12px;align-items:center;padding:12px 20px;border-bottom:var(--border-s) solid var(--color-form-border)">
+              <div style="display:flex;align-items:center;gap:12px;min-width:0"><span style="width:38px;height:38px;border-radius:9999px;background:{{ u.avatarBg }};display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:800;font-size:14px;color:var(--color-midnight);flex:none;border:var(--border-s) solid var(--color-midnight)">{{ u.initials }}</span><div style="min-width:0"><div style="font-family:var(--font-heading);font-weight:700;font-size:14px">{{ u.name }}</div><div style="font-size:12px;color:var(--color-text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ u.email }}</div></div></div>
+              <span><span style="{{ u.roleStyle }}">{{ u.role }}</span></span>
+              <span style="font-family:var(--font-heading);font-weight:700;font-size:14px">{{ u.visits }}</span>
+              <span style="font-family:var(--font-heading);font-weight:700;font-size:14px">{{ u.reviews }}</span>
+              <span style="font-family:var(--font-heading);font-weight:700;font-size:14px">{{ u.badges }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- ANALYTICS -->
+      <sc-if value="{{ secAnalytics }}" hint-placeholder-val="{{ false }}">
+        <div class="sel-card sel-card--tint" style="text-align:center;padding:40px 32px;margin-bottom:16px">
+          <div style="font-family:var(--font-heading);font-weight:700;font-size:18px">Trends need data first</div>
+          <p style="font-family:var(--font-body);color:var(--color-text-secondary);margin:8px auto 0;max-width:52ch">Ratings-over-time and demand heatmaps will build up here once employees start rating stalls and logging visits.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:16px">
+          <div class="sel-card">
+            <div style="font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--color-text-link);margin-bottom:16px">Top dishes by upvotes</div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <sc-for list="{{ topDishBars }}" as="d" hint-placeholder-count="5">
+                <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span style="font-family:var(--font-heading);font-weight:700">{{ d.name }} <span style="color:var(--color-text-secondary);font-weight:400">· {{ d.stall }}</span></span><span style="font-family:var(--font-heading);font-weight:700">{{ d.up }}</span></div><div style="{{ d.barStyle }}"></div></div>
+              </sc-for>
+            </div>
+          </div>
+          <div class="sel-card">
+            <div style="font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--color-text-link);margin-bottom:16px">Most active users</div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <sc-for list="{{ activeUsers }}" as="u" hint-placeholder-count="5">
+                <div style="display:flex;align-items:center;gap:10px"><span style="width:32px;height:32px;border-radius:9999px;background:{{ u.avatarBg }};display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:800;font-size:12px;color:var(--color-midnight);flex:none">{{ u.initials }}</span><span style="flex:1;font-family:var(--font-heading);font-weight:700;font-size:14px">{{ u.name }}</span><span style="font-size:13px;color:var(--color-text-secondary)">{{ u.visits }} visits</span></div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- FEATURED STALL -->
+      <sc-if value="{{ secFeatured }}" hint-placeholder-val="{{ false }}">
+        <div class="sel-card" style="display:flex;align-items:center;gap:18px;padding:22px 24px;margin-bottom:24px;background:var(--color-midnight);border-color:var(--color-midnight);color:#fff">
+          <span style="{{ currentFeaturedSwatch }};width:64px;height:64px;border-radius:var(--radius-m);flex:none;border:var(--border-m) solid #fff"></span>
+          <div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--color-peppermint)">Currently featured</div><div style="font-family:var(--font-heading);font-weight:700;font-size:26px;letter-spacing:-1px;margin-top:4px">{{ currentFeaturedName }}</div></div>
+          <span class="sel-badge sel-badge--mint">{{ currentFeaturedReason }}</span>
+        </div>
+        <div style="font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--color-text-link);margin-bottom:12px">Reason badge</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px"><sc-for list="{{ reasonChips }}" as="c" hint-placeholder-count="6"><button type="button" onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button></sc-for></div>
+        <div style="font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--color-text-link);margin-bottom:12px">Choose the stall</div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+          <sc-for list="{{ featuredOptions }}" as="o" hint-placeholder-count="6">
+            <div onClick="{{ o.onPick }}" style="{{ o.cardStyle }}">
+              <span style="{{ o.swatch }};width:44px;height:44px;border-radius:var(--radius-s);flex:none;border:var(--border-s) solid var(--color-midnight)"></span>
+              <div style="flex:1"><div style="font-family:var(--font-heading);font-weight:700;font-size:16px">{{ o.name }}</div><div style="font-size:13px;color:var(--color-text-secondary)">{{ o.cuisine }} · {{ o.rating }}</div></div>
+              <sc-if value="{{ o.selected }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-peppermint-700,#2f8a52)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- SETTINGS -->
+      <sc-if value="{{ secSettings }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
+          <div class="sel-card">
+            <div style="font-family:var(--font-heading);font-weight:700;font-size:18px;margin-bottom:4px">Weekly email notifications</div>
+            <p style="font-family:var(--font-body);font-size:14px;color:var(--color-text-secondary);margin:0 0 12px">Sent to the whole workspace every Monday at 9am.</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-top:var(--border-s) solid var(--color-form-border)"><span style="font-family:var(--font-heading);font-weight:700;font-size:15px">Stall of the week</span><span onClick="{{ notifWeek.onClick }}" style="{{ notifWeek.dot }}"><span style="{{ notifWeek.knob }}"></span></span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-top:var(--border-s) solid var(--color-form-border)"><span style="font-family:var(--font-heading);font-weight:700;font-size:15px">New stall added</span><span onClick="{{ notifNewStall.onClick }}" style="{{ notifNewStall.dot }}"><span style="{{ notifNewStall.knob }}"></span></span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-top:var(--border-s) solid var(--color-form-border)"><span style="font-family:var(--font-heading);font-weight:700;font-size:15px">Trending dish</span><span onClick="{{ notifTrending.onClick }}" style="{{ notifTrending.dot }}"><span style="{{ notifTrending.knob }}"></span></span></div>
+          </div>
+          <div class="sel-card">
+            <div style="font-family:var(--font-heading);font-weight:700;font-size:18px;margin-bottom:4px">People &amp; access</div>
+            <p style="font-family:var(--font-body);font-size:14px;color:var(--color-text-secondary);margin:0 0 14px">Add someone by their work email. Admins can manage stalls, food, reviews and the featured pick — only admins can open this CMS.</p>
+            <div style="display:flex;gap:8px;margin-bottom:10px">
+              <input value="{{ newAdminEmail }}" onInput="{{ onNewAdminEmail }}" placeholder="name@selina.co" style="flex:1;min-width:0;font-family:var(--font-body);font-size:14px;padding:10px 12px;border:var(--border-m) solid var(--color-form-border);border-radius:var(--radius-m);background:var(--color-form-bg);color:var(--color-text-primary);outline:none">
+              <button type="button" onClick="{{ addAdmin }}" class="sel-btn sel-btn--secondary sel-btn--m">Add user</button>
+            </div>
+            <label style="display:flex;align-items:center;gap:10px;margin-bottom:16px;cursor:pointer" onClick="{{ onToggleNewUserAdmin }}"><span style="width:44px;height:26px;border-radius:9999px;flex:none;display:inline-flex;align-items:center;padding:2px;justify-content:{{ newUserAdminJustify }};background:{{ newUserAdminBg }};border:var(--border-m) solid var(--color-midnight)"><span style="width:18px;height:18px;border-radius:9999px;background:var(--color-midnight)"></span></span><span style="font-family:var(--font-heading);font-weight:700;font-size:14px">Grant admin access</span></label>
+            <div style="display:flex;flex-direction:column">
+              <sc-for list="{{ adminMgmt }}" as="m" hint-placeholder-count="6">
+                <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:var(--border-s) solid var(--color-form-border)">
+                  <span style="width:34px;height:34px;border-radius:9999px;background:{{ m.avatarBg }};display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:800;font-size:12px;color:var(--color-midnight);flex:none;border:var(--border-s) solid var(--color-midnight)">{{ m.initials }}</span>
+                  <div style="flex:1;min-width:0"><div style="font-family:var(--font-heading);font-weight:700;font-size:14px">{{ m.name }}</div><div style="font-size:12px;color:var(--color-text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.email }}</div></div>
+                  <span style="{{ m.roleStyle }}">{{ m.roleLabel }}</span>
+                  <button type="button" onClick="{{ m.onToggle }}" style="{{ m.toggleStyle }}">{{ m.toggleLabel }}</button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+  </sc-if>
+  </sc-if>
+
+  <!-- ============ EDIT STALL MODAL ============ -->
+  <sc-if value="{{ editStallOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeEditStall }}" style="position:fixed;inset:0;z-index:60;background:rgba(9,11,42,.5);display:flex;align-items:center;justify-content:center;padding:24px;animation:nb-fade .2s both">
+    <div onClick="{{ stopProp }}" style="width:100%;max-width:540px;background:var(--color-fill-pure);border:var(--border-m) solid var(--color-midnight);border-radius:var(--radius-l);box-shadow:var(--shadow-hard-m);padding:28px;animation:nb-pop .24s cubic-bezier(.22,1,.36,1) both">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between"><h2 style="font-family:var(--font-heading);font-weight:700;font-size:24px;letter-spacing:-1px;margin:0">{{ editStallTitle }}</h2><button type="button" onClick="{{ closeEditStall }}" aria-label="Close" style="border:0;background:transparent;cursor:pointer;color:var(--color-text-secondary)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <div style="margin:22px 0 6px;font-family:var(--font-heading);font-weight:700;font-size:14px">Stall name</div>
+      <input value="{{ editName }}" onInput="{{ onEditName }}" placeholder="e.g. Little Saigon" style="width:100%;font-family:var(--font-body);font-size:15px;padding:12px 14px;border:var(--border-m) solid var(--color-form-border);border-radius:var(--radius-m);background:var(--color-form-bg);color:var(--color-text-primary);outline:none">
+      <div style="margin:16px 0 6px;font-family:var(--font-heading);font-weight:700;font-size:14px">Category</div>
+      <input value="{{ editCuisine }}" onInput="{{ onEditCuisine }}" placeholder="e.g. Asian, British, Mediterranean" style="width:100%;font-family:var(--font-body);font-size:15px;padding:12px 14px;border:var(--border-m) solid var(--color-form-border);border-radius:var(--radius-m);background:var(--color-form-bg);color:var(--color-text-primary);outline:none">
+      <div style="margin:16px 0 6px;font-family:var(--font-heading);font-weight:700;font-size:14px">Food type <span style="font-weight:400;color:var(--color-text-secondary)">(what they serve)</span></div>
+      <textarea value="{{ editFoodType }}" onInput="{{ onEditFoodType }}" placeholder="e.g. Homemade Thai street food" style="width:100%;min-height:70px;resize:vertical;font-family:var(--font-body);font-size:15px;padding:12px 14px;border:var(--border-m) solid var(--color-form-border);border-radius:var(--radius-m);background:var(--color-form-bg);color:var(--color-text-primary);outline:none"></textarea>
+      <div style="margin:16px 0 6px;font-family:var(--font-heading);font-weight:700;font-size:14px">Tags <span style="font-weight:400;color:var(--color-text-secondary)">(dietary &amp; more)</span></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+        <sc-for list="{{ editTags }}" as="t" hint-placeholder-count="0"><span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-heading);font-weight:700;font-size:13px;padding:5px 6px 5px 12px;border-radius:9999px;background:var(--color-peppermint);border:var(--border-s) solid var(--color-midnight);color:var(--color-midnight)">{{ t }}<button type="button" onClick="{{ removeEditTag }}" data-tag="{{ t }}" aria-label="Remove tag" style="display:inline-flex;border:0;background:transparent;cursor:pointer;color:var(--color-midnight);padding:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span></sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+        <sc-for list="{{ presetTagOptions }}" as="p" hint-placeholder-count="6"><button type="button" onClick="{{ addEditTag }}" data-tag="{{ p }}" style="font-family:var(--font-heading);font-weight:700;font-size:13px;padding:6px 12px;border-radius:9999px;cursor:pointer;border:var(--border-s) solid var(--color-form-border);background:var(--color-fill-pure);color:var(--color-text-primary)">+ {{ p }}</button></sc-for>
+      </div>
+      <div style="display:flex;gap:8px">
+        <input value="{{ editTagInput }}" onInput="{{ onEditTagInput }}" onKeyDown="{{ onEditTagKey }}" placeholder="Add a custom tag" style="flex:1;min-width:0;font-family:var(--font-body);font-size:15px;padding:10px 14px;border:var(--border-m) solid var(--color-form-border);border-radius:var(--radius-m);background:var(--color-form-bg);color:var(--color-text-primary);outline:none">
+        <button type="button" onClick="{{ addEditTagFromInput }}" class="sel-btn sel-btn--secondary sel-btn--m">Add</button>
+      </div>
+      <div style="margin:16px 0 6px;font-family:var(--font-heading);font-weight:700;font-size:14px">Stall photo</div>
+      <sc-if value="{{ editStallHasId }}" hint-placeholder-val="{{ false }}">
+        <div style="height:150px;border-radius:var(--radius-m);border:var(--border-m) solid var(--color-form-border);overflow:hidden;position:relative">
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ editStallImgId }}" shape="rect" fit="cover" placeholder="Drag a photo here, or click to browse" hint-size="100%,150px"></x-import>
+        </div>
+      </sc-if>
+      <sc-if value="{{ editStallIsNew }}" hint-placeholder-val="{{ true }}">
+        <p style="font-family:var(--font-body);font-size:13px;color:var(--color-text-secondary);margin:0;padding:12px 14px;background:var(--color-bg-light-tint);border-radius:var(--radius-m)">Save the stall first, then reopen Edit to add a photo.</p>
+      </sc-if>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px"><button type="button" onClick="{{ closeEditStall }}" class="sel-btn sel-btn--tertiary sel-btn--m">Cancel</button><button type="button" onClick="{{ saveEditStall }}" class="sel-btn sel-btn--primary sel-btn--m">Save stall</button></div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ EDIT FOOD MODAL ============ -->
+  <sc-if value="{{ editFoodOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeFood }}" style="position:fixed;inset:0;z-index:60;background:rgba(9,11,42,.5);display:flex;align-items:center;justify-content:center;padding:24px;animation:nb-fade .2s both">
+    <div onClick="{{ stopProp }}" style="width:100%;max-width:480px;background:var(--color-fill-pure);border:var(--border-m) solid var(--color-midnight);border-radius:var(--radius-l);box-shadow:var(--shadow-hard-m);padding:28px;animation:nb-pop .24s cubic-bezier(.22,1,.36,1) both">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between"><h2 style="font-family:var(--font-heading);font-weight:700;font-size:24px;letter-spacing:-1px;margin:0">{{ editFoodTitle }}</h2><button type="button" onClick="{{ closeFood }}" aria-label="Close" style="border:0;background:transparent;cursor:pointer;color:var(--color-text-secondary)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <div style="margin:22px 0 6px;font-family:var(--font-heading);font-weight:700;font-size:14px">Stall</div>
+      <select value="{{ foodStallId }}" onChange="{{ onFoodStall }}" style="width:100%;font-family:var(--font-body);font-size:15px;padding:12px 14px;border:var(--border-m) solid var(--color-form-border);border-radius:var(--radius-m);background:var(--color-form-bg);color:var(--color-text-primary)"><sc-for list="{{ foodStalls }}" as="s" hint-placeholder-count="5"><option value="{{ s.id }}">{{ s.name }}</option></sc-for></select>
+      <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:14px;margin-top:16px">
+        <div><div style="margin-bottom:6px;font-family:var(--font-heading);font-weight:700;font-size:14px">Dish name</div><input value="{{ foodName }}" onInput="{{ onFoodName }}" placeholder="e.g. Beef pho" style="width:100%;font-family:var(--font-body);font-size:15px;padding:12px 14px;border:var(--border-m) solid var(--color-form-border);border-radius:var(--radius-m);background:var(--color-form-bg);color:var(--color-text-primary);outline:none"></div>
+        <div><div style="margin-bottom:6px;font-family:var(--font-heading);font-weight:700;font-size:14px">Price</div><input value="{{ foodPrice }}" onInput="{{ onFoodPrice }}" placeholder="9.50" style="width:100%;font-family:var(--font-body);font-size:15px;padding:12px 14px;border:var(--border-m) solid var(--color-form-border);border-radius:var(--radius-m);background:var(--color-form-bg);color:var(--color-text-primary);outline:none"></div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px"><button type="button" onClick="{{ closeFood }}" class="sel-btn sel-btn--tertiary sel-btn--m">Cancel</button><button type="button" onClick="{{ saveFood }}" class="sel-btn sel-btn--primary sel-btn--m">Save item</button></div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ REVIEW MODAL ============ -->
+  <sc-if value="{{ reviewOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeReview }}" style="position:fixed;inset:0;z-index:60;background:rgba(9,11,42,.5);display:flex;align-items:center;justify-content:center;padding:24px;animation:nb-fade .2s both">
+    <div onClick="{{ stopProp }}" style="width:100%;max-width:520px;background:var(--color-fill-pure);border:var(--border-m) solid var(--color-midnight);border-radius:var(--radius-l);box-shadow:var(--shadow-hard-m);padding:28px;animation:nb-pop .24s cubic-bezier(.22,1,.36,1) both">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between"><div><span class="sel-eyebrow">Review</span><h2 style="font-family:var(--font-heading);font-weight:700;font-size:24px;letter-spacing:-1px;margin:4px 0 0">{{ reviewStallName }}</h2></div><button type="button" onClick="{{ closeReview }}" aria-label="Close" style="border:0;background:transparent;cursor:pointer;color:var(--color-text-secondary)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <div style="margin:22px 0 6px;font-family:var(--font-heading);font-weight:700;font-size:14px">Your rating</div>
+      <div style="display:flex;gap:6px;margin-bottom:20px"><sc-for list="{{ ratingStars }}" as="s" hint-placeholder-count="5"><button type="button" onClick="{{ s.onClick }}" aria-label="Rate" style="border:0;background:transparent;cursor:pointer;padding:2px;line-height:0"><svg width="34" height="34" viewBox="0 0 24 24" fill="{{ s.fill }}" stroke="var(--color-midnight)" stroke-width="1.5"><path d="M12 4l2.4 5 5.6.7-4 3.9 1 5.5L12 16.9 7 19l1-5.5-4-3.9 5.6-.7L12 4Z"/></svg></button></sc-for></div>
+      <div style="margin-bottom:6px;font-family:var(--font-heading);font-weight:700;font-size:14px">Which dish? <span style="font-weight:400;color:var(--color-text-secondary)">(optional)</span></div>
+      <select value="{{ reviewDish }}" onChange="{{ onReviewDish }}" class="f-select" style="width:100%;margin-bottom:18px;font-family:var(--font-body);padding:12px 14px;border:var(--border-m) solid var(--color-form-border);border-radius:var(--radius-m);background:var(--color-form-bg);color:var(--color-text-primary)">
+        <option value="">No specific dish</option>
+        <sc-for list="{{ reviewDishOptions }}" as="o" hint-placeholder-count="3"><option value="{{ o }}">{{ o }}</option></sc-for>
+      </select>
+      <div style="margin-bottom:6px;font-family:var(--font-heading);font-weight:700;font-size:14px">Your review</div>
+      <textarea value="{{ reviewText }}" onInput="{{ onReviewText }}" placeholder="What should the office order? Keep it useful and kind." style="width:100%;min-height:110px;resize:vertical;font-family:var(--font-body);font-size:15px;padding:12px 14px;border:var(--border-m) solid var(--color-form-border);border-radius:var(--radius-m);background:var(--color-form-bg);color:var(--color-text-primary);outline:none"></textarea>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px"><button type="button" onClick="{{ closeReview }}" class="sel-btn sel-btn--tertiary sel-btn--m">Cancel</button><button type="button" onClick="{{ submitReview }}" class="sel-btn sel-btn--primary sel-btn--m">Post review</button></div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ TOASTS ============ -->
+  <div style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:80;display:flex;flex-direction:column;gap:10px;align-items:center;pointer-events:none">
+    <sc-for list="{{ toasts }}" as="t" hint-placeholder-count="0">
+      <div style="display:flex;align-items:center;gap:10px;background:var(--color-midnight);color:var(--color-text-light);padding:12px 18px;border-radius:var(--radius-m);box-shadow:0 8px 24px rgba(9,11,42,.25);font-family:var(--font-heading);font-weight:700;font-size:14px;animation:nb-toast .3s cubic-bezier(.22,1,.36,1) both"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-peppermint)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>{{ t.msg }}</div>
+    </sc-for>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    const DAYS=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    this.DAYS=DAYS;
+    this.orgName='Selina';
+    this.orgDomain='selina.co';
+    this.STALLS=[
+      {id:'adama-ethiopian-food',name:'Adama Ethiopian Food',category:'The Americas and Africa',cuisine:'The Americas and Africa',foodType:'Ethiopian',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2026/04/Ethiopian.jpg?resize=644%2C859&ssl=1',cols:['#d6f6de','#89d29b'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'banh-mi',name:'Banh Mi',category:'Asian',cuisine:'Asian',foodType:'Vietnamese (Banh Mi) - another stall by Yum Bowl',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2024/05/IMG_20731.jpg?resize=644%2C859&ssl=1',cols:['#ffe8cc','#d38d38'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'bibento',name:'Bibento',category:'Asian',cuisine:'Asian',foodType:'Korean-Japanese fusion (mainly Korean)',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2024/05/IMG_20931-scaled-e1714770891288-906x1024.jpg?resize=644%2C728&ssl=1',cols:['#e3e0f9','#ffd8a9'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'buddha-bowls',name:'Buddha Bowls',category:'Asian',cuisine:'Asian',foodType:'Organic veggie and vegan food',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2021/06/IMG_1895.jpg?resize=644%2C483&ssl=1',cols:['#d5d0f6','#b9b1f0'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'caribbean-food',name:'Caribbean Food',category:'The Americas and Africa',cuisine:'The Americas and Africa',foodType:'Caribbean',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2026/04/image-10.png?resize=644%2C644&ssl=1',cols:['#c1f2cd','#7aba8a'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'chicken-house',name:'Chicken House',category:'Turkish & Middle Eastern',cuisine:'Turkish & Middle Eastern',foodType:'Chicken (Turkish & Middle Eastern category)',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2024/05/IMG_21211-1.jpg?resize=644%2C483&ssl=1',cols:['#ffd8a9','#adedbd'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'the-cake-stall',name:'The Cake Stall (Gerry\'s)',category:'British',cuisine:'British',foodType:'Honeys, jams, marmalades and cakes',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2023/06/IMG_0807-1.jpg?resize=644%2C859&ssl=1',cols:['#f1eae3','#a7a29d'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'easy-cheesy',name:'Easy Cheesy',category:'British',cuisine:'British',foodType:'Cheese-based British food',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2026/04/Easy-Cheesy-1.jpg?resize=644%2C859&ssl=1',cols:['#e9e4fb','#c9c0f2'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'elephant-juice',name:'Elephant Juice',category:'Not categorised on site',cuisine:'Not categorised on site',foodType:'Juices/smoothies (not listed under a market cuisine category)',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2026/04/image-4.png?resize=740%2C740&ssl=1',cols:['#d6f6de','#89d29b'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'gozleme-works',name:'Gozleme Works',category:'Turkish & Middle Eastern',cuisine:'Turkish & Middle Eastern',foodType:'Turkish wraps (gozleme)',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2022/09/IMG_6067-1.jpg?resize=644%2C483&ssl=1',cols:['#ffe8cc','#d38d38'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'hoxton-beach',name:'Hoxton Beach',category:'Turkish & Middle Eastern',cuisine:'Turkish & Middle Eastern',foodType:'Falafel',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2024/05/IMG_21261-1.jpg?resize=644%2C483&ssl=1',cols:['#e3e0f9','#ffd8a9'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'karuna-street-food',name:'Karuna Street Food',category:'Asian',cuisine:'Asian',foodType:'Indian street food, curries and wraps',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2022/09/IMG_6063.jpg?resize=644%2C483&ssl=1',cols:['#d5d0f6','#b9b1f0'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'luardos',name:'Luardos',category:'The Americas and Africa',cuisine:'The Americas and Africa',foodType:'Mexican-style food, carnitas and burritos',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2023/06/IMG_08201-1.jpg?resize=644%2C483&ssl=1',cols:['#c1f2cd','#7aba8a'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'sunny-s-olive-tree',name:'Sunny\'s Olive Tree (Mediterranean Salad)',category:'Mediterranean',cuisine:'Mediterranean',foodType:'Greek-style Mediterranean salad dishes',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2024/05/IMG_21251-1.jpg?resize=644%2C483&ssl=1',cols:['#ffd8a9','#adedbd'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'pizza-wrap',name:'Pizza Wrap (formerly Iskele)',category:'Pizza',cuisine:'Pizza',foodType:'Turkish pizza',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2026/04/Pizza-Wrap.jpg?resize=644%2C859&ssl=1',cols:['#f1eae3','#a7a29d'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'salad-kitchen',name:'Salad Kitchen',category:'British',cuisine:'British',foodType:'Salad boxes',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2022/09/IMG_6057.jpg?resize=644%2C483&ssl=1',cols:['#e9e4fb','#c9c0f2'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'salt-and-smoke',name:'Salt & Smoke',category:'British',cuisine:'British',foodType:'British food with a touch of Thai',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2026/04/image-7.png?resize=644%2C644&ssl=1',cols:['#d6f6de','#89d29b'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'sawadee-thai-food-van',name:'Sawadee Thai Food Van',category:'Asian',cuisine:'Asian',foodType:'Homemade Thai food',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2022/03/IMG_3345.jpg?resize=644%2C483&ssl=1',cols:['#ffe8cc','#d38d38'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'smokin-aces',name:'Smokin\' Aces',category:'The Americas and Africa',cuisine:'The Americas and Africa',foodType:'Wood smoke barbeque',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2024/05/IMG_20761.jpg?resize=644%2C859&ssl=1',cols:['#e3e0f9','#ffd8a9'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'smurkey',name:'Smurkey',category:'The Americas and Africa',cuisine:'The Americas and Africa',foodType:'Slow-cooked turkey',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2026/04/Smurkey.jpg?resize=644%2C859&ssl=1',cols:['#d5d0f6','#b9b1f0'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'village-kitchen',name:'Village Kitchen',category:'Mediterranean',cuisine:'Mediterranean',foodType:'Kurdish cuisine, vegetarian and vegan',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2024/05/IMG_2124-1.jpg?resize=644%2C483&ssl=1',cols:['#c1f2cd','#7aba8a'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'whitecross-street-falafel',name:'Whitecross Street Falafel (Saladin Falafel)',category:'Turkish & Middle Eastern',cuisine:'Turkish & Middle Eastern',foodType:'Middle East-style falafel',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2023/06/IMG_08361-1.jpg?resize=644%2C483&ssl=1',cols:['#ffd8a9','#adedbd'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'wrap-guys',name:'Wrap Guys',category:'Asian',cuisine:'Asian',foodType:'Indian wraps, biryani, curry, tikka, kebab',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2021/04/IMG_1370-768x1024.jpg?resize=740%2C987&ssl=1',cols:['#f1eae3','#a7a29d'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]},
+      {id:'yum-bowl',name:'Yum Bowl',category:'Asian',cuisine:'Asian',foodType:'Vietnamese street food',image:'https://i0.wp.com/www.whitecross-street-market.co.uk/wp-content/uploads/2023/06/IMG_08091-1.jpg?resize=644%2C483&ssl=1',cols:['#e9e4fb','#c9c0f2'],tags:[],rating:0,reviewsCount:0,reviews:[],dishes:[]}
+    ];
+    this.USERS=[
+      {id:'daisy',name:'Daisy Jones',role:'Admin',visits:0,reviews:0,badges:0,email:'daisy@selina.co'}
+    ];
+    this.state={
+      view:'home', stallId:null, theme:'',
+      query:'', sort:'rating', cuisine:'all', diet:{}, minRating:0, price:0, openToday:false,
+      favs:{}, upvotes:{}, visited:{}, extraReviews:{},
+      loading:false, reviewOpen:false, reviewStallId:null, reviewRating:0, reviewText:'', reviewDish:'',
+      adminSection:'dashboard', archived:{}, hiddenReviews:{}, featuredOverride:null, editStall:null, editFood:null,
+      myRole:'admin', userRoles:{}, addedAdmins:[], newAdminEmail:'', newUserAdmin:false, notif:{week:true,newStall:true,trending:false},
+      toasts:[]
+    };
+    this._tid=0;
+  }
+  componentDidMount(){
+    try{
+      const s=JSON.parse(localStorage.getItem('nibbleV2')||'{}');
+      if(s.stalls&&s.stalls.length){ this.STALLS=s.stalls; }
+      this.setState(st=>({theme:s.theme||'', favs:s.favs||{}, upvotes:s.upvotes||{}, visited:s.visited||{}, extraReviews:s.extraReviews||{}, archived:s.archived||{}, hiddenReviews:s.hiddenReviews||{}, featuredOverride:s.featuredOverride||null, myRole:s.myRole||'admin', userRoles:s.userRoles||{}, addedAdmins:s.addedAdmins||[], notif:s.notif||{week:true,newStall:true,trending:false}}));
+    }catch(e){}
+  }
+  persist(patch){ try{ const s=JSON.parse(localStorage.getItem('nibbleV2')||'{}'); localStorage.setItem('nibbleV2',JSON.stringify({...s,...patch})); }catch(e){} }
+  todayIdx(){ return (new Date().getDay()+6)%7; }
+  scrollTop(){ try{ window.scrollTo(0,0); }catch(e){} }
+  toast(msg){ const id=++this._tid; this.setState(s=>({toasts:[...s.toasts,{id,msg}]})); setTimeout(()=>this.setState(s=>({toasts:s.toasts.filter(t=>t.id!==id)})),2600); }
+
+  go(view,stallId){ this.setState({view,stallId:stallId||null}); this.scrollTop(); if(view==='browse'){ this.setState({loading:true}); setTimeout(()=>this.setState({loading:false}),650); } }
+  gradient(cols){ return 'background:linear-gradient(135deg,'+cols[0]+' 0%,'+cols[1]+' 100%)'; }
+  priceStr(p){ return '\u00a3'.repeat(p); }
+  daysStr(open){ const D=this.DAYS; if(open.length>=5&&open[0]===0&&open.includes(4)&&!open.includes(5)&&!open.includes(6)) return 'Mon\u2013Fri'; return open.map(i=>D[i]).join(', '); }
+  weekCells(open,big){ const t=this.todayIdx(); return this.DAYS.map((d,i)=>{ const isOpen=open.includes(i); const today=i===t; let bg=isOpen?'var(--color-peppermint)':'transparent'; let col=isOpen?'var(--color-midnight)':'var(--color-text-tertiary)'; let bd=today?'var(--color-midnight)':(isOpen?'var(--color-midnight)':'var(--color-form-border)'); return {l:d[0], style:'width:'+(big?'34px':'30px')+';height:'+(big?'34px':'30px')+';border-radius:var(--radius-s);display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:800;font-size:12px;background:'+bg+';color:'+col+';border:'+(today?'var(--border-m)':'var(--border-s)')+' solid '+bd}; }); }
+  isOpenToday(s){ return s.open.includes(this.todayIdx()); }
+  reviewsFor(s){ const extra=this.state.extraReviews[s.id]||[]; const hidden=this.state.hiddenReviews||{}; return [...extra, ...s.reviews].filter(r=>!hidden[s.id+'##'+r.text]); }
+  reviewCount(s){ return s.reviewsCount + (this.state.extraReviews[s.id]||[]).length; }
+  dishUpvotes(s,d){ const key=s.id+':'+d.id; return d.upvotes + (this.state.upvotes[key]?1:0); }
+  starsArr(n){ return [1,2,3,4,5].map(i=>({fill:i<=n?'var(--color-peach-700,#d38d38)':'var(--color-almond)'})); }
+  initials(name){ return name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase(); }
+  avatarBg(name){ const opts=['var(--color-peppermint)','var(--color-periwinkle)','var(--color-peach)','var(--color-almond)']; let h=0; for(const c of name)h=(h+c.charCodeAt(0))%opts.length; return opts[h]; }
+
+  toggleFav(id){ this.setState(s=>{ const favs={...s.favs}; if(favs[id]){delete favs[id]; this.toast('Removed from favourites');} else {favs[id]=1; this.toast('Saved to favourites');} this.persist({favs}); return {favs}; }); }
+  upvoteDish(s,d){ const key=s.id+':'+d.id; this.setState(st=>{ const up={...st.upvotes}; if(up[key]){delete up[key]; this.toast('Upvote removed');} else {up[key]=1; this.toast('Upvoted '+d.name);} this.persist({upvotes:up}); return {upvotes:up}; }); }
+  markVisited(s){ this.setState(st=>{ if(st.visited[s.id]===this.todayKey()){ this.toast('Already logged today \u2014 thanks!'); return {}; } const visited={...st.visited,[s.id]:this.todayKey()}; this.persist({visited}); this.toast('Visit logged for '+s.name); return {visited}; }); }
+  todayKey(){ const d=new Date(); return d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate(); }
+  visitedToday(s){ return this.state.visited[s.id]===this.todayKey(); }
+
+  openReview(id){ this.setState({reviewOpen:true,reviewStallId:id,reviewRating:0,reviewText:'',reviewDish:''}); }
+  submitReview(){ const s=this.STALLS.find(x=>x.id===this.state.reviewStallId); if(!this.state.reviewRating){ this.toast('Add a star rating first'); return; } if(!this.state.reviewText.trim()){ this.toast('Write a few words first'); return; } this.setState(st=>{ const arr=st.extraReviews[s.id]?[...st.extraReviews[s.id]]:[]; arr.unshift({author:'Daisy Jones',rating:st.reviewRating,date:'Just now',dish:st.reviewDish,text:st.reviewText.trim()}); const extraReviews={...st.extraReviews,[s.id]:arr}; this.persist({extraReviews}); return {extraReviews,reviewOpen:false}; }); this.toast('Review posted \u2014 nice one'); }
+
+  decorate(s){
+    const rc=this.reviewCount(s);
+    return {...s, ratingVal:s.rating, hasRating:rc>0, rating:rc>0?s.rating.toFixed(1):'New',
+      reviewsLabel:rc>0?(rc+(rc===1?' review':' reviews')):'No reviews yet', reviewsCount:rc,
+      imgStyle:s.image?('background-image:url("'+s.image+'");background-size:cover;background-position:center;background-color:'+s.cols[0]):this.gradient(s.cols),
+      image:s.image||'', foodType:s.foodType||s.cuisine||'', description:s.foodType||s.cuisine||'', isFav:!!this.state.favs[s.id],
+      topDish:(s.dishes.find(d=>d.top)||s.dishes[0]||{}).name||'No dishes yet',
+      dietTags:s.tags||[],
+      onOpen:()=>this.go('stall',s.id), onFav:(e)=>{e&&e.stopPropagation&&e.stopPropagation();this.toggleFav(s.id);} };
+  }
+
+  adminGo(section){ this.setState({adminSection:section}); this.scrollTop(); }
+  toggleArchive(id){ this.setState(st=>{ const a={...st.archived}; if(a[id]){delete a[id]; this.toast('Stall restored');} else {a[id]=1; this.toast('Stall archived');} this.persist({archived:a}); return {archived:a}; }); }
+  toggleHideReview(sid,text){ const key=sid+'##'+text; this.setState(st=>{ const h={...st.hiddenReviews}; if(h[key]){delete h[key]; this.toast('Review restored');} else {h[key]=1; this.toast('Review hidden');} this.persist({hiddenReviews:h}); return {hiddenReviews:h}; }); }
+  setFeatured(id,reason){ const fo={id,reason}; this.persist({featuredOverride:fo}); this.setState({featuredOverride:fo}); this.toast('Stall of the week updated'); }
+  openEditStall(id){ const s=this.STALLS.find(x=>x.id===id); if(!s)return; this.setState({editStall:{id:s.id,name:s.name,cuisine:s.cuisine,foodType:s.foodType||'',tags:[...(s.tags||[])],tagInput:'',isNew:false}}); }
+  openAddStall(){ this.setState({editStall:{id:null,name:'',cuisine:'',foodType:'',tags:[],tagInput:'',isNew:true}}); }
+  saveEditStall(){ const e=this.state.editStall; if(!e)return; if(!e.name.trim()){ this.toast('Give the stall a name'); return; }
+    if(e.isNew){ const palettes=[['#d6f6de','#89d29b'],['#ffe8cc','#d38d38'],['#e3e0f9','#ffd8a9'],['#d5d0f6','#b9b1f0'],['#c1f2cd','#7aba8a'],['#ffd8a9','#adedbd']]; const ns={id:'s'+Date.now(),name:e.name.trim(),category:e.cuisine.trim()||'Other',cuisine:e.cuisine.trim()||'Other',foodType:(e.foodType||'').trim(),image:'',cols:palettes[this.STALLS.length%palettes.length],tags:[...(e.tags||[])],rating:0,reviewsCount:0,dishes:[],reviews:[]}; this.STALLS.push(ns); this.toast('Stall added'); }
+    else { const s=this.STALLS.find(x=>x.id===e.id); if(s){ s.name=e.name.trim(); s.cuisine=e.cuisine.trim()||s.cuisine; s.category=s.cuisine; s.foodType=(e.foodType||'').trim(); s.tags=[...(e.tags||[])]; } this.toast('Stall updated'); }
+    this.persist({stalls:this.STALLS});
+    this.setState({editStall:null}); }
+
+  getUsers(){ const ur=this.state.userRoles||{}; const base=this.USERS.map(u=>({...u, role:ur[u.id]||u.role})); const extra=(this.state.addedAdmins||[]).map((a,i)=>({id:'added'+i,name:a.name,role:ur['added'+i]||a.role||'Employee',visits:0,reviews:0,badges:0,email:a.email})); return [...base,...extra]; }
+  setUserRole(id,role){ this.setState(st=>{ const ur={...st.userRoles,[id]:role}; this.persist({userRoles:ur}); return {userRoles:ur}; }); this.toast(role==='Admin'?'Granted admin access':'Revoked admin access'); }
+  addAdminByEmail(){ const email=(this.state.newAdminEmail||'').trim(); if(!email||email.indexOf('@')<1){ this.toast('Enter a valid email'); return; } const name=email.split('@')[0].split(/[._]/).map(w=>w?w.charAt(0).toUpperCase()+w.slice(1):w).join(' '); const role=this.state.newUserAdmin?'Admin':'Employee'; this.setState(st=>{ const added=[...(st.addedAdmins||[]),{name,email,role}]; this.persist({addedAdmins:added}); return {addedAdmins:added,newAdminEmail:'',newUserAdmin:false}; }); this.toast(role==='Admin'?'Admin added':'User added'); }
+  toggleNotif(k){ this.setState(st=>{ const n={...st.notif,[k]:!st.notif[k]}; this.persist({notif:n}); return {notif:n}; }); }
+  setMyRole(r){ this.persist({myRole:r}); this.setState(st=>({myRole:r, view:(r!=='admin'&&st.view==='admin')?'home':st.view})); this.toast(r==='admin'?'Viewing as admin':'Viewing as employee'); }
+  openAddFood(){ const first=this.STALLS.find(s=>!this.state.archived[s.id])||this.STALLS[0]; this.setState({editFood:{stallId:first.id,dishId:null,name:'',price:'',isNew:true}}); }
+  openEditFood(sid,did){ const s=this.STALLS.find(x=>x.id===sid); const d=s&&s.dishes.find(x=>x.id===did); if(!d)return; this.setState({editFood:{stallId:sid,dishId:did,name:d.name,price:d.price,isNew:false}}); }
+  saveFood(){ const e=this.state.editFood; if(!e)return; if(!e.name.trim()){ this.toast('Give the dish a name'); return; } const s=this.STALLS.find(x=>x.id===e.stallId); if(!s){ this.setState({editFood:null}); return; } let p=(e.price||'').trim(); const price=p?(p.charAt(0)==='\u00a3'?p:'\u00a3'+p):'\u00a30.00';
+    if(e.isNew){ const nid=(s.dishes.reduce((m,d)=>Math.max(m,d.id),0)||0)+1; s.dishes.push({id:nid,name:e.name.trim(),price,score:0,upvotes:0,top:false}); this.toast('Food item added'); }
+    else { const d=s.dishes.find(x=>x.id===e.dishId); if(d){ d.name=e.name.trim(); d.price=price; } this.toast('Food item updated'); }
+    this.persist({stalls:this.STALLS});
+    this.setState({editFood:null}); }
+
+  adminIcon(key){ const P={dashboard:'M4 13h7V4H4v9Zm0 7h7v-5H4v5Zm9 0h7V11h-7v9Zm0-16v5h7V4h-7Z',stalls:'M4 9l1.6-4.5h12.8L20 9M5 9v10h14V9M4.5 9h15M10 19v-5h4v5',food:'M6 3v18M4 3v6a2 2 0 0 0 4 0V3M17 3c-1.6 0-2.5 2-2.5 5s.9 4 2.5 4v9',reviews:'M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5Z',users:'M16 20v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1M9.5 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM21 20v-1a4 4 0 0 0-3-3.9',analytics:'M4 20V4M4 20h16M8 16v-5M12 16V8M16 16v-8',featured:'M12 4l2.4 5 5.6.7-4 3.9 1 5.5L12 16.9 7 19l1-5.5-4-3.9 5.6-.7L12 4Z',settings:'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM19.4 13a7.8 7.8 0 0 0 0-2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-1.7-1L14.9 2H9.1l-.8 3.1a7 7 0 0 0-1.7 1l-2.3-1-2 3.4L4.6 11a7.8 7.8 0 0 0 0 2l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 1.7 1l.8 3.1h5.8l.8-3.1a7 7 0 0 0 1.7-1l2.3 1 2-3.4-2-1.5Z'}; const fill=key==='featured'?'currentColor':'none'; const stroke=key==='featured'?'none':'currentColor'; return React.createElement('svg',{width:18,height:18,viewBox:'0 0 24 24',fill,stroke,strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('path',{d:P[key]})); }
+
+  renderVals(){
+    const st=this.state;
+    const q=st.query.trim().toLowerCase();
+    const view=st.view;
+    const navStyle=(active)=>active?'color:var(--color-text-primary);border-bottom:3px solid var(--color-peppermint);padding-bottom:2px':'';
+    const archived=st.archived||{};
+    const pub=this.STALLS.filter(s=>!archived[s.id]);
+    // week stall (admin can override the pick + reason)
+    const featuredId=(st.featuredOverride&&st.featuredOverride.id)||(pub[0]?pub[0].id:null);
+    const weekBase=pub.find(s=>s.id===featuredId)||pub[0]||this.STALLS[0];
+    const weekReason=(st.featuredOverride&&st.featuredOverride.reason)||"This week's pick";
+    const week={...this.decorate(weekBase), reason:weekReason, topDishes:weekBase.dishes.slice(0,3).map(d=>d.name), hasTopDishes:weekBase.dishes.length>0};
+    // trending dishes across stalls
+    const all=[]; pub.forEach(s=>s.dishes.forEach(d=>all.push({...d,stall:s,up:this.dishUpvotes(s,d)})));
+    all.sort((a,b)=>b.up-a.up);
+    const trending=all.slice(0,4).map(d=>({name:d.name,stallName:d.stall.name,upvotes:d.up,imgStyle:this.gradient(d.stall.cols),onOpen:()=>this.go('stall',d.stall.id)}));
+    // hero stats
+    const totalVisits=Object.keys(st.visited||{}).length;
+    const totalReviews=pub.reduce((a,s)=>a+this.reviewCount(s),0);
+    const ratedStalls=pub.filter(s=>this.reviewCount(s)>0);
+    const avgRating=ratedStalls.length?(ratedStalls.reduce((a,s)=>a+s.rating,0)/ratedStalls.length).toFixed(1):'\u2014';
+    const heroStats=[{value:pub.length,label:'stalls on the square'},{value:totalVisits,label:'visits logged'},{value:totalReviews,label:'reviews written'},{value:avgRating,label:'average rating'}];
+    // browse filtering
+    const dietKeys=Object.keys(st.diet).filter(k=>st.diet[k]);
+    let list=pub.filter(s=>{
+      if(q){ const hay=(s.name+' '+s.cuisine+' '+(s.foodType||'')+' '+(s.tags||[]).join(' ')).toLowerCase(); if(!hay.includes(q))return false; }
+      if(st.cuisine!=='all'&&s.cuisine!==st.cuisine)return false;
+      if(st.minRating&&s.rating<st.minRating)return false;
+      for(const k of dietKeys){ if(!(s.tags||[]).includes(k))return false; }
+      return true;
+    });
+    if(st.sort==='rating')list=[...list].sort((a,b)=>b.rating-a.rating);
+    else if(st.sort==='name')list=[...list].sort((a,b)=>a.name.localeCompare(b.name));
+    const filteredStalls=list.map(s=>this.decorate(s));
+    const cuisines=['all',...Array.from(new Set(pub.map(s=>s.cuisine)))];
+    const chip=(label,active,onClick)=>({label,active,onClick,style:'font-family:var(--font-heading);font-weight:700;font-size:13px;padding:7px 13px;border-radius:9999px;cursor:pointer;border:var(--border-m) solid '+(active?'var(--color-midnight)':'var(--color-form-border)')+';background:'+(active?'var(--color-peppermint)':'var(--color-fill-pure)')+';color:var(--color-text-primary)'});
+    const cuisineChips=cuisines.map(c=>chip(c==='all'?'All':c, st.cuisine===c, ()=>this.setState({cuisine:c})));
+    const presetTags=['Vegetarian','Vegan','Halal','Gluten free','Dairy free','Nut free'];
+    const allTags=Array.from(new Set([...presetTags, ...pub.reduce((a,s)=>a.concat(s.tags||[]),[])]));
+    const dietChips=allTags.map(d=>chip(d, !!st.diet[d], ()=>this.setState(s=>({diet:{...s.diet,[d]:!s.diet[d]}}))));
+    const ratingChips=[[0,'Any'],[4,'4.0+'],[4.5,'4.5+']].map(([v,l])=>chip(l, st.minRating===v, ()=>this.setState({minRating:v})));
+    const sortChips=[['rating','Top rated'],['name','A\u2013Z']].map(([v,l])=>chip(l, st.sort===v, ()=>this.setState({sort:v})));
+    // open today toggle visuals
+    const ot=st.openToday;
+    const openTodayDot='width:44px;height:26px;border-radius:9999px;flex:none;display:inline-flex;align-items:center;padding:2px;cursor:pointer;transition:.15s;background:'+(ot?'var(--color-peppermint)':'var(--color-almond)')+';border:var(--border-m) solid var(--color-midnight)';
+    const openTodayKnob='width:18px;height:18px;border-radius:9999px;background:var(--color-midnight);transition:.15s;transform:translateX('+(ot?'18px':'0')+')';
+    // selected stall
+    let stall=null, reviewStallName='', reviewDishOptions=[];
+    if(st.stallId){ const b=this.STALLS.find(x=>x.id===st.stallId); if(b){
+      const d=this.decorate(b);
+      const reviews=this.reviewsFor(b).map(r=>({...r, stars:this.starsArr(r.rating), initials:this.initials(r.author), avatarBg:this.avatarBg(r.author)}));
+      const visited=this.visitedToday(b);
+      stall={...d, description:b.foodType||'', foodType:b.foodType||'', hasFoodType:!!(b.foodType&&b.foodType.trim()),
+        headerStyle:this.gradient(b.cols), headerImgId:'stallimg-'+b.id, headerImg:b.image||'',
+        favFill:d.isFav?'var(--color-secondary-error,#e92e4a)':'none',
+        favBtnStyle:'width:48px;height:48px;flex:none;display:inline-flex;align-items:center;justify-content:center;border:var(--border-m) solid var(--color-midnight);border-radius:var(--radius-m);cursor:pointer;box-shadow:var(--shadow-hard-s);color:'+(d.isFav?'var(--color-secondary-error,#e92e4a)':'var(--color-midnight)')+';background:var(--color-fill-pure)',
+        dishes:b.dishes.map(dd=>{ const upd=this.dishUpvotes(b,dd); const key=b.id+':'+dd.id; const uped=!!this.state.upvotes[key]; return {name:dd.name,price:dd.price,score:dd.score.toFixed(1),upvotes:upd,isTop:dd.top,imgStyle:this.gradient(b.cols),onUpvote:()=>this.upvoteDish(b,dd),upvoteStyle:'display:inline-flex;align-items:center;gap:6px;flex:none;font-family:var(--font-heading);font-weight:700;font-size:14px;padding:8px 14px;border-radius:9999px;cursor:pointer;border:var(--border-m) solid var(--color-midnight);color:var(--color-midnight);box-shadow:var(--shadow-hard-s);background:'+(uped?'var(--color-peppermint)':'var(--color-fill-pure)')}; }),
+        hasDishes:b.dishes.length>0, noDishes:b.dishes.length===0,
+        reviews, hasReviews:reviews.length>0, noReviews:reviews.length===0,
+        tags:b.tags||[], hasTags:(b.tags||[]).length>0,
+        visitLabel:visited?'Visited today \u2713':'I visited today',
+        onVisit:()=>this.markVisited(b), onWriteReview:()=>this.openReview(b.id) };
+    }}
+    if(st.reviewStallId){ const rb=this.STALLS.find(x=>x.id===st.reviewStallId); if(rb){ reviewStallName=rb.name; reviewDishOptions=rb.dishes.map(d=>d.name); } }
+    const ratingStars=[1,2,3,4,5].map(i=>({fill:i<=st.reviewRating?'var(--color-peach)':'var(--color-almond)',onClick:()=>this.setState({reviewRating:i})}));
+    // profile
+    const favIds=Object.keys(st.favs).filter(k=>st.favs[k]);
+    const favStalls=this.STALLS.filter(s=>favIds.includes(s.id)).map(s=>this.decorate(s));
+    const myExtra=[]; Object.keys(st.extraReviews).forEach(sid=>{ const s=this.STALLS.find(x=>x.id===sid); if(!s)return; (st.extraReviews[sid]||[]).forEach(r=>{ if(r.author==='Daisy Jones') myExtra.push({stallName:s.name,text:r.text,stars:this.starsArr(r.rating)}); }); });
+    const myReviews=[...myExtra];
+    const visitedIds=Object.keys(st.visited);
+    const visitHistory=visitedIds.map(id=>{ const s=this.STALLS.find(x=>x.id===id); return {stallName:s?s.name:id,date:'Today',dotStyle:'width:12px;height:12px;border-radius:9999px;flex:none;background:'+(s?s.cols[1]:'var(--color-peppermint)')+';border:var(--border-s) solid var(--color-midnight)'}; });
+    const totalVisitCount=visitedIds.length;
+    const profileStats=[{value:totalVisitCount,label:'total visits'},{value:myReviews.length,label:'reviews written'},{value:favIds.length,label:'favourites'}];
+    const badges=[];
+
+    // ===== ADMIN =====
+    const archivedCount=Object.keys(archived).filter(k=>archived[k]).length;
+    const adminNavDef=[['dashboard','Dashboard'],['stalls','Market stalls'],['food','Food items'],['reviews','Reviews'],['users','Users'],['analytics','Analytics'],['featured','Featured stall'],['settings','Settings']];
+    const adminSection=st.adminSection;
+    const secTitles={dashboard:'Dashboard',stalls:'Market stalls',food:'Food items',reviews:'Review moderation',users:'Users',analytics:'Analytics',featured:'Stall of the week',settings:'Settings'};
+    const secSubs={dashboard:'How the market square is performing this week.',stalls:'Add, edit, feature and archive the stalls on the square.',food:'Every dish across all stalls, ranked by upvotes.',reviews:'Approve or hide reviews left by employees.',users:'Everyone with access to the app.',analytics:'Visits, ratings and demand patterns over time.',featured:'Choose which stall leads the homepage this week.',settings:'Notifications and app configuration.'};
+    const allReviewsFlat=[]; const hiddenMap=st.hiddenReviews||{};
+    this.STALLS.forEach(s=>{ [...(st.extraReviews[s.id]||[]),...s.reviews].forEach(r=>{ allReviewsFlat.push({stallId:s.id,stallName:s.name,author:r.author,rating:r.rating,text:r.text,date:r.date,dish:r.dish,hidden:!!hiddenMap[s.id+'##'+r.text]}); }); });
+    const adminNav=adminNavDef.map(([key,label])=>({key,label,active:adminSection===key,icon:this.adminIcon(key),badge:key==='reviews'?String(allReviewsFlat.length):'',hasBadge:key==='reviews',onClick:()=>this.adminGo(key),style:'display:flex;align-items:center;gap:12px;width:100%;text-align:left;font-family:var(--font-heading);font-weight:700;font-size:14px;padding:11px 12px;border-radius:var(--radius-m);border:0;cursor:pointer;transition:background .12s;background:'+(adminSection===key?'rgba(255,255,255,.14)':'transparent')+';color:'+(adminSection===key?'var(--color-peppermint)':'rgba(255,255,255,.72)')}));
+    // dashboard
+    const adminKpis=[{label:'Visits logged',value:totalVisits,delta:''},{label:'Reviews',value:totalReviews,delta:''},{label:'Active stalls',value:pub.length,delta:archivedCount?archivedCount+' archived':''},{label:'Avg rating',value:avgRating,delta:''}];
+    const dishesFlat=[]; pub.forEach(s=>s.dishes.forEach(d=>dishesFlat.push({name:d.name,stall:s.name,up:this.dishUpvotes(s,d),swatch:this.gradient(s.cols)})));
+    const hasActivity=totalReviews>0||totalVisits>0||dishesFlat.length>0;
+    // stalls table
+    const adminStalls=this.STALLS.map(s=>({id:s.id,name:s.name,cuisine:s.cuisine,price:this.priceStr(s.price),rating:s.rating?s.rating.toFixed(1):'—',reviews:this.reviewCount(s),isArchived:!!archived[s.id],isFeatured:s.id===featuredId&&!archived[s.id],swatch:this.gradient(s.cols),onEdit:()=>this.openEditStall(s.id),onArchive:()=>this.toggleArchive(s.id),onFeature:()=>this.setFeatured(s.id,'Admin pick'),statusStyle:'font-family:var(--font-heading);font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:9999px;border:var(--border-s) solid var(--color-midnight);background:'+(archived[s.id]?'var(--color-almond)':'var(--color-peppermint)'),statusLabel:archived[s.id]?'Archived':'Live',archiveLabel:archived[s.id]?'Restore':'Archive',featureStyle:'font-family:var(--font-heading);font-weight:700;font-size:12px;padding:6px 12px;border-radius:var(--radius-s);cursor:pointer;border:var(--border-s) solid var(--color-midnight);background:'+((s.id===featuredId&&!archived[s.id])?'var(--color-peach)':'var(--color-fill-pure)')+';color:var(--color-midnight)',featureLabel:(s.id===featuredId&&!archived[s.id])?'Featured':'Feature'}));
+    // food items
+    const adminFood=[]; this.STALLS.forEach(s=>s.dishes.forEach(d=>adminFood.push({stall:s.name,swatch:this.gradient(s.cols),name:d.name,price:d.price,score:d.score.toFixed(1),upvotes:this.dishUpvotes(s,d),top:!!d.top,onEdit:()=>this.openEditFood(s.id,d.id)})));
+    // review moderation
+    const adminReviews=allReviewsFlat.map(r=>({stallName:r.stallName,author:r.author,text:r.text,date:r.date,dish:r.dish,hidden:r.hidden,stars:this.starsArr(r.rating),initials:this.initials(r.author),avatarBg:this.avatarBg(r.author),onToggle:()=>this.toggleHideReview(r.stallId,r.text),toggleLabel:r.hidden?'Restore':'Hide',cardStyle:'padding:16px 18px;'+(r.hidden?'opacity:.55;':''),toggleStyle:'font-family:var(--font-heading);font-weight:700;font-size:12px;padding:6px 14px;border-radius:var(--radius-s);cursor:pointer;border:var(--border-s) solid var(--color-midnight);background:'+(r.hidden?'var(--color-peppermint)':'var(--color-fill-pure)')+';color:var(--color-midnight)'}));
+    // featured
+    const reasons=['Highest rated','Most improved','New arrival','Most visited','Most upvoted dish','Admin pick'];
+    const reasonChips=reasons.map(r=>chip(r, weekReason===r, ()=>this.setFeatured(featuredId,r)));
+    const featuredOptions=pub.map(s=>({id:s.id,name:s.name,cuisine:s.cuisine,rating:this.reviewCount(s)>0?s.rating.toFixed(1):'\u2014',selected:s.id===featuredId,swatch:this.gradient(s.cols),onPick:()=>this.setFeatured(s.id,weekReason),cardStyle:'display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-m);cursor:pointer;border:var(--border-m) solid '+(s.id===featuredId?'var(--color-peppermint-600,#3aa564)':'var(--color-form-border)')+';box-shadow:'+(s.id===featuredId?'0 0 0 3px var(--color-peppermint)':'none')+';background:var(--color-fill-pure)'}));
+    // analytics
+    const _td=[...dishesFlat].sort((a,b)=>b.up-a.up).slice(0,5); const maxUp=Math.max(1,Math.max.apply(null,_td.map(d=>d.up)));
+    const topDishBars=_td.map(d=>({name:d.name,stall:d.stall,up:d.up,barStyle:'height:12px;border-radius:9999px;border:var(--border-s) solid var(--color-midnight);background:var(--color-peppermint);width:'+Math.round(24+(d.up/maxUp)*76)+'%'}));
+    const hasTopDishData=_td.length>0;
+    // users
+    const usersRaw=this.getUsers();
+    const adminUsers=usersRaw.map((u,i)=>({rank:i+1,id:u.id,name:u.name,role:u.role,visits:u.visits,reviews:u.reviews,badges:u.badges,initials:this.initials(u.name),avatarBg:this.avatarBg(u.name),email:u.email||(u.name.toLowerCase().replace(/ /g,'.')+'@'+this.orgDomain),roleStyle:'font-family:var(--font-heading);font-weight:700;font-size:11px;letter-spacing:.5px;padding:3px 10px;border-radius:9999px;border:var(--border-s) solid var(--color-midnight);background:'+(u.role==='Admin'?'var(--color-peach)':'var(--color-bg-light-tint)')}));
+    const activeUsers=[...adminUsers].sort((a,b)=>b.visits-a.visits).slice(0,5);
+    // admin management (settings)
+    const adminMgmt=adminUsers.map(u=>({name:u.name,email:u.email,initials:u.initials,avatarBg:u.avatarBg,isAdmin:u.role==='Admin',onToggle:()=>this.setUserRole(u.id,u.role==='Admin'?'Employee':'Admin'),toggleLabel:u.role==='Admin'?'Revoke':'Make admin',roleStyle:'font-family:var(--font-heading);font-weight:700;font-size:11px;padding:3px 10px;border-radius:9999px;border:var(--border-s) solid var(--color-midnight);background:'+(u.role==='Admin'?'var(--color-peach)':'var(--color-bg-light-tint)'),roleLabel:u.role,toggleStyle:'font-family:var(--font-heading);font-weight:700;font-size:12px;padding:6px 14px;border-radius:var(--radius-s);cursor:pointer;border:var(--border-s) solid var(--color-midnight);background:'+(u.role==='Admin'?'var(--color-fill-pure)':'var(--color-peppermint)')+';color:var(--color-midnight)'}));
+    // notification switches
+    const sw=(on,onClick)=>({on,onClick,dot:'width:46px;height:28px;border-radius:9999px;flex:none;display:inline-flex;align-items:center;padding:2px;cursor:pointer;transition:.15s;justify-content:'+(on?'flex-end':'flex-start')+';background:'+(on?'var(--color-peppermint)':'var(--color-almond)')+';border:var(--border-m) solid var(--color-midnight)',knob:'width:20px;height:20px;border-radius:9999px;background:var(--color-midnight)'});
+    const notifWeek=sw(!!st.notif.week,()=>this.toggleNotif('week'));
+    const notifNewStall=sw(!!st.notif.newStall,()=>this.toggleNotif('newStall'));
+    const notifTrending=sw(!!st.notif.trending,()=>this.toggleNotif('trending'));
+    // role gating
+    const isAdminUser=st.myRole==='admin';
+    // food modal
+    const ef=st.editFood;
+    const setEF=(patch)=>this.setState(s=>({editFood:{...s.editFood,...patch}}));
+    const foodStalls=pub.map(s=>({id:s.id,name:s.name}));
+    const es=st.editStall;
+    const setES=(patch)=>this.setState(s=>({editStall:{...s.editStall,...patch}}));
+    const priceOptions=[{v:1,l:'£  · budget'},{v:2,l:'££  · mid'},{v:3,l:'£££  · premium'}];
+
+    return {
+      theme:st.theme, orgName:this.orgName, orgDomain:this.orgDomain,
+      themeIcon:st.theme==='dark'?React.createElement('path',{d:'M12 3v2M12 19v2M5 12H3M21 12h-2M6.3 6.3 4.9 4.9M19.1 19.1l-1.4-1.4M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4'}):React.createElement('path',{d:'M20 14a7 7 0 0 1-9-9 7 7 0 1 0 9 9Z'}),
+      isHome:view==='home', isBrowse:view==='browse', isStall:view==='stall'&&!!stall, isProfile:view==='profile',
+      goHome:(e)=>{e&&e.preventDefault&&e.preventDefault();this.go('home');},
+      goBrowse:(e)=>{e&&e.preventDefault&&e.preventDefault();this.go('browse');},
+      goProfile:(e)=>{e&&e.preventDefault&&e.preventDefault();this.go('profile');},
+      navHomeStyle:navStyle(view==='home'), navBrowseStyle:navStyle(view==='browse'), navProfileStyle:navStyle(view==='profile'),
+      toggleDark:()=>this.setState(s=>{ const theme=s.theme==='dark'?'':'dark'; this.persist({theme}); return {theme}; }),
+      query:st.query, onSearch:(e)=>this.setState({query:e.target.value}), clearSearch:()=>this.setState({query:''}),
+      onHeroSearch:(e)=>{e.preventDefault();this.go('browse');},
+      quickChips:[{label:'Asian',onClick:()=>{this.setState({cuisine:'Asian'});this.go('browse');}},{label:'Vegan',onClick:()=>{this.setState(s=>({diet:{...s.diet,Vegan:true}}));this.go('browse');}},{label:'A\u2013Z',onClick:()=>{this.setState({sort:'name'});this.go('browse');}}],
+      heroArt:this.heroArt(),
+      heroStats, week, trending, hasTrending:trending.length>0, stallCount:pub.length,
+      previewStalls:[...pub].sort((a,b)=>b.rating-a.rating).slice(0,3).map(s=>this.decorate(s)),
+      // browse
+      loading:st.loading, showResults:!st.loading&&filteredStalls.length>0, showEmpty:!st.loading&&filteredStalls.length===0,
+      filteredStalls, skeletons:[1,2,3,4,5,6],
+      resultsLabel:filteredStalls.length+(filteredStalls.length===1?' stall':' stalls')+(q?' matching \u201c'+st.query+'\u201d':''),
+      cuisineChips, dietChips, ratingChips, sortChips,
+      toggleOpenToday:()=>this.setState(s=>({openToday:!s.openToday})),
+      openTodayDot, openTodayKnob, openTodayBorder:ot?'var(--color-midnight)':'var(--color-form-border)', openTodayBg:ot?'var(--color-peppermint-100,#eafbee)':'var(--color-fill-pure)',
+      clearFilters:()=>this.setState({cuisine:'all',diet:{},minRating:0,price:0,openToday:false,query:''}),
+      // stall
+      stall, noop:(e)=>{e&&e.preventDefault&&e.preventDefault();},
+      // modal
+      reviewOpen:st.reviewOpen, reviewStallName, reviewDishOptions, reviewText:st.reviewText, reviewDish:st.reviewDish, ratingStars,
+      closeReview:()=>this.setState({reviewOpen:false}), stopProp:(e)=>e.stopPropagation(),
+      onReviewText:(e)=>this.setState({reviewText:e.target.value}), onReviewDish:(e)=>this.setState({reviewDish:e.target.value}),
+      submitReview:()=>this.submitReview(),
+      // profile
+      favStalls, hasFavs:favStalls.length>0, noFavs:favStalls.length===0,
+      myReviews, visitHistory, profileStats, badges,
+      hasBadges:badges.length>0, hasMyReviews:myReviews.length>0, hasVisitHistory:visitHistory.length>0,
+      noBadges:badges.length===0, noMyReviews:myReviews.length===0, noVisitHistory:visitHistory.length===0,
+      leaderPos:1, leaderTotal:1,
+      // admin
+      isApp:view!=='admin', isAdmin:view==='admin', navAdminStyle:navStyle(false),
+      goAdmin:(e)=>{e&&e.preventDefault&&e.preventDefault(); this.setState({view:'admin'}); this.scrollTop();},
+      adminNav, adminSectionTitle:secTitles[adminSection], adminSectionSub:secSubs[adminSection],
+      secDashboard:adminSection==='dashboard', secStalls:adminSection==='stalls', secFood:adminSection==='food', secReviews:adminSection==='reviews', secUsers:adminSection==='users', secAnalytics:adminSection==='analytics', secFeatured:adminSection==='featured', secSettings:adminSection==='settings',
+      adminKpis, hasActivity,
+      adminStalls, onAddStall:()=>this.openAddStall(),
+      adminFood, adminFoodCount:adminFood.length,
+      adminReviews, reviewsTotal:allReviewsFlat.length, reviewsHidden:allReviewsFlat.filter(r=>r.hidden).length,
+      featuredOptions, reasonChips, currentFeaturedName:weekBase.name, currentFeaturedReason:weekReason, currentFeaturedSwatch:this.gradient(weekBase.cols),
+      topDishBars, hasTopDishData, activeUsers, adminUsers,
+      editStallOpen:!!es, editStallTitle:es?(es.isNew?'Add market stall':'Edit stall'):'', editStallIsNew:es?!!es.isNew:false, editStallHasId:es?!es.isNew:false, editStallImgId:(es&&!es.isNew)?'stallimg-'+es.id:'',
+      editName:es?es.name:'', editCuisine:es?es.cuisine:'', editFoodType:es?(es.foodType||''):'', editTags:es?(es.tags||[]):[], editTagInput:es?(es.tagInput||''):'', presetTagOptions:presetTags,
+      onEditName:(e)=>setES({name:e.target.value}), onEditCuisine:(e)=>setES({cuisine:e.target.value}), onEditFoodType:(e)=>setES({foodType:e.target.value}), onEditTagInput:(e)=>setES({tagInput:e.target.value}),
+      addEditTag:(e)=>{ const tag=((e&&e.currentTarget&&e.currentTarget.getAttribute('data-tag'))||'').trim(); if(!tag)return; this.setState(s=>{ const cur=(s.editStall.tags)||[]; if(cur.some(x=>x.toLowerCase()===tag.toLowerCase()))return {}; return {editStall:{...s.editStall,tags:[...cur,tag],tagInput:''}}; }); },
+      addEditTagFromInput:()=>{ this.setState(s=>{ const tag=((s.editStall.tagInput)||'').trim(); if(!tag)return {}; const cur=(s.editStall.tags)||[]; if(cur.some(x=>x.toLowerCase()===tag.toLowerCase()))return {editStall:{...s.editStall,tagInput:''}}; return {editStall:{...s.editStall,tags:[...cur,tag],tagInput:''}}; }); },
+      onEditTagKey:(e)=>{ if(e.key==='Enter'){ e.preventDefault(); this.setState(s=>{ const tag=((s.editStall.tagInput)||'').trim(); if(!tag)return {}; const cur=(s.editStall.tags)||[]; if(cur.some(x=>x.toLowerCase()===tag.toLowerCase()))return {editStall:{...s.editStall,tagInput:''}}; return {editStall:{...s.editStall,tags:[...cur,tag],tagInput:''}}; }); } },
+      removeEditTag:(e)=>{ const tag=(e&&e.currentTarget&&e.currentTarget.getAttribute('data-tag'))||''; this.setState(s=>({editStall:{...s.editStall,tags:((s.editStall.tags)||[]).filter(x=>x!==tag)}})); },
+      saveEditStall:()=>this.saveEditStall(), closeEditStall:()=>this.setState({editStall:null}),
+      isAdminUser, cmsView:view==='admin'&&isAdminUser, deniedView:view==='admin'&&!isAdminUser,
+      onAddFood:()=>this.openAddFood(),
+      adminMgmt, notifWeek, notifNewStall, notifTrending,
+      newAdminEmail:st.newAdminEmail, onNewAdminEmail:(e)=>this.setState({newAdminEmail:e.target.value}), addAdmin:()=>this.addAdminByEmail(),
+      newUserAdmin:st.newUserAdmin, onToggleNewUserAdmin:()=>this.setState(s=>({newUserAdmin:!s.newUserAdmin})), newUserAdminBg:st.newUserAdmin?'var(--color-peppermint)':'var(--color-almond)', newUserAdminJustify:st.newUserAdmin?'flex-end':'flex-start',
+      editFoodOpen:!!ef, editFoodTitle:ef?(ef.isNew?'Add food item':'Edit food item'):'', editFoodIsNew:ef?!!ef.isNew:false,
+      foodName:ef?ef.name:'', foodPrice:ef?ef.price:'', foodStallId:ef?ef.stallId:'', foodStalls,
+      onFoodName:(e)=>setEF({name:e.target.value}), onFoodPrice:(e)=>setEF({price:e.target.value}), onFoodStall:(e)=>setEF({stallId:e.target.value}),
+      saveFood:()=>this.saveFood(), closeFood:()=>this.setState({editFood:null}),
+      roleAdminBg:st.myRole==='admin'?'var(--color-peppermint)':'var(--color-fill-pure)', roleEmpBg:st.myRole!=='admin'?'var(--color-peppermint)':'var(--color-fill-pure)',
+      roleAdminActive:st.myRole==='admin', roleEmpActive:st.myRole!=='admin', onRoleAdmin:()=>this.setMyRole('admin'), onRoleEmp:()=>this.setMyRole('employee'),
+      // toasts
+      toasts:st.toasts
+    };
+  }
+  svg(name){ const P={location:'M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z',bulb:'M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.2V16h6v-.3c0-.8.4-1.6 1-2.2A6 6 0 0 0 12 3Z',star:'M12 4l2.4 5 5.6.7-4 3.9 1 5.5L12 16.9 7 19l1-5.5-4-3.9 5.6-.7L12 4Z'}; const fill=name==='star'?'currentColor':'none'; const stroke=name==='star'?'none':'currentColor'; return React.createElement('svg',{width:22,height:22,viewBox:'0 0 24 24',fill,stroke,strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('path',{d:P[name]})); }
+  heroArt(){
+    const R=React.createElement;
+    const N=8, bx0=96, bx1=364, tx0=170, tx1=290, yT=104, yB=150;
+    const bw=(bx1-bx0)/N, tw=(tx1-tx0)/N;
+    const stripes=[];
+    for(let i=0;i<N;i++){
+      const b0=bx0+i*bw,b1=bx0+(i+1)*bw,t0=tx0+i*tw,t1=tx0+(i+1)*tw;
+      stripes.push(R('path',{key:'st'+i,d:'M'+b0+' '+yB+' L'+t0+' '+yT+' L'+t1+' '+yT+' L'+b1+' '+yB+' Z',fill:i%2===0?'var(--color-peppermint)':'var(--color-fill-pure)',stroke:'var(--color-midnight)',strokeWidth:2.5,strokeLinejoin:'round'}));
+    }
+    return R('svg',{viewBox:'0 0 460 380',width:'100%',style:{display:'block',maxWidth:'470px',margin:'0 auto'},fill:'none'},
+      // base body
+      R('rect',{x:142,y:262,width:176,height:88,rx:6,fill:'var(--color-fill-pure)',stroke:'var(--color-midnight)',strokeWidth:3}),
+      // plank lines
+      R('g',{stroke:'var(--color-midnight)',strokeWidth:2.5,strokeLinecap:'round'},
+        R('path',{d:'M154 288 h56'}),R('path',{d:'M252 288 h54'}),
+        R('path',{d:'M154 312 h42'}),R('path',{d:'M264 312 h42'}),
+        R('path',{d:'M154 336 h66'})),
+      // sprout on base
+      R('path',{d:'M230 350 v-30',stroke:'var(--color-midnight)',strokeWidth:2.5,strokeLinecap:'round'}),
+      R('path',{d:'M230 332c-4-10-14-10-19-6 1 8 9 10 19 6Z',fill:'var(--color-peppermint)',stroke:'var(--color-midnight)',strokeWidth:2.5,strokeLinejoin:'round'}),
+      R('path',{d:'M230 336c4-10 14-10 19-6-1 8-9 10-19 6Z',fill:'var(--color-peppermint)',stroke:'var(--color-midnight)',strokeWidth:2.5,strokeLinejoin:'round'}),
+      // counter shelf
+      R('rect',{x:120,y:244,width:220,height:20,rx:5,fill:'var(--color-almond)',stroke:'var(--color-midnight)',strokeWidth:3}),
+      // posts
+      R('rect',{x:150,y:150,width:15,height:96,rx:3,fill:'var(--color-fill-pure)',stroke:'var(--color-midnight)',strokeWidth:3}),
+      R('rect',{x:295,y:150,width:15,height:96,rx:3,fill:'var(--color-fill-pure)',stroke:'var(--color-midnight)',strokeWidth:3}),
+      // striped awning
+      R('g',null,stripes),
+      R('path',{d:'M92 150 h276',stroke:'var(--color-midnight)',strokeWidth:3,strokeLinecap:'round'}),
+      // hanging sign
+      R('rect',{x:172,y:58,width:116,height:34,rx:9,fill:'var(--color-peach)',stroke:'var(--color-midnight)',strokeWidth:3}),
+      R('text',{x:230,y:82,textAnchor:'middle',fontFamily:'Sora,sans-serif',fontWeight:800,fontSize:18,letterSpacing:1,fill:'var(--color-midnight)'},'MARKET'),
+      R('line',{x1:200,y1:92,x2:200,y2:104,stroke:'var(--color-midnight)',strokeWidth:3}),
+      R('line',{x1:260,y1:92,x2:260,y2:104,stroke:'var(--color-midnight)',strokeWidth:3})
+    );
+  }
+}
+</script>
+</body>
+</html>

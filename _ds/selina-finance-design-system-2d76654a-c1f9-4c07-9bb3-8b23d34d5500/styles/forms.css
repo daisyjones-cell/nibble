@@ -1,0 +1,295 @@
+/* =================================================================
+   Selina Finance — Form Components
+   Reusable, working form controls built on tokens.css.
+   Source: Figma "Tokens - Components" → Forms (111:2855).
+
+   Usage:
+     <link rel="stylesheet" href="/design-system/tokens.css">
+     <link rel="stylesheet" href="/design-system/forms.css">
+     <script src="/design-system/forms.js" defer></script>
+
+   Anatomy of a field:
+     <div class="f-field">
+       <label class="f-label">Label</label>
+       <div class="f-control"> … input / affixes … </div>
+       <div class="f-help"><span>Hint text</span><span class="f-count">0/50</span></div>
+     </div>
+   State modifiers go on .f-control: .is-focus .is-valid .is-error
+   (or add .is-error to .f-field to also colour the helper text).
+   ================================================================= */
+
+/* ---- Field wrapper ---- */
+.f-field{display:flex;flex-direction:column;gap:var(--space-s);width:100%;max-width:360px;}
+.f-label{font-family:var(--font-heading);font-weight:var(--fw-extrabold);font-size:14px;line-height:16px;color:var(--color-text-primary);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+.f-label--lg{font-weight:var(--fw-bold);font-size:18px;line-height:22px;color:var(--color-text-secondary);}
+.f-desc{font-family:var(--font-body);font-size:var(--p-s-size);line-height:var(--p-s-lh);color:var(--color-text-secondary);margin:-2px 0 0;}
+/* label/large-label/description stack (2px gaps) for the full "master" field */
+.f-field-text{display:flex;flex-direction:column;gap:2px;}
+.f-field-text .f-desc{margin:0;}
+
+/* ---- The control shell ---- */
+.f-control{display:flex;align-items:center;min-height:48px;background:var(--color-form-bg);border:var(--border-s) solid var(--color-form-border);border-radius:var(--radius-s);overflow:hidden;}
+.f-control:focus-within,.f-control.is-focus{border-color:var(--color-form-focus);box-shadow:var(--shadow-focus-form);}
+/* Select trigger: a mouse click should only rotate the chevron — no whole-field
+   focus-ring "flash". Keep the ring for keyboard users (:focus-visible). */
+.f-select-trigger:focus-within:not(.is-valid):not(.is-error){border-color:var(--color-form-border);box-shadow:none;}
+.f-select-trigger:focus-visible:not(.is-valid):not(.is-error){border-color:var(--color-form-focus);box-shadow:var(--shadow-focus-form);}
+.f-control.is-valid{border-color:var(--color-form-border-selected);box-shadow:0 0 0 2px var(--color-form-success);}
+.f-control.is-error{border-color:var(--color-form-error);box-shadow:0 0 0 2px var(--color-form-error);}
+
+/* ---- The input itself ---- */
+.f-input{flex:1;min-width:0;height:48px;border:0;outline:0;background:transparent;padding:0 var(--space-m);font-family:var(--font-body);font-size:var(--p-m-size);line-height:var(--p-m-lh);color:var(--color-text-primary);}
+.f-input::placeholder{color:var(--color-text-placeholder);}
+textarea.f-input{height:auto;min-height:96px;padding:var(--space-m);resize:vertical;line-height:var(--p-m-lh);}
+.f-control--textarea{align-items:stretch;min-height:auto;}
+
+/* ---- Prefix / suffix affixes ---- */
+.f-affix{display:flex;align-items:center;align-self:stretch;padding:0 14px;background:var(--color-form-affix-bg);font-family:var(--font-body);font-weight:var(--fw-bold);font-size:var(--p-m-size);color:var(--color-fill-primary);white-space:nowrap;}
+.f-affix--prefix{border-right:var(--border-s) solid var(--color-form-border);}
+.f-affix--suffix{border-left:var(--border-s) solid var(--color-form-border);}
+/* affix that is itself a <button> (Show/Hide, Find): no stray browser border */
+button.f-affix{border-top:0;border-right:0;border-bottom:0;cursor:pointer;font-family:var(--font-heading);font-weight:var(--fw-bold);font-size:14px;color:var(--color-text-primary);}
+/* toggle affix pairing an icon with its label (e.g. password Show/Hide) */
+.f-affix--toggle{gap:6px;}
+.f-affix--toggle svg{display:block;flex:none;color:var(--color-ink);}
+/* icon-only affix that doesn't block clicks (e.g. select chevron, status icon) */
+.f-affix--ghost{background:transparent;border:0;padding:0 var(--space-m);pointer-events:none;color:var(--color-text-secondary);}
+.f-icon{display:inline-flex;align-items:center;justify-content:center;flex:none;}
+.f-icon svg{display:block;}
+
+/* ---- Helper / assistive text ---- */
+.f-help{display:flex;gap:var(--space-m);font-family:var(--font-body);font-size:var(--p-s-size);line-height:var(--p-s-lh);color:var(--color-text-secondary);}
+.f-count{margin-left:auto;white-space:nowrap;}
+.f-field.is-error .f-help{color:var(--color-text-error);}
+.f-field.is-valid .f-help{color:var(--color-text-success);}
+
+/* ---- Select ----------------------------------------------------------
+   The chevron sits in a suffix affix box (almond bg + left separator,
+   right corners clipped by the control's radius), matching the prefix/
+   suffix affixes. Figma 129:4040. The box is pointer-events:none and the
+   <select> spans full width beneath it (padding-right clears the box), so
+   clicking the chevron still opens the native menu. */
+.f-select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:53px;}
+.f-control--select{position:relative;}
+.f-control--select .f-chevron{position:absolute;top:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;padding:0 var(--space-s);background:var(--color-form-affix-bg);border-left:var(--border-s) solid var(--color-form-border);color:var(--color-ink);pointer-events:none;}
+.f-control--select .f-chevron svg{display:block;}
+
+/* ---- Select — custom dropdown ---------------------------------------
+   Trigger is the styled field (value + chevron affix); the open menu uses
+   the address-finder dropdown look (navy border, hard shadow, active row)
+   instead of the native OS list. */
+.f-select-field{position:relative;width:100%;}
+.f-select-trigger{appearance:none;-webkit-appearance:none;width:100%;padding:0;margin:0;font:inherit;cursor:pointer;text-align:left;}
+.f-select-trigger:disabled{cursor:not-allowed;opacity:.6;}
+.f-select-value{flex:1;min-width:0;padding:0 var(--space-m);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--font-body);font-size:var(--p-m-size);line-height:var(--p-m-lh);color:var(--color-text-primary);}
+.f-select-value.is-placeholder{color:var(--color-text-placeholder);}
+.f-select-chevron{flex:none;align-self:stretch;display:flex;align-items:center;justify-content:center;padding:0 var(--space-s);background:var(--color-form-affix-bg);border-left:var(--border-s) solid var(--color-form-border);color:var(--color-ink);}
+/* Only the icon rotates — not the affix box (its background + left stroke stay put). */
+.f-select-chevron svg{display:block;transition:transform .12s;}
+.f-select-trigger[aria-expanded="true"] .f-select-chevron svg{transform:scaleY(-1);}
+.f-select-menu{position:absolute;left:0;right:0;top:calc(100% + var(--space-xs));z-index:30;}
+.f-select-menu .f-results{margin:0;}
+
+/* ---- Checkbox — selectable boxed row (Figma 201:3669) ----------------
+   White card whose border turns green + green ring when checked.
+   Glyph: 20px square — grey border unchecked → navy fill + white tick. */
+.f-check{display:flex;align-items:center;gap:9px;box-sizing:border-box;min-height:48px;padding:var(--space-m) var(--space-l);background:var(--color-form-bg);box-shadow:inset 0 0 0 var(--border-s) var(--color-form-border);border-radius:var(--radius-s);cursor:pointer;font-family:var(--font-body);font-size:var(--p-m-size);line-height:var(--p-m-lh);color:var(--color-text-primary);transition:box-shadow .12s,background .12s;}
+.f-check:hover{background:var(--color-form-hover);}
+.f-check:has(input:checked){box-shadow:inset 0 0 0 var(--border-s) var(--color-form-border-selected),0 0 0 2px var(--color-form-success);background:var(--color-form-bg);}
+.f-check.is-error{box-shadow:inset 0 0 0 var(--border-s) var(--color-form-error);}
+/* Box: 1.25px ring, 2.5px radius (Figma 1197:969); not the 1px/2px tokens. */
+.f-check input{box-sizing:border-box;appearance:none;-webkit-appearance:none;flex:none;width:20px;height:20px;margin:0;border:1.25px solid var(--color-form-border);border-radius:2.5px;background:var(--color-form-bg);cursor:pointer;position:relative;transition:background .12s,border-color .12s;}
+.f-check input:checked{background:var(--color-ink);border-color:var(--color-ink);}
+.f-check input:checked::after{content:"";position:absolute;left:6px;top:2.5px;width:5px;height:9px;border:solid var(--color-fill-pure);border-width:0 1.75px 1.75px 0;transform:rotate(45deg);}
+.f-check input:focus-visible{outline:none;box-shadow:0 0 0 3px var(--color-periwinkle);}
+
+/* ---- Radio — selectable boxed row (Figma 201:3701) -------------------
+   Same card; glyph: 16px circle — grey border → navy ring + navy dot. */
+.f-radio{display:flex;align-items:center;gap:9px;box-sizing:border-box;min-height:48px;padding:var(--space-m) var(--space-l);background:var(--color-form-bg);box-shadow:inset 0 0 0 var(--border-s) var(--color-form-border);border-radius:var(--radius-s);cursor:pointer;font-family:var(--font-body);font-size:var(--p-m-size);line-height:var(--p-m-lh);color:var(--color-text-primary);transition:box-shadow .12s,background .12s;}
+.f-radio:hover{background:var(--color-form-hover);}
+.f-radio:has(input:checked){box-shadow:inset 0 0 0 var(--border-s) var(--color-form-border-selected),0 0 0 2px var(--color-form-success);background:var(--color-form-bg);}
+.f-radio.is-error{box-shadow:inset 0 0 0 var(--border-s) var(--color-form-error);}
+.f-radio input{box-sizing:border-box;appearance:none;-webkit-appearance:none;flex:none;width:16px;height:16px;margin:0;border:var(--border-s) solid var(--color-form-border);border-radius:50%;background:var(--color-form-bg);cursor:pointer;position:relative;transition:border-color .12s;}
+.f-radio input:checked{border-color:var(--color-ink);}
+.f-radio input:checked::after{content:"";position:absolute;inset:2.5px;border-radius:50%;background:var(--color-ink);}
+.f-radio input:focus-visible{outline:none;box-shadow:0 0 0 3px var(--color-periwinkle);}
+
+/* ---- Grouped options (radio / checkbox group): rows 8px apart -------
+   The .f-field wrapper already gaps label ↔ options ↔ helper by 8px;
+   this stacks the rows themselves 8px apart. Source: Figma 2009:1529. */
+.f-group-options{display:flex;flex-direction:column;gap:var(--space-s);}
+
+/* ---- Option row with supporting text (Figma 2010:10626) -------------
+   Title (18/24) + supporting line(s) (14/18), 4px apart. The row keeps
+   align-items:center, so the glyph stays centred on the whole block. */
+.f-opt-text{display:flex;flex-direction:column;gap:var(--space-xs);min-width:0;}
+.f-opt-support{font-family:var(--font-body);font-size:var(--p-s-size);line-height:var(--p-s-lh);color:var(--color-text-primary);}
+
+/* ---- Yes / No — two selectable boxed radios (Figma 499:3228) ---- */
+.f-yesno{display:flex;gap:var(--space-s);}
+.f-yesno label{flex:1;position:relative;display:block;}
+.f-yesno input{position:absolute;opacity:0;pointer-events:none;}
+.f-yesno .opt{display:flex;align-items:center;gap:9px;box-sizing:border-box;min-height:48px;padding:var(--space-m) var(--space-l);box-shadow:inset 0 0 0 var(--border-s) var(--color-form-border);border-radius:var(--radius-s);background:var(--color-form-bg);font-family:var(--font-body);font-size:var(--p-m-size);color:var(--color-text-primary);cursor:pointer;transition:box-shadow .12s;}
+.f-yesno .opt::before{content:"";flex:none;width:16px;height:16px;box-sizing:border-box;border:var(--border-s) solid var(--color-form-border);border-radius:50%;background:var(--color-form-bg);}
+.f-yesno input:checked + .opt{box-shadow:inset 0 0 0 var(--border-s) var(--color-form-border-selected),0 0 0 2px var(--color-form-success);}
+.f-yesno input:checked + .opt::before{border-color:var(--color-ink);background:radial-gradient(circle at center,var(--color-ink) 0 4.5px,var(--color-form-bg) 5px);}
+.f-yesno input:focus-visible + .opt{box-shadow:inset 0 0 0 var(--border-s) var(--color-form-border),0 0 0 3px var(--color-periwinkle);}
+
+/* ---- Switch — pill track (no border), white knob with soft shadow ---- */
+.f-switch{display:inline-flex;align-items:center;gap:var(--space-m);cursor:pointer;font-family:var(--font-body);font-size:var(--p-m-size);}
+.f-switch input{appearance:none;-webkit-appearance:none;flex:none;width:72px;height:40px;margin:0;border:0;border-radius:var(--radius-pill);background:var(--color-bg-secondary);cursor:pointer;position:relative;transition:background .15s;}
+.f-switch input::after{content:"";position:absolute;top:3px;left:3px;width:34px;height:34px;border-radius:50%;background:var(--color-fill-pure);box-shadow:2.8px 0.9px 11px 0 rgba(187,179,164,.7);transition:left .15s,box-shadow .15s;}
+.f-switch input:checked{background:var(--peppermint-600);}
+.f-switch input:checked::after{left:35px;box-shadow:-3px 1px 12px 0 rgba(44,143,44,.6);}
+.f-switch input:focus-visible{outline:none;box-shadow:0 0 0 3px var(--color-periwinkle);}
+
+/* ---- Slider — thin almond track, midnight fill, custom SVG handle ---- */
+.f-slider{width:100%;max-width:360px;}
+.f-slider .f-slider-top{display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-m);margin-bottom:var(--space-m);}
+.f-slider .f-slider-top .f-label{margin:0;}
+.f-slider .f-slider-val{font-family:var(--font-heading);font-weight:var(--fw-extrabold);font-size:14px;}
+.f-slider input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px;background:transparent;outline:none;cursor:pointer;}
+/* track — fill + bg use adaptive tokens so they flip in dark mode
+   (fill: ink navy→light, bg: bg-secondary almond→navy). Figma 1225:3689. */
+.f-slider input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:var(--radius-pill);background:linear-gradient(to right,var(--color-ink) var(--p,50%),var(--color-bg-secondary) var(--p,50%));}
+.f-slider input[type=range]::-moz-range-track{height:4px;border-radius:var(--radius-pill);background:var(--color-bg-secondary);}
+.f-slider input[type=range]::-moz-range-progress{height:4px;border-radius:var(--radius-pill);background:var(--color-ink);}
+/* handle — the exact Figma handle (2012:13847): 32px periwinkle circle with
+   a navy outward double-arrow. The "shadow" is the handle's own outside
+   stroke at mixed weights — 2px top/left/right, 4px bottom (Fill/Primary) —
+   so the bottom of the ring reads as a solid weight. No box-shadow: the
+   asymmetric stroke is baked into the SVG (viewBox 36×38 = 32 circle + the
+   stroke outset). The knob stays light in both themes, so its colours are
+   fixed. */
+.f-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:36px;height:38px;margin-top:-16px;border:0;background:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='36'%20height='38'%20viewBox='0%200%2036%2038'%20fill='none'%3E%3Cmask%20id='m'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='36'%20height='38'%20fill='black'%3E%3Crect%20fill='white'%20width='36'%20height='38'/%3E%3Cpath%20d='M2%2018C2%209.16344%209.16344%202%2018%202V2C26.8366%202%2034%209.16344%2034%2018V18C34%2026.8366%2026.8366%2034%2018%2034V34C9.16344%2034%202%2026.8366%202%2018V18Z'/%3E%3C/mask%3E%3Cpath%20d='M2%2018C2%209.16344%209.16344%202%2018%202V2C26.8366%202%2034%209.16344%2034%2018V18C34%2026.8366%2026.8366%2034%2018%2034V34C9.16344%2034%202%2026.8366%202%2018V18Z'%20fill='%23B9B1F0'/%3E%3Cpath%20d='M0%2018C0%208.05887%208.05887%200%2018%200C27.9411%200%2036%208.05887%2036%2018H32C32%2010.268%2025.732%204%2018%204C10.268%204%204%2010.268%204%2018H0ZM36%2020C36%2029.9411%2027.9411%2038%2018%2038C8.05887%2038%200%2029.9411%200%2020L4%2018C4%2024.6274%2010.268%2030%2018%2030C25.732%2030%2032%2024.6274%2032%2018L36%2020ZM18%2038C8.05887%2038%200%2029.9411%200%2020V18C0%208.05887%208.05887%200%2018%200V4C10.268%204%204%2010.268%204%2018C4%2024.6274%2010.268%2030%2018%2030V38ZM18%200C27.9411%200%2036%208.05887%2036%2018V20C36%2029.9411%2027.9411%2038%2018%2038V30C25.732%2030%2032%2024.6274%2032%2018C32%2010.268%2025.732%204%2018%204V0Z'%20fill='%23090B2A'%20mask='url(%23m)'/%3E%3Cpath%20d='M8.61538%2019.5827C7.79487%2019.1015%207.79487%2017.8985%208.61539%2017.4173L14.1538%2014.1694C14.9744%2013.6882%2016%2014.2896%2016%2015.252V21.748C16%2022.7104%2014.9744%2023.3118%2014.1538%2022.8306L8.61538%2019.5827Z'%20fill='%23090B2A'/%3E%3Cpath%20d='M27.3846%2019.5827C28.2051%2019.1015%2028.2051%2017.8985%2027.3846%2017.4173L21.8462%2014.1694C21.0256%2013.6882%2020%2014.2896%2020%2015.252V21.748C20%2022.7104%2021.0256%2023.3118%2021.8462%2022.8306L27.3846%2019.5827Z'%20fill='%23090B2A'/%3E%3C/svg%3E") center/contain no-repeat;cursor:pointer;}
+.f-slider input[type=range]::-moz-range-thumb{width:36px;height:38px;border:0;background:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='36'%20height='38'%20viewBox='0%200%2036%2038'%20fill='none'%3E%3Cmask%20id='m'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='36'%20height='38'%20fill='black'%3E%3Crect%20fill='white'%20width='36'%20height='38'/%3E%3Cpath%20d='M2%2018C2%209.16344%209.16344%202%2018%202V2C26.8366%202%2034%209.16344%2034%2018V18C34%2026.8366%2026.8366%2034%2018%2034V34C9.16344%2034%202%2026.8366%202%2018V18Z'/%3E%3C/mask%3E%3Cpath%20d='M2%2018C2%209.16344%209.16344%202%2018%202V2C26.8366%202%2034%209.16344%2034%2018V18C34%2026.8366%2026.8366%2034%2018%2034V34C9.16344%2034%202%2026.8366%202%2018V18Z'%20fill='%23B9B1F0'/%3E%3Cpath%20d='M0%2018C0%208.05887%208.05887%200%2018%200C27.9411%200%2036%208.05887%2036%2018H32C32%2010.268%2025.732%204%2018%204C10.268%204%204%2010.268%204%2018H0ZM36%2020C36%2029.9411%2027.9411%2038%2018%2038C8.05887%2038%200%2029.9411%200%2020L4%2018C4%2024.6274%2010.268%2030%2018%2030C25.732%2030%2032%2024.6274%2032%2018L36%2020ZM18%2038C8.05887%2038%200%2029.9411%200%2020V18C0%208.05887%208.05887%200%2018%200V4C10.268%204%204%2010.268%204%2018C4%2024.6274%2010.268%2030%2018%2030V38ZM18%200C27.9411%200%2036%208.05887%2036%2018V20C36%2029.9411%2027.9411%2038%2018%2038V30C25.732%2030%2032%2024.6274%2032%2018C32%2010.268%2025.732%204%2018%204V0Z'%20fill='%23090B2A'%20mask='url(%23m)'/%3E%3Cpath%20d='M8.61538%2019.5827C7.79487%2019.1015%207.79487%2017.8985%208.61539%2017.4173L14.1538%2014.1694C14.9744%2013.6882%2016%2014.2896%2016%2015.252V21.748C16%2022.7104%2014.9744%2023.3118%2014.1538%2022.8306L8.61538%2019.5827Z'%20fill='%23090B2A'/%3E%3Cpath%20d='M27.3846%2019.5827C28.2051%2019.1015%2028.2051%2017.8985%2027.3846%2017.4173L21.8462%2014.1694C21.0256%2013.6882%2020%2014.2896%2020%2015.252V21.748C20%2022.7104%2021.0256%2023.3118%2021.8462%2022.8306L27.3846%2019.5827Z'%20fill='%23090B2A'/%3E%3C/svg%3E") center/contain no-repeat;cursor:pointer;}
+.f-slider .f-slider-ends{display:flex;justify-content:space-between;font-family:var(--font-body);font-size:var(--p-s-size);color:var(--color-text-primary);margin-top:2px;}
+
+/* ---- OTP / 2-factor ---- */
+.f-otp{display:flex;gap:var(--space-s);}
+.f-otp input{width:44px;height:52px;text-align:center;font-family:var(--font-heading);font-weight:var(--fw-bold);font-size:22px;color:var(--color-text-primary);border:var(--border-s) solid var(--color-form-border);border-radius:var(--radius-s);background:var(--color-form-bg);}
+.f-otp input:focus{outline:none;border-color:var(--color-form-focus);box-shadow:var(--shadow-focus-form);}
+.f-otp.is-valid input{border-color:var(--color-form-border-selected);box-shadow:0 0 0 2px var(--color-form-success);}
+.f-otp.is-error input{border-color:var(--color-form-error);box-shadow:0 0 0 2px var(--color-form-error);}
+
+/* ---- Date of birth — three compact fields, caption above each ----
+   Fixed segment widths (not flex:1) so the day/month/year inputs stay
+   compact and never stretch to fill a wide container. min-width:0 stops
+   the inputs' intrinsic width forcing the segments to overflow. */
+.f-dob{display:flex;gap:var(--space-s);flex-wrap:nowrap;max-width:360px;}
+.f-dob .seg{display:flex;flex-direction:column;gap:4px;flex:0 1 84px;min-width:0;max-width:84px;}
+.f-dob .seg:last-child{flex-basis:108px;max-width:108px;}  /* year is wider */
+.f-dob .f-input{padding:0 var(--space-s);}
+.seg-cap{font-family:var(--font-body);font-size:var(--p-s-size);line-height:var(--p-s-lh);color:var(--color-text-secondary);}
+
+/* ---- Inline grid for unique multi-field rows (month/year) ---- */
+.f-row{display:flex;gap:var(--space-s);align-items:flex-end;max-width:360px;}
+.f-row > .f-field{flex:1;min-width:0;max-width:none;}
+
+/* ---- Panel call-out (Figma 789:3316) ----------------------------------
+   Warm tinted panel (--color-surface-tint: almond in light, dark slate in
+   dark — so the flipping text stays readable), peach icon circle with a
+   LightbulbFilament, body, optional headline, and an optional white
+   "Read more / Close" pill toggle with a chevron. */
+.f-callout{display:flex;gap:var(--space-m);align-items:center;background:var(--color-surface-tint);border-radius:var(--radius-s);padding:var(--space-l) var(--space-l) var(--space-l) var(--space-m);max-width:360px;}
+/* Expandable callouts pin the icon to the top in BOTH states, so it doesn't
+   jump from centred → top when the panel opens. Simple callouts stay centred. */
+.f-callout--expandable{align-items:flex-start;}
+.f-callout .f-callout-icon{flex:none;width:24px;height:24px;border-radius:var(--radius-pill);background:var(--peach-300,#ffe8cc);display:flex;align-items:center;justify-content:center;color:var(--color-midnight);}
+.f-callout .f-callout-content{display:flex;flex-direction:column;min-width:0;}
+.f-callout .f-callout-headline{font-family:var(--font-heading);font-weight:var(--fw-extrabold);font-size:14px;line-height:16px;color:var(--color-text-primary);margin:0 0 var(--space-xs);}
+.f-callout .f-callout-body{font-family:var(--font-body);font-size:var(--p-s-size);line-height:var(--p-s-lh);color:var(--color-text-primary);white-space:pre-line;}
+/* "Read more" reveal — animate via grid-template-rows 0fr→1fr (smoothly
+   tweens to the content's natural height with no JS measuring). The inner
+   wrapper clips the content while it's collapsed. */
+.f-callout .f-more-extra{display:grid;grid-template-rows:0fr;transition:grid-template-rows 300ms cubic-bezier(.22,1,.36,1);}
+.f-callout.is-open .f-more-extra{grid-template-rows:1fr;}
+.f-callout .f-more-extra-inner{overflow:hidden;min-height:0;}
+@media (prefers-reduced-motion:reduce){.f-callout .f-more-extra{transition:none;}}
+.f-callout .f-more-toggle{display:inline-flex;align-self:flex-start;align-items:center;gap:var(--space-xs);margin-top:var(--space-m);padding:2px 5px 2px 9px;background:var(--mono-100,#fff);border:0;border-radius:var(--radius-pill);font-family:var(--font-body);font-weight:var(--fw-bold);font-size:12px;line-height:16px;color:var(--color-midnight);cursor:pointer;}
+.f-callout .f-more-toggle svg{display:block;}
+/* Caret rotates (Read more ↔ Close) instead of swapping a second icon in. */
+.f-callout .f-more-caret{transition:transform 300ms cubic-bezier(.22,1,.36,1);}
+.f-callout.is-open .f-more-caret{transform:rotate(180deg);}
+@media (prefers-reduced-motion:reduce){.f-callout .f-more-caret{transition:none;}}
+
+/* ---- Address lookup ---------------------------------------------------
+   Postcode search → results dropdown → valid summary, with manual entry.
+   States: default · focus · searching · valid · manual · error · error-extended.
+   Demo data only — wire [data-f-addr-action] to a real lookup for production.
+   Source: Figma node 620:2666 (Input types / Unique / Address). */
+.f-address{max-width:360px;}
+/* location-pin prefix box (warm affix, tighter than a text affix) */
+.f-address .f-affix--prefix{padding:0 var(--space-s);color:var(--color-text-secondary);}
+
+/* search / clear action button — periwinkle, notched bottom-right corner */
+.f-addr-action{flex:none;display:inline-flex;align-items:center;justify-content:center;width:48px;height:32px;margin-right:var(--space-s);padding:0;background:var(--color-btn-secondary-bg);border:0;border-radius:var(--radius-s) var(--radius-s) var(--radius-none) var(--radius-s);color:var(--color-midnight);cursor:pointer;transition:background .12s;}
+.f-addr-action:hover{background:var(--color-btn-secondary-bg-hover);}
+.f-addr-action:focus-visible{outline:none;box-shadow:0 0 0 3px var(--color-periwinkle);}
+.f-addr-action svg{display:block;}
+/* icon swaps with state: find by default, clear once a postcode is entered */
+.f-addr-ico-clear{display:none;}
+.f-address.has-value .f-addr-ico-find{display:none;}
+.f-address.has-value .f-addr-ico-clear{display:inline-flex;}
+
+/* "enter address manually" inline link (default state) */
+.f-addr-manual-link{margin:var(--space-s) 0 0;font-family:var(--font-body);font-size:var(--p-s-size);}
+.f-addr-manual-link a{font-family:var(--font-heading);font-weight:var(--fw-bold);color:var(--color-text-link);}
+
+/* results dropdown — chunky navy border + hard offset shadow.
+   Border + rounded corners live on the outer container (overflow:hidden so the
+   corners clip cleanly); the scroll lives on the inner list, so the scrollbar
+   sits inside the border and never clips it. */
+.f-results{margin:var(--space-s) 0 0;border:var(--border-m) solid var(--color-ink);border-radius:var(--radius-s);background:var(--color-form-bg);box-shadow:var(--shadow-hard-s);overflow:hidden;}
+.f-results-list{list-style:none;margin:0;padding:0;max-height:300px;overflow-y:auto;scrollbar-width:thin;}
+.f-results-list li{display:block;padding:var(--space-l);font-family:var(--font-body);font-size:var(--p-s-size);line-height:var(--p-s-lh);color:var(--color-text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;border-top:var(--border-s) solid transparent;border-bottom:var(--border-s) solid transparent;}
+.f-results-list li:hover,.f-results-list li:focus,.f-results-list li.is-active{background:var(--color-bg-light-accent-tint);border-top-color:var(--color-ink);border-bottom-color:var(--color-ink);font-weight:var(--fw-bold);outline:none;}
+/* first row active: the container's top border is its top edge — don't double it */
+.f-results-list li:first-child.is-active{border-top-color:transparent;}
+
+/* shared panel (valid summary + manual edit) — warm tinted surface (adapts in dark) */
+.f-addr-panel{display:flex;flex-direction:column;gap:var(--space-l);margin-top:var(--space-l);padding:var(--space-l);background:var(--color-surface-tint);border-radius:var(--radius-s);}
+.f-addr-panel.is-error{border:var(--border-m) solid var(--color-form-error);}
+
+/* valid summary — address playback + edit link */
+.f-addr-summary-text{margin:0;font-family:var(--font-body);font-size:var(--p-m-size);line-height:var(--p-m-lh);color:var(--color-text-primary);}
+.f-addr-edit{display:inline-flex;align-items:center;gap:var(--space-2xs);font-family:var(--font-heading);font-weight:var(--fw-extrabold);font-size:12px;line-height:16px;color:var(--color-text-link);text-decoration:underline;cursor:pointer;}
+.f-addr-edit svg{display:block;}
+
+/* manual entry: two narrow numeric fields, rest full width */
+.f-addr-panel .f-field{max-width:none;}
+.f-addr-panel .f-field.is-narrow .f-control{max-width:122px;}
+
+/* save button — secondary (lilac), notched corner, hard shadow */
+.f-addr-save{width:100%;min-height:48px;padding:var(--space-m) var(--space-2xl);font-family:var(--font-heading);font-weight:var(--fw-bold);font-size:18px;line-height:20px;color:var(--color-btn-primary-text);background:var(--color-btn-secondary-bg);border:var(--border-m) solid var(--color-btn-primary-border);border-radius:var(--radius-button);box-shadow:var(--shadow-hard-s);cursor:pointer;transition:background .12s,box-shadow .12s,transform .12s;}
+.f-addr-save:hover{background:var(--color-btn-secondary-bg-hover);box-shadow:0 2px 0 0 var(--color-btn-primary-border);transform:translateY(1px);}
+.f-addr-save:active{background:var(--color-btn-secondary-bg-active);box-shadow:0 0 0 0 var(--color-btn-primary-border);transform:translateY(3px);}
+
+/* inline error message (Figma 952:10532) — reusable; red WarningOctagon + bold
+   text on a warm surface. Used by ErrorMessage and the address manual panel. */
+.f-error-message{display:flex;gap:var(--space-s);align-items:center;padding:var(--space-s);border-radius:var(--radius-xs);background:var(--color-bg-secondary);}
+.f-error-message svg{flex:none;display:block;color:var(--color-text-error);}
+.f-error-message span{font-family:var(--font-body);font-weight:var(--fw-bold);font-size:var(--p-s-size);line-height:var(--p-s-lh);color:var(--color-text-primary);}
+
+/* ---- Calendar — 28-day period select ---------------------------------
+   One date-driven calendar; the four Figma variants (1 month / 2 months
+   50-50 / early / late) are emergent shapes depending on where "today"
+   falls. Week starts Monday; a periwinkle month label precedes each
+   month's cells. Selectable days are the next 28 from "today"; days
+   before today or beyond the window are greyed and disabled.
+   Source: Figma node 1441:1603. Rendered by forms.js. */
+.f-cal{max-width:360px;}
+.f-cal-control{margin-bottom:var(--space-l);}
+.f-cal-control .f-control{max-width:220px;}
+.f-cal-readout{font-family:var(--font-body);font-size:var(--p-s-size);line-height:var(--p-s-lh);color:var(--color-text-secondary);margin:0 0 var(--space-l);}
+.f-cal-readout strong{font-family:var(--font-heading);font-weight:var(--fw-extrabold);color:var(--color-text-primary);}
+.f-cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:var(--space-xs);}
+.f-cal-dow{font-family:var(--font-heading);font-weight:var(--fw-bold);font-size:12px;color:var(--color-text-secondary);text-align:center;padding-bottom:var(--space-xs);}
+.f-cal-month{grid-column:1 / -1;font-family:var(--font-heading);font-weight:var(--fw-extrabold);font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--color-text-link);text-align:center;padding:var(--space-s) 0;}
+.f-cal-day{display:flex;align-items:center;justify-content:center;aspect-ratio:1;width:100%;font-family:var(--font-body);font-size:var(--p-s-size);color:var(--color-text-primary);background:var(--color-form-bg);border:var(--border-s) solid var(--color-form-border);border-radius:var(--radius-s);cursor:pointer;padding:0;transition:background .12s,box-shadow .12s,transform .12s;}
+.f-cal-day.is-open:hover{background:var(--color-bg-light-tint);}
+.f-cal-day.is-past,.f-cal-day.is-beyond{background:var(--color-surface-tint);border-color:transparent;color:var(--almond-800,#a7a29d);cursor:not-allowed;}
+.f-cal-day.is-selected{background:var(--color-peppermint);border-color:var(--color-midnight);font-weight:var(--fw-bold);box-shadow:var(--shadow-hard-s);}
+.f-cal-day:focus-visible{outline:none;box-shadow:0 0 0 3px var(--color-periwinkle);}
+
+.f-hidden{display:none;}

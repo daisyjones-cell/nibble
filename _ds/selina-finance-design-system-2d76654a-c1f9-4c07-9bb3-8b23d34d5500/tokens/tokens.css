@@ -1,0 +1,264 @@
+/* =================================================================
+   Selina Finance — Design Tokens
+   Source of truth: Figma "Tokens - Components" (uhksmygJDQQw35tIoxyevW),
+   colour ramps + semantics pulled from the Colours page (484:1079),
+   type/spacing/border/grid from the published doc pages.
+
+   Usage:  <link rel="stylesheet" href="/design-system/tokens.css">
+   Rule:   style against these custom properties — never hardcode hex/px.
+
+   Layers: (1) primitive ramps  → (2) brand anchors  → (3) semantic roles.
+   Prefer semantic tokens in components; reach for a raw ramp step only
+   when no semantic token fits.
+   ================================================================= */
+
+:root {
+  /* ===============================================================
+     1. PRIMITIVE RAMPS  (100 = lightest → 900 = darkest)
+     =============================================================== */
+  /* Monochrome */
+  --mono-100:#ffffff; --mono-200:#e6e6e6; --mono-300:#cccccc; --mono-400:#b3b3b3;
+  --mono-500:#808080; --mono-600:#666666; --mono-700:#4c4c4c; --mono-800:#191919; --mono-900:#000000;
+  --mono-overlay-dark:#00000080; --mono-overlay-light:#ffffff80; --mono-transparent:#ffffff00;
+
+  /* Almond (warm sand neutral) */
+  --almond-100:#fcfaf9; --almond-200:#f9f6f3; --almond-300:#f5f1ec; --almond-400:#f1eae3;
+  --almond-500:#efe8e0; --almond-600:#d7d1ca; --almond-700:#bfbab3; --almond-800:#a7a29d; --almond-900:#8f8b86;
+
+  /* Midnight (navy ink) */
+  --midnight-100:#9d9daa; --midnight-200:#6b6d7f; --midnight-300:#53546a; --midnight-400:#3a3c55;
+  --midnight-500:#090b2a; --midnight-600:#020208; --midnight-700:#040411; --midnight-800:#050719; --midnight-900:#070922;
+
+  /* Peach (warm highlight) */
+  --peach-100:#fff7ed; --peach-200:#ffefdb; --peach-300:#ffe8cc; --peach-400:#ffd8a9;
+  --peach-500:#ffd7a6; --peach-600:#f4bc76; --peach-700:#d38d38; --peach-800:#af6d1b; --peach-900:#894c00;
+
+  /* Peppermint (mint green — hero accent) */
+  --peppermint-100:#eafbee; --peppermint-200:#d6f6de; --peppermint-300:#c1f2cd; --peppermint-400:#adedbd;
+  --peppermint-500:#98e9ac; --peppermint-600:#89d29b; --peppermint-700:#7aba8a; --peppermint-800:#5b8c67; --peppermint-900:#4c7556;
+
+  /* Periwinkle (lilac — secondary accent) */
+  --periwinkle-100:#f1effc; --periwinkle-200:#e3e0f9; --periwinkle-300:#d5d0f6; --periwinkle-400:#c7c1f3;
+  --periwinkle-500:#b9b1f0; --periwinkle-600:#a79fd8; --periwinkle-700:#948ec0; --periwinkle-800:#827ca8; --periwinkle-900:#6f6a90;
+
+  /* Secondary (feedback) */
+  --secondary-error:    #e92e4a;
+  --secondary-focus:    #f3ce3a;  /* yellow focus primitive */
+  --secondary-focus-alt:#2ed0ff;  /* cyan — legacy (form focus now uses peach-400) */
+
+  /* ===============================================================
+     2. BRAND ANCHORS  (each family's 500 step)
+     =============================================================== */
+  --color-midnight:   var(--midnight-500);    /* #090b2a */
+  --color-peppermint: var(--peppermint-500);  /* #98e9ac */
+  --color-periwinkle: var(--periwinkle-500);  /* #b9b1f0 */
+  --color-almond:     var(--almond-500);      /* #efe8e0 */
+  --color-peach:      var(--peach-500);        /* #ffd7a6 */
+  /* legacy aliases */
+  --color-navy:  var(--color-midnight);
+  --color-mint:  var(--color-peppermint);
+  --color-lilac: var(--color-periwinkle);
+
+  /* ===============================================================
+     3. SEMANTIC ROLES
+     =============================================================== */
+  /* Text */
+  --color-text-primary:     #020208;   /* midnight-600 */
+  --color-text-secondary:   #3a3c55;   /* midnight-400 */
+  --color-text-tertiary:    #b3b3b3;
+  --color-text-light:       #efe8e0;
+  --color-text-extra-light: #ffffff;
+  --color-text-placeholder: #cccccc;
+  --color-text-link:        #948ec0;   /* periwinkle-700 */
+  --color-text-success:     #7aba8a;
+  --color-text-error:       #e92e4a;
+
+  /* Backgrounds */
+  --color-bg-primary:           #fcfaf9;  /* almond-100 — base surface */
+  --color-bg-light-tint:        #f9f6f3;  /* almond-200 — warm section */
+  --color-bg-light-accent-tint: #e3e0f9;  /* periwinkle-200 — lilac wash */
+  --color-bg-secondary:         #efe8e0;  /* almond block */
+  --color-surface-tint:         #f5f1ec;  /* almond-300 — warm tinted panel (callout, address panel, disabled cells); flips to a dark slate in dark mode */
+  --color-bg-accent:            #b9b1f0;  /* periwinkle block / doc header */
+  --color-bg-highlight:         #ffd7a6;  /* peach attention */
+  --color-bg-contrast:          #090b2a;  /* dark block */
+
+  /* Fills */
+  --color-fill-primary:   #090b2a;
+  --color-fill-secondary: #98e9ac;
+  --color-fill-accent:    #b9b1f0;
+  --color-fill-error:     #e92e4a;
+  --color-fill-highlight: #ffd7a6;
+  --color-fill-pure:      #ffffff;
+  --color-ink:            var(--color-midnight);   /* primary line/ink — flips light in dark */
+
+  /* Forms */
+  --color-form-bg:              #ffffff;
+  --color-form-affix-bg:        #f1eae3;
+  --color-form-border:          #d7d1ca;
+  --color-form-border-selected: #7aba8a;
+  --color-form-focus:           #ffd8a9;  /* peach-400 (Figma Forms/Focus) */
+  --color-form-success:         #98e9ac;
+  --color-form-error:           #e92e4a;
+  --color-form-hover:           #f9f6f3;
+
+  /* Buttons — colour by variant × state */
+  --color-btn-primary-bg:             #98e9ac;
+  --color-btn-primary-bg-hover:       #89d29b;
+  --color-btn-primary-bg-active:      #adedbd;
+  --color-btn-primary-bg-disabled:    #eafbee;  /* tinted green — per-variant disabled fill */
+  --color-btn-primary-text:           #090b2a;
+  --color-btn-primary-text-disabled:  #cccccc;  /* shared disabled text (all variants) */
+  --color-btn-primary-border:         #090b2a;
+  --color-btn-primary-border-disabled:#b3b3b3;  /* focus ring colour (not the disabled border) */
+  --color-btn-secondary-bg:           #b9b1f0;
+  --color-btn-secondary-bg-hover:     #a79fd8;
+  --color-btn-secondary-bg-active:    #d5d0f6;
+  --color-btn-secondary-bg-disabled:  #f1effc;  /* tinted periwinkle */
+  --color-btn-tertiary-bg:            #efe8e0;
+  --color-btn-tertiary-bg-hover:      #d7d1ca;
+  --color-btn-tertiary-bg-active:     #f5f1ec;
+  --color-btn-tertiary-bg-disabled:   #f9f6f3;  /* tinted almond */
+  --color-btn-outline-bg:             transparent;
+  --color-btn-outline-bg-hover:       #7aba8a;
+  --color-btn-outline-bg-active:      #adedbd;
+  --color-btn-outline-bg-disabled:    #eafbee;  /* tinted green (outline is green-family) */
+  --color-btn-outline-text:           #090b2a;
+  /* Inverted (for dark surfaces): dark fill, almond border/text */
+  --color-btn-inverted-bg:            #090b2a;
+  --color-btn-inverted-bg-hover:      #070922;
+  --color-btn-inverted-bg-active:     #53546a;
+  --color-btn-inverted-bg-disabled:   #e6e6e6;
+  --color-btn-inverted-text:          #efe8e0;
+  --color-btn-inverted-border:        #efe8e0;
+
+  /* ===============================================================
+     TYPOGRAPHY — families & weights
+     =============================================================== */
+  --font-heading: "Sora", system-ui, sans-serif;
+  --font-body:    "Inter", system-ui, sans-serif;
+  --fw-regular:400; /* @kind font */
+  --fw-semibold:600; /* @kind font */
+  --fw-bold:700; /* @kind font */
+  --fw-extrabold:800; /* @kind font */
+
+  /* Heading scale — DESKTOP (Sora). size / line-height / weight / tracking */
+  --h-3xl-size:80px; --h-3xl-lh:80px; --h-3xl-weight:600; --h-3xl-ls:-4px;
+  --h-2xl-size:64px; --h-2xl-lh:64px; --h-2xl-weight:600; --h-2xl-ls:-4px;
+  --h-xl-size:44px;  --h-xl-lh:48px;  --h-xl-weight:700;  --h-xl-ls:-2px;
+  --h-l-size:36px;   --h-l-lh:40px;   --h-l-weight:700;   --h-l-ls:-2px;
+  --h-m-size:28px;   --h-m-lh:32px;   --h-m-weight:700;   --h-m-ls:-1px;
+  --h-s-size:18px;   --h-s-lh:20px;   --h-s-weight:700;   --h-s-ls:0px;
+  --h-xs-size:16px;  --h-xs-lh:20px;  --h-xs-weight:700;  --h-xs-ls:0px;
+
+  /* Heading scale — MOBILE (headings scale down; body/labels unchanged) */
+  --h-3xl-size-mob:44px; --h-3xl-lh-mob:44px; --h-3xl-ls-mob:-1px;
+  --h-2xl-size-mob:36px; --h-2xl-lh-mob:36px; --h-2xl-ls-mob:-1px;
+  --h-xl-size-mob:28px;  --h-xl-lh-mob:28px;  --h-xl-ls-mob:-1px;
+  --h-l-size-mob:24px;   --h-l-lh-mob:24px;   --h-l-ls-mob:-1px;
+  --h-m-size-mob:24px;   --h-m-lh-mob:29px;   --h-m-ls-mob:-1px;
+  --h-s-size-mob:18px;   --h-s-lh-mob:22px;   --h-s-ls-mob:0px;   /* LH 120% */
+  --h-xs-size-mob:16px;  --h-xs-lh-mob:20px;  --h-xs-ls-mob:0px;  /* LH 125% */
+
+  /* Paragraph (Inter) */
+  --p-l-size:24px; --p-l-lh:29px;
+  --p-m-size:18px; --p-m-lh:24px;
+  --p-s-size:14px; --p-s-lh:18px;
+
+  /* Labels (Sora 800, line-height 100%) */
+  --label-uc-m-size:14px; --label-uc-m-ls:4px;
+  --label-uc-s-size:12px; --label-uc-s-ls:4px;
+  --label-lc-m-size:14px; --label-lc-m-ls:0px;
+  --label-lc-s-size:12px; --label-lc-s-ls:0px;
+  --label-weight:800;
+  --label-m-size:var(--label-lc-m-size); --label-m-lh:16px; --label-m-weight:800;
+
+  /* ===============================================================
+     SPACING — global 8-point scale (px). 2/4/12 are sanctioned off-grid.
+     =============================================================== */
+  --space-3xs:0px; --space-2xs:2px; --space-xs:4px; --space-s:8px; --space-m:12px;
+  --space-l:16px; --space-xl:24px; --space-2xl:32px; --space-3xl:40px; --space-4xl:48px;
+  --space-5xl:56px; --space-6xl:64px; --space-7xl:72px; --space-8xl:80px; --space-9xl:88px;
+  --space-10xl:96px; --space-11xl:104px; --space-12xl:112px; --space-13xl:120px; --space-14xl:128px;
+
+  /* ===============================================================
+     RADIUS  (+ signature notched button shape)
+     =============================================================== */
+  --radius-none:0px; --radius-xs:4px; --radius-s:8px; --radius-m:12px;
+  --radius-l:16px; --radius-xl:24px; --radius-pill:9999px;
+  /* Button: notch on the bottom-right; radius scales with button size. Order: TL TR BR BL. */
+  --radius-button:   var(--radius-l) var(--radius-l) var(--radius-xs) var(--radius-l);   /* XL/L — 16 16 4 16 */
+  --radius-button-m: var(--radius-m) var(--radius-m) var(--radius-xs) var(--radius-m);    /* M    — 12 12 4 12 */
+  --radius-button-s: var(--radius-s) var(--radius-s) var(--radius-none) var(--radius-s);  /* S    — 8 8 0 8 */
+
+  /* ===============================================================
+     BORDER WIDTH
+     =============================================================== */
+  --border-s:1px; --border-m:2px; --border-l:3px; --border-xl:4px;
+
+  /* ===============================================================
+     LAYOUT GRID — 12 col desktop / 4 col mobile, 24px gutters & margins
+     =============================================================== */
+  --grid-columns:12; /* @kind other */
+  --grid-columns-mobile:4; /* @kind other */
+  --grid-gutter:24px; --grid-margin:24px;
+  --container-max:1280px;
+
+  /* ===============================================================
+     ELEVATION — signature hard shadow (0 blur, navy, offset down)
+     =============================================================== */
+  --shadow-hard-s:0 3px 0 0 var(--color-midnight);
+  --shadow-hard-m:0 4px 0 0 var(--color-midnight);
+  --shadow-focus-form:0 0 0 2px var(--color-form-focus);
+}
+
+/* =================================================================
+   DARK THEME
+   Set data-theme="dark" on <html> (or any ancestor) to switch.
+   Values read from the Figma dark mode (Website file
+   2ljWfUe1Qiy3QgbKpyh8Qn). Components style against the semantic
+   tokens below, so this re-themes the whole system. The hard shadow
+   flips to light so the signature offset stays visible on dark.
+   ================================================================= */
+[data-theme="dark"] {
+  /* Text */
+  --color-text-primary:   #fcfaf9;
+  --color-text-secondary: #efe8e0;
+  --color-text-link:      #b9b1f0;
+
+  /* Backgrounds */
+  --color-bg-primary:           #3a3c55;
+  --color-bg-light-tint:        #050719;
+  --color-bg-light-accent-tint: #827ca8;
+  --color-bg-secondary:         #090b2a;
+  --color-surface-tint:         #3a3c55;  /* warm tinted panel → readable dark slate */
+  --color-bg-contrast:          #efe8e0;
+
+  /* Fills (secondary / accent / highlight are unchanged across modes) */
+  --color-fill-primary: #fcfaf9;
+  --color-fill-pure:    #000000;
+  --color-ink:          #fcfaf9;
+
+  /* Forms — bg = bg-secondary (per design call); affix + hover are derived
+     mid-dark surfaces (not specified in Figma — confirm with design). */
+  --color-form-bg:        #090b2a;
+  --color-form-affix-bg:  #3a3c55;
+  --color-form-hover:     #3a3c55;
+
+  /* Buttons */
+  --color-btn-primary-bg:       #adedbd;
+  --color-btn-primary-bg-hover: #5b8c67;
+  --color-btn-primary-border:   #ffffff;
+  --color-btn-secondary-bg:     #a79fd8;
+  --color-btn-outline-text:     #fcfaf9;
+  /* Disabled — darker per-variant fills + dark grey text on dark surfaces */
+  --color-btn-primary-bg-disabled:    #4c7556;
+  --color-btn-primary-text-disabled:  #4c4c4c;
+  --color-btn-secondary-bg-disabled:  #6f6a90;
+  --color-btn-tertiary-bg-disabled:   #8f8b86;
+  --color-btn-outline-bg-disabled:    #6b6d7f;
+
+  /* Signature hard shadow → light on dark (matches the Figma dark button shadow) */
+  --shadow-hard-s: 0 3px 0 0 #fcfaf9;
+  --shadow-hard-m: 0 4px 0 0 #fcfaf9;
+}

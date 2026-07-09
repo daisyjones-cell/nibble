@@ -1,0 +1,20 @@
+# Copy this to ~/.dbt/profiles.yml (or set DBT_PROFILES_DIR).
+# Auth uses your own Google login via the gcloud CLI:
+#   1. brew install --cask google-cloud-sdk   (or the Windows installer)
+#   2. gcloud auth application-default login
+#   3. gcloud config set project selina-bq-unsec-dev
+# Then: dbt debug   ->   dbt seed   ->   dbt build
+
+nibble:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth                 # uses your gcloud application-default credentials
+      project: selina-bq-unsec-dev  # the GCP project (unsecured dev area)
+      dataset: nibble               # the schema/dataset everything is built into
+      location: EU                  # Selina is UK-based; change to US only if the project is US
+      threads: 4
+      priority: interactive
+      job_execution_timeout_seconds: 300
+      job_retries: 1

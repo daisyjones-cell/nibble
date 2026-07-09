@@ -1,0 +1,173 @@
+/* =================================================================
+   Selina Finance — Component styles (chrome, surfaces, indicators)
+   Built on tokens.css. The brand signature — hard 0-blur navy offset
+   shadow + thick navy border + heavy rounding — carries through cards
+   and the form-page chrome (NavBar, TrustBar, ProgressBar, NeedHelpCard,
+   FixedActionBar). Each ships a desktop + mobile treatment.
+   ================================================================= */
+
+/* ---------- Card — chunky pressable surface ---------- */
+.sel-card {
+  background: var(--color-fill-pure);
+  border: var(--border-m) solid var(--color-midnight);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-hard-m);
+  padding: var(--space-xl);
+}
+.sel-card--flat { box-shadow: none; }
+.sel-card--soft { border-color: var(--color-form-border); box-shadow: none; }
+.sel-card--tint { background: var(--color-surface-tint); border-color: transparent; box-shadow: none; }
+.sel-card--accent { background: var(--color-bg-accent); border-color: var(--color-midnight); }
+.sel-card--contrast { background: var(--color-bg-contrast); color: var(--color-text-light); }
+
+/* ---------- Badge / Tag / Pill ---------- */
+.sel-badge {
+  display: inline-flex; align-items: center; gap: var(--space-xs);
+  font-family: var(--font-heading); font-weight: var(--fw-extrabold);
+  font-size: 12px; line-height: 16px; letter-spacing: 4px; text-transform: uppercase;
+  padding: 4px 8px; border-radius: var(--radius-xs);
+  background: var(--color-bg-highlight); color: var(--color-midnight);
+}
+.sel-badge--mint   { background: var(--color-peppermint); }
+.sel-badge--lilac  { background: var(--color-periwinkle); }
+.sel-badge--almond { background: var(--color-almond); }
+.sel-badge--ink    { background: var(--color-midnight); color: var(--color-text-light); }
+
+.sel-tag {
+  display: inline-flex; align-items: center; gap: var(--space-xs);
+  font-family: var(--font-body); font-weight: var(--fw-bold); font-size: 14px; line-height: 18px;
+  padding: 4px 12px; border-radius: var(--radius-pill);
+  background: var(--color-almond); color: var(--color-text-primary);
+}
+.sel-tag--popular {
+  background: var(--color-peppermint); color: var(--color-midnight);
+  border: var(--border-s) solid var(--color-midnight);
+}
+
+/* ---------- NavBar ---------- */
+.sel-nav {
+  display: flex; align-items: center; gap: var(--space-2xl);
+  height: 72px; padding: 0 var(--space-2xl);
+  background: var(--color-bg-primary);
+  border-bottom: var(--border-s) solid var(--color-form-border);
+}
+.sel-nav__logo { display: inline-flex; align-items: center; color: var(--color-midnight); }
+.sel-nav__logo svg, .sel-nav__logo img { height: 26px; width: auto; display: block; }
+.sel-nav__links { display: flex; align-items: center; gap: var(--space-xl); margin: 0; }
+.sel-nav__link {
+  font-family: var(--font-heading); font-weight: var(--fw-bold); font-size: 14px;
+  color: var(--color-text-primary); text-decoration: none; cursor: pointer;
+}
+.sel-nav__link:hover { color: var(--color-text-link); }
+.sel-nav__spacer { flex: 1; }
+.sel-nav--mobile { height: 60px; padding: 0 var(--space-l); }
+.sel-nav--mobile .sel-nav__links { display: none; }
+.sel-nav__burger {
+  display: none; flex: none; width: 40px; height: 40px; align-items: center; justify-content: center;
+  background: transparent; border: 0; color: var(--color-midnight); cursor: pointer;
+}
+.sel-nav--mobile .sel-nav__burger { display: inline-flex; }
+
+/* ---------- TrustBar ---------- */
+.sel-trustbar {
+  display: flex; align-items: center; gap: var(--space-xl); flex-wrap: wrap;
+  padding: var(--space-m) var(--space-l);
+  background: var(--color-bg-light-tint); border-radius: var(--radius-s);
+}
+.sel-trustbar__item {
+  display: inline-flex; align-items: center; gap: var(--space-s);
+  font-family: var(--font-body); font-size: 14px; line-height: 18px; color: var(--color-text-primary);
+}
+.sel-trustbar__item svg { color: var(--color-text-success); flex: none; }
+.sel-trust-stars { display: inline-flex; gap: 2px; }
+.sel-trust-stars span {
+  display: inline-flex; width: 20px; height: 20px; align-items: center; justify-content: center;
+  background: #00b67a; color: #fff;
+}
+.sel-trustbar--dark { background: var(--color-bg-contrast); }
+.sel-trustbar--dark .sel-trustbar__item { color: var(--color-text-light); }
+
+/* ---------- ProgressBar ---------- */
+.sel-progress { width: 100%; }
+.sel-progress__track {
+  height: 8px; border-radius: var(--radius-pill);
+  background: var(--color-bg-secondary); overflow: hidden;
+}
+.sel-progress__fill {
+  height: 100%; border-radius: var(--radius-pill);
+  background: var(--color-peppermint-600, #89d29b); transition: width .3s cubic-bezier(.22,1,.36,1);
+}
+.sel-progress__label {
+  display: flex; justify-content: space-between; margin-top: var(--space-s);
+  font-family: var(--font-body); font-size: 14px; color: var(--color-text-secondary);
+}
+
+/* ---------- ProgressTimeline (stepped) ---------- */
+.sel-timeline { display: flex; flex-direction: column; gap: var(--space-l); }
+.sel-timeline__step { display: flex; align-items: flex-start; gap: var(--space-m); }
+.sel-timeline__dot {
+  flex: none; width: 28px; height: 28px; border-radius: var(--radius-pill);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-heading); font-weight: var(--fw-bold); font-size: 13px;
+  background: var(--color-fill-pure); border: var(--border-m) solid var(--color-form-border);
+  color: var(--color-text-secondary);
+}
+.sel-timeline__step--done .sel-timeline__dot { background: var(--color-peppermint); border-color: var(--color-midnight); color: var(--color-midnight); }
+.sel-timeline__step--active .sel-timeline__dot { background: var(--color-midnight); border-color: var(--color-midnight); color: var(--color-text-light); }
+.sel-timeline__body { padding-top: 3px; }
+.sel-timeline__title { font-family: var(--font-heading); font-weight: var(--fw-bold); font-size: 16px; color: var(--color-text-primary); margin: 0; }
+.sel-timeline__sub { font-family: var(--font-body); font-size: 14px; color: var(--color-text-secondary); margin: 2px 0 0; }
+
+/* ---------- NeedHelpCard ---------- */
+.sel-helpcard {
+  display: flex; gap: var(--space-m); align-items: flex-start;
+  background: var(--color-surface-tint); border-radius: var(--radius-l);
+  padding: var(--space-l);
+}
+.sel-helpcard__icon {
+  flex: none; width: 40px; height: 40px; border-radius: var(--radius-pill);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-periwinkle); color: var(--color-midnight);
+}
+.sel-helpcard__title { font-family: var(--font-heading); font-weight: var(--fw-bold); font-size: 16px; color: var(--color-text-primary); margin: 0 0 var(--space-2xs); }
+.sel-helpcard__body { font-family: var(--font-body); font-size: 14px; line-height: 18px; color: var(--color-text-secondary); margin: 0 0 var(--space-s); }
+.sel-helpcard__link {
+  font-family: var(--font-heading); font-weight: var(--fw-bold); font-size: 14px;
+  color: var(--color-text-link); text-decoration: none; display: inline-flex; align-items: center; gap: var(--space-2xs);
+}
+.sel-helpcard__link:hover { text-decoration: underline; }
+
+/* ---------- FixedActionBar ---------- */
+.sel-actionbar {
+  display: flex; align-items: center; gap: var(--space-l);
+  padding: var(--space-l) var(--space-2xl);
+  background: var(--color-fill-pure);
+  border-top: var(--border-s) solid var(--color-form-border);
+}
+.sel-actionbar__spacer { flex: 1; }
+.sel-actionbar--mobile { padding: var(--space-m) var(--space-l); }
+.sel-actionbar--mobile .sel-btn { flex: 1; }
+
+/* ---------- OfferCard ---------- */
+.sel-offer {
+  position: relative;
+  background: var(--color-fill-pure);
+  border: var(--border-m) solid var(--color-midnight);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-hard-m);
+  padding: var(--space-xl);
+  display: flex; flex-direction: column; gap: var(--space-m);
+}
+.sel-offer__badge { position: absolute; top: calc(-1 * var(--space-m)); right: var(--space-l); }
+.sel-offer__rate { font-family: var(--font-heading); font-weight: var(--fw-semibold); font-size: 44px; line-height: 48px; letter-spacing: -2px; color: var(--color-midnight); }
+.sel-offer__rate small { font-size: 18px; font-weight: var(--fw-bold); letter-spacing: 0; }
+.sel-offer__name { font-family: var(--font-heading); font-weight: var(--fw-bold); font-size: 18px; color: var(--color-text-primary); margin: 0; }
+.sel-offer__meta { display: flex; flex-direction: column; gap: var(--space-s); margin: 0; padding: 0; list-style: none; }
+.sel-offer__meta li { display: flex; justify-content: space-between; font-family: var(--font-body); font-size: 14px; color: var(--color-text-secondary); }
+.sel-offer__meta li strong { color: var(--color-text-primary); }
+
+/* ---------- Eyebrow / section label ---------- */
+.sel-eyebrow {
+  font-family: var(--font-heading); font-weight: var(--fw-extrabold);
+  font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--color-text-link);
+}

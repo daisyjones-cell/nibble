@@ -1,0 +1,33 @@
+version: 2
+
+sources:
+  # App-generated tables. In production these are written by the Nibble backend
+  # (Supabase/Postgres) and loaded into BigQuery by your ingestion tool, OR
+  # streamed straight into these raw tables. Until that pipeline exists they can
+  # be empty — the models below still build.
+  - name: nibble_raw
+    project: selina-bq-unsec-dev
+    dataset: nibble_raw
+    description: "Raw, append-only events and records emitted by the Nibble app."
+    tables:
+      - name: reviews
+        description: "One row per review an employee submits."
+        columns:
+          - name: review_id
+            tests: [unique, not_null]
+          - name: stall_id
+            tests: [not_null]
+      - name: dishes
+        description: "Menu items admins add to a stall, with upvote counts."
+        columns:
+          - name: dish_id
+            tests: [unique, not_null]
+      - name: dish_upvotes
+        description: "One row per (user, dish) upvote."
+      - name: visits
+        description: "One row per logged visit (anonymous count, keyed by user + day)."
+      - name: users
+        description: "People with access to Nibble (from Google SSO)."
+        columns:
+          - name: user_id
+            tests: [unique, not_null]

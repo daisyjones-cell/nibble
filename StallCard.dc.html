@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/tokens/tokens.css">
+  <link rel="stylesheet" href="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/styles.css">
+  <style>.sel-tag,.sel-badge{white-space:nowrap}</style>
+</helmet>
+<div class="sel-card" style="padding:0;overflow:hidden;cursor:pointer;transition:transform .14s cubic-bezier(.22,1,.36,1),box-shadow .14s;display:flex;flex-direction:column;height:100%" onClick="{{ onOpen }}" style-hover="transform:translateY(-4px);box-shadow:0 10px 0 0 var(--color-midnight)">
+  <div style="{{ imgStyle }};height:170px;position:relative;flex:none">
+    <button type="button" onClick="{{ onFav }}" aria-label="Favourite" style="{{ favBtnStyle }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="{{ favFill }}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.6-7-9.5A3.5 3.5 0 0 1 12 8a3.5 3.5 0 0 1 7 1.5c0 4.9-7 10.5-7 10.5Z"/></svg></button>
+  </div>
+  <div style="padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+      <h3 style="font-family:var(--font-heading);font-weight:700;font-size:19px;letter-spacing:-.5px;margin:0">{{ name }}</h3>
+      <sc-if value="{{ hasRating }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:4px;font-family:var(--font-heading);font-weight:700;font-size:14px;flex:none"><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--color-peach-700,#d38d38)"><path d="M12 4l2.4 5 5.6.7-4 3.9 1 5.5L12 16.9 7 19l1-5.5-4-3.9 5.6-.7L12 4Z"/></svg>{{ rating }}</span></sc-if>
+    </div>
+    <div style="font-family:var(--font-body);font-size:13px;color:var(--color-text-secondary);margin-top:-2px">{{ cuisine }} · {{ reviewsLabel }}</div>
+    <sc-if value="{{ hasFoodType }}" hint-placeholder-val="{{ false }}"><div style="font-family:var(--font-body);font-size:14px;color:var(--color-text-primary);line-height:1.35">{{ foodType }}</div></sc-if>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:8px"><sc-for list="{{ dietTags }}" as="t" hint-placeholder-count="0"><span class="sel-tag" style="font-size:12px;padding:2px 10px;background:var(--color-peppermint-100,#eafbee);border:var(--border-s) solid var(--color-peppermint)">{{ t }}</span></sc-for></div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:340,&quot;height&quot;:360},&quot;stall&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;object&quot;}}">
+class Component extends DCLogic {
+  renderVals(){
+    const s=this.props.stall||{};
+    const fav=!!s.isFav;
+    return {
+      onOpen:s.onOpen, onFav:s.onFav,
+      imgStyle:s.imgStyle,
+      name:s.name, cuisine:s.cuisine, reviewsLabel:s.reviewsLabel,
+      hasRating:!!s.hasRating, rating:s.rating,
+      foodType:s.foodType||'', hasFoodType:!!(s.foodType&&(''+s.foodType).trim()),
+      dietTags:s.dietTags||[],
+      favFill:fav?'var(--color-secondary-error,#e92e4a)':'none',
+      favBtnStyle:'position:absolute;top:12px;right:12px;width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border:var(--border-m) solid var(--color-midnight);border-radius:9999px;cursor:pointer;background:var(--color-fill-pure);box-shadow:var(--shadow-hard-s);color:'+(fav?'var(--color-secondary-error,#e92e4a)':'var(--color-midnight)')
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style data-omelette-print-defaults>
+@media print {
+  @page { margin: 0.5in; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid; }
+  figure, table, pre, blockquote, img, svg, tr, [class~="card" i] { break-inside: avoid; }
+  img, svg { max-width: 100%; }
+  p { orphans: 3; widows: 3; }
+}
+</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/tokens/tokens.css">
+  <link rel="stylesheet" href="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/styles.css">
+  <style>
+    doc-page:not(:defined){visibility:hidden}
+    body{background:var(--color-bg-light-tint)}
+    .g h1{font-family:var(--font-heading);font-weight:700;font-size:38px;letter-spacing:-2px;line-height:1.02;margin:0 0 6px;color:var(--color-text-primary)}
+    .g .lead{font-family:var(--font-body);font-size:16px;line-height:1.5;color:var(--color-text-secondary);margin:0 0 26px}
+    .g h2{font-family:var(--font-heading);font-weight:700;font-size:20px;letter-spacing:-.5px;margin:30px 0 10px;color:var(--color-text-primary);display:flex;align-items:center;gap:10px}
+    .g h2 .n{width:28px;height:28px;flex:none;border-radius:9999px;background:var(--color-peppermint);border:var(--border-m) solid var(--color-midnight);display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:800}
+    .g p,.g li{font-family:var(--font-body);font-size:14px;line-height:1.6;color:var(--color-text-primary)}
+    .g ul,.g ol{margin:8px 0 8px;padding-left:22px}
+    .g li{margin:5px 0}
+    .g strong{font-weight:700}
+    .g code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:var(--color-almond);padding:1px 6px;border-radius:5px}
+    .g pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.7;background:var(--color-bg-contrast);color:#fff;padding:16px 18px;border-radius:var(--radius-m);overflow:auto;margin:10px 0}
+    .g .note{border:var(--border-m) solid var(--color-midnight);border-radius:var(--radius-m);background:var(--color-fill-pure);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow-hard-s)}
+    .g .note.warn{background:var(--color-peach)}
+    .g .note .t{font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+    .g .eyebrow{font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--color-text-link)}
+  </style>
+</helmet>
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="letter" margin="0.8in" hint-size="820px,1200px">
+  <div class="g">
+    <span class="eyebrow">Nibble</span>
+    <h1>Go-live guide</h1>
+    <p class="lead">How to run the files in VS Code, publish the site on GitHub, and add your market data after launch. Written for a non-developer — follow it top to bottom.</p>
+
+    <h2><span class="n">1</span>What you're publishing</h2>
+    <p>Nibble is the <strong>front-end</strong> of your food-stall app — the homepage, browsing, stall pages, profiles and the admin CMS. It runs entirely in the web browser.</p>
+    <ul>
+      <li>For a quick <strong>pilot or preview</strong>, you can host it for free as a static site on GitHub Pages (this guide).</li>
+      <li>For the <strong>full company launch</strong> — Google sign-in, one shared database everyone sees, photo uploads visible to all — you'll need the backend from your original brief (Supabase). That's covered in step 7.</li>
+    </ul>
+
+    <h2><span class="n">2</span>What you'll need (once)</h2>
+    <ul>
+      <li>A computer running Chrome or Edge.</li>
+      <li><strong>Visual Studio Code</strong> — free, from <code>code.visualstudio.com</code>.</li>
+      <li><strong>Git</strong> — free, from <code>git-scm.com</code> (accept the defaults during install).</li>
+      <li>A free <strong>GitHub account</strong> — <code>github.com</code>.</li>
+    </ul>
+
+    <h2><span class="n">3</span>Get the files onto your computer</h2>
+    <ol>
+      <li>Download this project as a <strong>.zip</strong> (use the download option in the toolbar, or ask me to hand you a download).</li>
+      <li>Unzip it to a folder you'll remember, e.g. <code>Documents/nibble</code>.</li>
+      <li>Open VS Code → <strong>File → Open Folder…</strong> → choose that folder.</li>
+      <li>You should see <code>Nibble.dc.html</code>, <code>StallCard.dc.html</code>, <code>image-slot.js</code>, <code>support.js</code> and a <code>_ds</code> folder.</li>
+    </ol>
+
+    <h2><span class="n">4</span>Preview it on your machine</h2>
+    <ol>
+      <li>In VS Code, open the <strong>Extensions</strong> panel (the squares icon on the left), search <strong>“Live Server”</strong>, and click <strong>Install</strong>.</li>
+      <li>Right-click <code>Nibble.dc.html</code> in the file list → <strong>“Open with Live Server”</strong>.</li>
+      <li>Your browser opens the working app at an address like <code>http://127.0.0.1:5500/Nibble.dc.html</code>.</li>
+    </ol>
+    <div class="note"><div class="t">Why not just double-click the file?</div><p style="margin:0">Always open it through Live Server. The app loads other files (the design system, components), and browsers block those when a page is opened straight from disk — so double-clicking shows a blank page.</p></div>
+
+    <h2><span class="n">5</span>Publish it on GitHub Pages</h2>
+    <ol>
+      <li>On <code>github.com</code>, click <strong>New</strong> to create a repository. Name it <code>nibble</code>, keep it <strong>Public</strong>, and click <strong>Create repository</strong>.</li>
+      <li>Back in VS Code, open <strong>Terminal → New Terminal</strong> and run these lines one at a time (replace <code>YOUR-USERNAME</code>):</li>
+    </ol>
+    <pre>git init
+git add .
+git commit -m "First version of Nibble"
+git branch -M main
+git remote add origin https://github.com/YOUR-USERNAME/nibble.git
+git push -u origin main</pre>
+    <ol start="3">
+      <li>In the repository on GitHub, go to <strong>Settings → Pages</strong>.</li>
+      <li>Under <strong>Source</strong>, choose <strong>“Deploy from a branch”</strong>, set branch to <strong>main</strong> and folder to <strong>/ (root)</strong>, then <strong>Save</strong>.</li>
+      <li>Wait about a minute. Your site is live at:<br><code>https://YOUR-USERNAME.github.io/nibble/Nibble.dc.html</code></li>
+    </ol>
+    <div class="note"><div class="t">Two handy tips</div><p style="margin:0 0 6px">• Rename <code>Nibble.dc.html</code> to <code>index.html</code> and the address shortens to <code>…github.io/nibble/</code>.</p><p style="margin:0">• To update the live site later, just repeat: <code>git add .</code> → <code>git commit -m "update"</code> → <code>git push</code>. Pages redeploys on its own.</p></div>
+
+    <h2><span class="n">6</span>Managing your market data</h2>
+    <p>This build is <strong>pre-loaded with the 24 White Cross Street Market stalls</strong> and their photos, taken from your spreadsheet. Ratings, reviews and visits all start <strong>empty</strong> — they fill in as the office uses the app. You're the only account (Daisy Jones, admin). Manage everything from the <strong>Admin</strong> area:</p>
+    <ul>
+      <li><strong>Market stalls → + Add stall</strong> — name, category, food type, and <strong>tags</strong> (pick dietary presets like Vegan or Halal, or type your own); then <strong>Edit</strong> to drop in a photo.</li>
+      <li><strong>Food items → + Add food item</strong> — dishes and prices per stall.</li>
+      <li><strong>Featured stall</strong> — choose the Stall of the Week and its reason badge.</li>
+      <li><strong>Settings → People &amp; access</strong> — add colleagues by email and grant admin access.</li>
+    </ul>
+    <div class="note warn"><div class="t">Important — read before you rely on this</div><p style="margin:0 0 6px">On a static GitHub Pages site there is <strong>no shared database</strong>. Anything an admin adds is saved only in <strong>that person's browser</strong> — other visitors won't see it, and it's lost if the browser data is cleared. Photo uploads behave the same way.</p><p style="margin:0">So GitHub Pages is perfect for a <strong>demo or single-machine pilot</strong>, but not for a real shared launch across the office. For that, use the backend below.</p></div>
+
+    <h2><span class="n">7</span>The full production version (recommended for a real launch)</h2>
+    <p>Your original brief already specifies the right architecture. The screens in this prototype stay the same — they sit on top of a shared backend:</p>
+    <ul>
+      <li><strong>Supabase Auth</strong> with Google, restricted to <code>@selinafinance.co.uk</code> — the “no anonymous, company-only” sign-in you asked for (step-by-step in section 10).</li>
+      <li><strong>Supabase Database</strong> — one shared Postgres database, so every employee sees the same stalls, ratings and visit counts.</li>
+      <li><strong>Supabase Storage</strong> — stall photos uploaded by admins are stored centrally and visible to everyone.</li>
+      <li><strong>Row-Level Security</strong> — employees can browse, review and upvote; only admins can edit stalls, moderate reviews and open the CMS.</li>
+    </ul>
+    <p>Deploying that means creating a Supabase project and hosting the app on a platform like Vercel or Netlify (a similar “push to Git” flow). It's more setup than GitHub Pages, but it's the version that supports real logins, shared data and uploads. Happy to scope or build this as the next step.</p>
+
+    <h2><span class="n">8</span>Republishing after a change</h2>
+    <p>Whenever you (or I) change the files — new copy, a fix, a design tweak — the live site doesn't update on its own. Push the change and GitHub Pages redeploys within a minute. Do this in the VS Code <strong>Terminal</strong>:</p>
+    <ol>
+      <li>Make sure you're in the project folder (the terminal prompt shows it). If not: <code>cd Documents/nibble</code>.</li>
+      <li>Run these three lines, one at a time:</li>
+    </ol>
+    <pre>git add .
+git commit -m "Describe what changed"
+git push</pre>
+    <ol start="3">
+      <li>Wait ~1 minute, then hard-refresh the live page (<strong>Ctrl/Cmd + Shift + R</strong>) to see the update.</li>
+    </ol>
+    <div class="note"><div class="t">If I hand you a new version</div><p style="margin:0">Download the updated files, drop them into the same folder (replacing the old ones — say <strong>yes</strong> to overwrite), then run the three lines above. That's the whole loop.</p></div>
+
+    <h2><span class="n">9</span>Switch the weekly email to a Slack alert</h2>
+    <p>Instead of a Monday email to the whole workspace, Nibble can post to a <strong>public Slack channel</strong> — e.g. <code>#nibble</code>. Slack does this with an <strong>Incoming Webhook</strong> (a private URL you post messages to). Set it up once:</p>
+    <ol>
+      <li>In Slack, create the public channel you want alerts in (e.g. <code>#nibble</code>).</li>
+      <li>Go to <code>api.slack.com/apps</code> → <strong>Create New App</strong> → <strong>From scratch</strong>. Name it “Nibble”, pick your Selina workspace.</li>
+      <li>Open <strong>Incoming Webhooks</strong> → toggle <strong>On</strong> → <strong>Add New Webhook to Workspace</strong> → choose <code>#nibble</code> → <strong>Allow</strong>.</li>
+      <li>Copy the webhook URL (it looks like <code>https://hooks.slack.com/services/T000/B000/xxxx</code>). Treat it like a password.</li>
+    </ol>
+    <p>That URL is where a message gets posted. Because a static GitHub Pages site can't run scheduled jobs or keep a secret, the posting itself lives in the <strong>production version</strong> (section 7) — a small scheduled function that fires the same events the in-app toggles list:</p>
+    <ul>
+      <li><strong>Stall of the week</strong> — every Monday 9am, posts the featured stall.</li>
+      <li><strong>New stall added</strong> — posts when an admin adds a stall.</li>
+      <li><strong>Trending dish</strong> — posts the week's most-upvoted dish.</li>
+    </ul>
+    <p>In Supabase this is a <strong>Scheduled Edge Function</strong> that reads the data and does a single <code>POST</code> to your webhook URL (stored as a secret). Rough shape of the message call:</p>
+    <pre>await fetch(SLACK_WEBHOOK_URL, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    text: "🍜 Stall of the week: *Sawadee Thai Food Van* — go say hi!"
+  })
+});</pre>
+    <div class="note"><div class="t">What changes in the app</div><p style="margin:0">The <strong>Settings</strong> panel keeps the same three switches, relabelled from “Weekly email” to “Slack alerts”, so admins still choose which events post. Give me the webhook URL when you're ready and I'll wire the function up as part of the production build.</p></div>
+
+    <h2><span class="n">10</span>Restrict the live site to <code>@selinafinance.co.uk</code></h2>
+    <p>For the real launch, only people with a Selina email should get in — using their work Google login (SSO), no passwords, no outsiders. This needs the backend from section 7 (a static site can't enforce logins). Once the app is on Supabase + Vercel/Netlify:</p>
+    <ol>
+      <li>In your Supabase project → <strong>Authentication → Providers → Google</strong>, toggle it on.</li>
+      <li>In the <strong>Google Cloud Console</strong>, create an OAuth client (Web application), add your site URL and the Supabase callback URL it shows you, then paste the Client ID &amp; Secret back into Supabase.</li>
+      <li>Lock it to your domain so only Selina emails can sign in. Two layers, use both:
+        <ul>
+          <li><strong>At sign-in:</strong> pass Google the hosted-domain hint <code>hd=selinafinance.co.uk</code> so the picker only offers Selina accounts.</li>
+          <li><strong>On the server (the one that counts):</strong> a database rule / Auth Hook that rejects any account whose email doesn't end in <code>@selinafinance.co.uk</code>. This is what actually keeps outsiders out.</li>
+        </ul>
+      </li>
+      <li>Set <strong>admins</strong> (like you) in the database; everyone else signs in as an employee and can browse, review and upvote but not open the CMS.</li>
+    </ol>
+    <div class="note warn"><div class="t">One thing to decide</div><p style="margin:0">Your prototype currently uses <code>selina.co</code> for the demo login (Daisy Jones is <code>daisy@selina.co</code>). For the real SSO launch we'll switch the allowed domain to <code>@selinafinance.co.uk</code> — tell me if any other domains (contractors, a second brand) should also be let in.</p></div>
+  </div>
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:880,&quot;height&quot;:1200}}"></script>
+<script>
+(async () => {
+  if (!document.title || !document.title.trim()) document.title = "Go-live guide";
+  // Prepend so page-supplied @page / break rules (deck-stage's margin:0,
+  // author CSS) keep source-order precedence over the baseline.
+  const baseCss = document.createElement('style');
+  baseCss.textContent = "@media print {\n  figure, table { break-inside: avoid; }\n  *, *::before, *::after {\n    print-color-adjust: exact; -webkit-print-color-adjust: exact;\n    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;\n    animation-delay: -99s !important; animation-duration: .001s !important;\n    animation-iteration-count: 1 !important; animation-fill-mode: both !important;\n    animation-play-state: running !important; transition-duration: 0s !important;\n  }\n}";
+  document.head.prepend(baseCss);
+  if (document.readyState === 'loading') {
+    await new Promise((r) => document.addEventListener('DOMContentLoaded', r, { once: true }));
+  }
+  let ds = document.querySelector('deck-stage');
+  // whenDefined never resolves when nothing registers the element, so only
+  // await it when a <deck-stage> tag exists (and race a timeout regardless).
+  if (ds && !customElements.get('deck-stage')) {
+    try {
+      await Promise.race([
+        customElements.whenDefined('deck-stage'),
+        new Promise((r) => setTimeout(r, 3000)),
+      ]);
+    } catch (e) {}
+    ds = document.querySelector('deck-stage');
+  }
+  // dc-runtime assigns window.DCLogic at init and mounts into #dc-root on
+  // DOMContentLoaded; settle on that subtree so React has rendered before
+  // print(). Non-DC pages fall through to weighing body.
+  const isDc = !ds && 'DCLogic' in window;
+  const settleRoot = ds || (isDc ? document.getElementById('dc-root') : null) || document.body;
+  if (settleRoot) {
+    // Weigh only content children — skip script/style/template so inline
+    // Babel/CSS doesn't register as stable "content" before the framework
+    // has mounted anything.
+    const MEDIA = 'img,svg,canvas,video,picture,iframe,embed,object';
+    const weigh = () => {
+      let text = 0, media = 0;
+      for (const c of settleRoot.children) {
+        const t = c.tagName;
+        if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+        text += (c.textContent || '').trim().length;
+        media += c.querySelectorAll(MEDIA).length + (c.matches(MEDIA) ? 1 : 0);
+      }
+      return text + media * 100;
+    };
+    // "Non-zero and stable" alone is not sufficient to mean rendered: generic
+    // body can carry a static shell while async main content is pending, and
+    // #dc-root can carry the root DC's static text while child refs are still
+    // .sc-placeholder boxes. Gate generic on readyState 'complete', and never
+    // accept stability while a dc-runtime placeholder is present.
+    const isGeneric = settleRoot === document.body;
+    const deadline = Date.now() + 15000;
+    let last = -1, stable = 0;
+    while (Date.now() < deadline) {
+      const n = weigh();
+      const ready =
+        (!isGeneric || document.readyState === 'complete') &&
+        !settleRoot.querySelector('.sc-placeholder');
+      if (n > 0 && n === last && ready) { if (++stable >= 2) break; } else { stable = 0; }
+      last = n;
+      await new Promise((r) => setTimeout(r, 250));
+    }
+  }
+  // Project support.js may predate runtime default-seeding; push via bridge.
+  if (isDc && window.__dcSetProps && window.__dcRootName) {
+    try {
+      const dpEl = document.querySelector('script[data-dc-script]');
+      const meta = JSON.parse((dpEl && dpEl.getAttribute('data-props')) || '{}');
+      const bag = {};
+      for (const k in meta)
+        if (k[0] !== '$' && meta[k] && meta[k].default !== undefined)
+          bag[k] = meta[k].default;
+      if (Object.keys(bag).length) {
+        window.__dcSetProps(window.__dcRootName(), bag);
+        await new Promise((r) => setTimeout(r, 50));
+      }
+    } catch (e) {}
+  }
+  // Reveal content gated on scroll or visibility before printing. Lazy <img>,
+  // IntersectionObserver fade-ins, and collapsed <details> don't render while
+  // off-screen, so a long page would print with them blank or closed. Open
+  // every <details>, force native-lazy images eager, and scroll the document
+  // through its full height to trip lazy-load + IO; then wait (bounded) for the
+  // newly-triggered images. Inert for deck-stage (slides aren't scroll-gated).
+  try {
+    for (const d of document.querySelectorAll('details')) d.open = true;
+    for (const img of document.querySelectorAll('img[loading="lazy"]'))
+      img.loading = 'eager';
+    const scroller = document.scrollingElement || document.documentElement;
+    const full = Math.max(scroller.scrollHeight, document.body.scrollHeight);
+    const step = window.innerHeight || 800;
+    for (let y = 0; y <= full; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((r) => requestAnimationFrame(r));
+    }
+    window.scrollTo(0, 0);
+    await Promise.race([
+      Promise.all(
+        [...document.images].map((img) =>
+          img.complete
+            ? null
+            : new Promise((res) => {
+                img.addEventListener('load', res, { once: true });
+                img.addEventListener('error', res, { once: true });
+              })
+        )
+      ),
+      new Promise((r) => setTimeout(r, 4000)),
+    ]);
+  } catch (e) {}
+  try { await document.fonts.ready; } catch (e) {}
+  // Jump every animation to its end state so print() never captures a slide
+  // mid-entrance. Ordering matters: the 0s-transition style must be live
+  // BEFORE data-deck-active is set so attribute-keyed transitions don't
+  // start a (now-0s) run from the pre-active base.
+  const st = document.createElement('style');
+  st.textContent = '*,*::before,*::after{animation-delay:-99s !important;animation-duration:.001s !important;animation-iteration-count:1 !important;animation-fill-mode:both !important;animation-play-state:running !important;transition-duration:0s !important}';
+  document.head.appendChild(st);
+  for (const d of document.querySelectorAll('deck-stage')) {
+    for (const c of d.children) {
+      const t = c.tagName;
+      if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+      c.setAttribute('data-deck-active', '');
+    }
+  }
+  // Re-append deck-stage's @page last so no author @page can add a margin and
+  // spill each full-bleed slide onto two sheets. Backstop for old copies.
+  if (ds) {
+    let pg = document.getElementById('deck-stage-print-page');
+    if (!pg) {
+      pg = document.createElement('style');
+      pg.textContent = '@page{size:' + (+ds.getAttribute('width') || 1920) +
+        'px ' + (+ds.getAttribute('height') || 1080) + 'px;margin:0}';
+    }
+    document.body.appendChild(pg);
+  }
+  try {
+    const sweep = () => {
+      for (const a of document.getAnimations()) {
+        try { a.finish(); } catch (e) {
+          try { a.currentTime = (a.effect && a.effect.getComputedTiming().duration) || 0; a.pause(); } catch (e2) {}
+        }
+      }
+    };
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+  } catch (e) {}
+  // Size the PDF page to the rendered design unless the file opted into
+  // standard paper via @page{size:letter|A4|…}. Decks own their own @page.
+  // Wrappers (body, …) lose padding+margin so the frame sits at (0,0); the
+  // frame itself loses only margin — its padding is INSIDE the measured
+  // rect and must stay, or content shifts and leaves a gap at bottom/right.
+  var __m = null;
+  try { __m = (() => {
+  var STAMP = true;
+  var docEl = document.documentElement;
+  var doc = { width: docEl.scrollWidth, height: docEl.scrollHeight };
+
+  var ds = document.querySelector('deck-stage');
+  if (ds) {
+    var dw = Number(ds.getAttribute('width')) || 1920;
+    var dh = Number(ds.getAttribute('height')) || 1080;
+    var n = typeof ds.length === 'number' ? ds.length : ds.children.length;
+    var idx = typeof ds.index === 'number' ? ds.index : 0;
+    var frames = [];
+    for (var i = 0; i < n; i++) frames.push({ left: 0, top: 0, width: dw, height: dh });
+    return { kind: 'deck', source: 'declared', doc: doc, frames: frames,
+      authored: frames.map(function(){return{width:true,height:true}}),
+      deck: { width: dw, height: dh, slideCount: n, index: idx },
+      signals: { paperPage: false, pxPage: false } };
+  }
+
+  // Declared kind: a doc-page tag names the kind outright, so no signal
+  // heuristics run (like the deck branch above, signals report false —
+  // they describe inferred classifications only). The tag alone is not
+  // trusted: the element must have upgraded (shadowRoot present), so a
+  // leftover tag whose script was deleted falls through to the heuristics
+  // that handle plain markup.
+  var stageSx = window.scrollX || 0, stageSy = window.scrollY || 0;
+  var dp = document.querySelector('doc-page');
+  if (dp && dp.shadowRoot) {
+    // Crop to the sheet, not the host — the desk around it is screen-only
+    // chrome that must not land in PNG exports.
+    var sheet = dp.shadowRoot.querySelector('.sheet');
+    var sr = (sheet || dp).getBoundingClientRect();
+    return { kind: 'paper-doc', source: 'declared', doc: doc,
+      frames: [{ left: sr.left + stageSx, top: sr.top + stageSy,
+        width: sr.width, height: sr.height }],
+      authored: [{ width: false, height: false }],
+      signals: { paperPage: false, pxPage: false } };
+  }
+  var paperPage = false, pxPage = false;
+  var eachRule = function (fn) {
+    for (var s = 0; s < document.styleSheets.length; s++) {
+      var rs; try { rs = document.styleSheets[s].cssRules; } catch (e) { continue; }
+      for (var r = 0; r < rs.length; r++) {
+        fn(rs[r]);
+        if (rs[r].cssRules) for (var n = 0; n < rs[r].cssRules.length; n++) fn(rs[r].cssRules[n]);
+      }
+    }
+  };
+  eachRule(function (r) {
+    if (r.type !== 6) return;
+    var m = /\bsize\s*:\s*([^;}]+)/i.exec(r.cssText || '');
+    if (!m) return;
+    if (/\b(letter|a[3-5]|legal|ledger)\b/i.test(m[1])) paperPage = true;
+    if (/\d+(?:\.\d+)?px\b/i.test(m[1])) pxPage = true;
+  });
+  var signals = { paperPage: paperPage, pxPage: pxPage };
+
+  var pxVal = function (v) {
+    var m = /^(\d+(?:\.\d+)?)px$/.exec(v || ''); return m ? +m[1] : 0;
+  };
+  var authoredPx = function (el, prop) {
+    if (pxVal(el.style[prop])) return true;
+    var attr = el.getAttribute(prop);
+    if (attr && /^\d+$/.test(attr)) return true;
+    var hit = false;
+    eachRule(function (r) {
+      if (hit || r.type !== 1 || !r.style) return;
+      try { if (el.matches(r.selectorText) && pxVal(r.style[prop])) hit = true; } catch (e) {}
+    });
+    return hit;
+  };
+
+  var el = document.body, rootPxW = false;
+  for (;;) {
+    var kids = [];
+    for (var c = 0; c < el.children.length; c++) {
+      var t = el.children[c].tagName;
+      if (t !== 'SCRIPT' && t !== 'STYLE' && t !== 'TEMPLATE') kids.push(el.children[c]);
+    }
+    if (kids.length !== 1 || !(kids[0] instanceof HTMLElement)) break;
+    if (STAMP) el.setAttribute('data-om-frame-wrap', '');
+    el = kids[0];
+    rootPxW = authoredPx(el, 'width');
+    if (rootPxW) break;
+  }
+  if (!rootPxW) rootPxW = authoredPx(el, 'width');
+
+  // @page{size:letter} alone is a flowing doc; with a px-width root it's a
+  // fixed sheet pretending to be paper — fall through and size to render.
+  if (paperPage && !rootPxW) {
+    return { kind: 'paper-doc', source: 'inferred', doc: doc, signals: signals,
+      frames: [{ left: 0, top: 0, width: doc.width, height: doc.height }],
+      authored: [{ width: false, height: false }] };
+  }
+
+  var sx = window.scrollX || 0, sy = window.scrollY || 0;
+  var rectOf = function (e) {
+    var r = e.getBoundingClientRect();
+    var oy; try { oy = getComputedStyle(e).overflowY; } catch (err) {}
+    var h = oy === 'visible' ? Math.max(r.height, e.scrollHeight || 0) : r.height;
+    return { left: r.left + sx, top: r.top + sy, width: r.width, height: h };
+  };
+
+  // Multi-frame: off unless the page opts in via data-om-multi-frame on the
+  // stop element — the explicit opt-in is what guards against card grids
+  // and pricing tables that match the geometry but aren't separate
+  // canvases. Two ways to name the frames, explicit first:
+  // 1. Descendants marked data-om-frame-export (the social-frames starter
+  //    marks each asset frame; shells/panels around them are presentation,
+  //    so nesting is expected). Document order.
+  // 2. Fallback, no marked descendants: direct children with an authored px
+  //    width AND height (the original geometry heuristic).
+  // Frames may be different sizes (a gallery mixes 1080×1920 stories with
+  // 728×90 banners); data-om-frame-label rides along for export filenames.
+  if (el.hasAttribute('data-om-multi-frame')) {
+    var visOk = function (e) {
+      var cs; try { cs = getComputedStyle(e); } catch (err) { return false; }
+      return cs.display !== 'none' && cs.visibility !== 'hidden' && cs.position !== 'fixed';
+    };
+    // A frame's crop is its VISUAL box — never the scrollHeight-inflated
+    // rect that rectOf computes for page roots. Shadow-DOM hover controls
+    // (image-slot's Replace bar parks 29px below its host) and similar
+    // escaping UI contribute scrollable overflow to the frame, and the
+    // inflated height both squashes the nominal-size resize and drags
+    // content below the frame into the crop. Zoom-independent; bit every
+    // slot-bearing frame.
+    var frameRectOf = function (e) {
+      var r = e.getBoundingClientRect();
+      return { left: r.left + sx, top: r.top + sy, width: r.width, height: r.height };
+    };
+    var pushCand = function (list, e) {
+      if (!visOk(e)) return;
+      var rc = frameRectOf(e);
+      if (rc.width < 2 || rc.height < 2) return;
+      var lbl = e.getAttribute('data-om-frame-label');
+      if (lbl) rc.label = lbl;
+      list.push(rc);
+    };
+    var cands = [];
+    var marked = el.querySelectorAll('[data-om-frame-export]');
+    if (marked.length) {
+      for (var mk = 0; mk < marked.length; mk++) pushCand(cands, marked[mk]);
+    } else {
+      for (var k = 0; k < el.children.length; k++) {
+        var ch = el.children[k];
+        if (!authoredPx(ch, 'width') || !authoredPx(ch, 'height')) continue;
+        pushCand(cands, ch);
+      }
+    }
+    if (cands.length >= 2) {
+      return { kind: 'multi-frame', source: 'inferred', doc: doc, signals: signals,
+        frames: cands, authored: cands.map(function(){return{width:true,height:true}}) };
+    }
+  }
+
+  if (STAMP) el.setAttribute('data-om-frame', '');
+  return { kind: 'single-canvas', source: 'inferred', doc: doc, signals: signals,
+    frames: [rectOf(el)],
+    authored: [{ width: rootPxW, height: authoredPx(el, 'height') }] };
+})(); } catch (e) {}
+  var frame = null;
+  if (__m && __m.kind === 'single-canvas') {
+    var f = __m.frames && __m.frames[0];
+    if (f && f.width >= 200 && f.height >= 200) {
+      frame = f;
+      var fst = document.createElement('style');
+      fst.textContent = '@media print{@page{size:' + Math.ceil(f.width) + 'px ' +
+        Math.ceil(f.height) + 'px;margin:0}' +
+        'html,body,[data-om-frame-wrap]{padding:0!important;margin:0!important;background:none!important}' +
+        '[data-om-frame]{margin:0!important}}';
+      document.body.appendChild(fst);
+    }
+  }
+  // Relax break-inside on oversized elements. An element taller than a
+  // printable page can't honor break-inside: avoid — browsers either overflow
+  // it or push it whole to the next page, leaving a blank gap, then break it
+  // anyway at an arbitrary point. After the final layout (content revealed,
+  // animations jumped), find elements taller than a page that still compute
+  // break-inside: avoid and reset them to auto, so the browser breaks them at
+  // their children's boundaries instead (children keep their own avoid). PAGE_PX
+  // is a conservative portrait estimate at 96 CSS px/in — Letter/A4 usable
+  // height minus our 0.5in margins — so only clearly-oversized elements are
+  // touched and under-page elements still stay whole. Skipped for decks (slides
+  // are sized to the page) and for fixed-size canvases (frame set, or an author
+  // px-based @page) — runs as before for flowing docs on letter/A4.
+  try {
+    if (!ds && !frame && !(__m && __m.signals && __m.signals.pxPage)) {
+      const PAGE_PX = 1024;
+      // Our print defaults add a real @page margin only when the source has
+      // no @page of its own; computed style can't tell us (it reports screen
+      // media), so read the injected rule directly.
+      const defaults = document.querySelector('style[data-omelette-print-defaults]');
+      const pageInset = /@page\s*\{[^}]*margin/.test(defaults ? defaults.textContent || '' : '');
+      const SEL = 'section,article,figure,table,pre,blockquote,[class~="card" i],[class~="page" i],[class~="sheet" i]';
+      for (const el of document.body.querySelectorAll(SEL)) {
+        if (el instanceof HTMLElement && el.offsetHeight > PAGE_PX) {
+          el.setAttribute('data-om-oversized', '');
+          // Fake-paged docs simulate sheets with over-tall break-after:page
+          // boxes; honoring the break spills half-blank pages and ends a
+          // colored box mid-sheet. Flow them, and (only when we own the page
+          // inset) drop the redundant padding/background via the rule below.
+          const cs = getComputedStyle(el);
+          if (cs.breakAfter === 'page' || cs.pageBreakAfter === 'always') {
+            el.setAttribute('data-om-fakepage', '');
+          }
+        }
+      }
+      const ost = document.createElement('style');
+      ost.textContent = '@media print{' +
+        '[data-om-oversized]{break-inside:auto !important;page-break-inside:auto !important}' +
+        '[data-om-fakepage]{break-after:auto !important;page-break-after:auto !important}' +
+        (pageInset ? '[data-om-fakepage]{padding:0 !important;background:none !important}' : '') +
+        '}';
+      document.head.appendChild(ost);
+    }
+  } catch (e) {}
+  // macOS Preview renders Skia-PDF Luminosity soft-masks as opaque grey boxes;
+  // swap the CSS that triggers them for Preview-safe forms.
+  try {
+    for (const el of document.body.querySelectorAll('*')) {
+      const cs = getComputedStyle(el);
+
+      if (cs.boxShadow !== 'none' && cs.filter === 'none') {
+        const outs = [], kept = [];
+        for (const s of cs.boxShadow.split(/,(?![^(]*[)])/)) {
+          const t = s.trim();
+          const m = t.match(/^(rgba?[(][^)]+[)]) (-?[0-9.]+px) (-?[0-9.]+px) ([0-9.]+px) -?[0-9.]+px$/);
+          if (m && parseFloat(m[4]) > 0) outs.push('drop-shadow(' + m[2] + ' ' + m[3] + ' ' + m[4] + ' ' + m[1] + ')');
+          else kept.push(t);
+        }
+        if (outs.length) {
+          el.style.setProperty('filter', outs.join(' '), 'important');
+          el.style.setProperty('box-shadow', kept.join(', ') || 'none', 'important');
+        }
+      }
+
+      const mask = cs.maskImage && cs.maskImage !== 'none' ? cs.maskImage : cs.webkitMaskImage;
+      if (mask && mask !== 'none' && cs.filter === 'none') el.style.setProperty('filter', 'opacity(1)', 'important');
+    }
+  } catch (e) {}
+  setTimeout(() => { try { window.print(); } catch (e) {} }, 200);
+})();
+</script>
+</body>
+</html>

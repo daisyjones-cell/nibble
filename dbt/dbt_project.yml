@@ -1,0 +1,38 @@
+name: 'nibble'
+version: '1.0.0'
+config-version: 2
+
+# This profile name must match an entry in your profiles.yml (see profiles.example.yml).
+profile: 'nibble'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Everything Nibble builds lands in the BigQuery dataset:
+#   project = selina-bq-unsec-dev   (set in profiles.yml)
+#   dataset = nibble                (custom schema, forced by macros/generate_schema_name.sql)
+models:
+  nibble:
+    +schema: nibble
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table
+
+seeds:
+  nibble:
+    +schema: nibble
+    nibble_stalls:
+      +column_types:
+        stall_id: string
+        name: string
+        category: string
+        food_type: string
+        image_url: string
+        is_active: boolean

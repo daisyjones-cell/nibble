@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/tokens/tokens.css">
+  <link rel="stylesheet" href="_ds/selina-finance-design-system-2d76654a-c1f9-4c07-9bb3-8b23d34d5500/styles.css">
+  <style>
+    doc-page:not(:defined){visibility:hidden}
+    body{background:var(--color-bg-light-tint)}
+    .g h1{font-family:var(--font-heading);font-weight:700;font-size:38px;letter-spacing:-2px;line-height:1.02;margin:0 0 6px;color:var(--color-text-primary)}
+    .g .lead{font-family:var(--font-body);font-size:16px;line-height:1.5;color:var(--color-text-secondary);margin:0 0 26px}
+    .g h2{font-family:var(--font-heading);font-weight:700;font-size:20px;letter-spacing:-.5px;margin:30px 0 10px;color:var(--color-text-primary);display:flex;align-items:center;gap:10px}
+    .g h2 .n{width:28px;height:28px;flex:none;border-radius:9999px;background:var(--color-peppermint);border:var(--border-m) solid var(--color-midnight);display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:800}
+    .g p,.g li{font-family:var(--font-body);font-size:14px;line-height:1.6;color:var(--color-text-primary)}
+    .g ul,.g ol{margin:8px 0 8px;padding-left:22px}
+    .g li{margin:5px 0}
+    .g strong{font-weight:700}
+    .g code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:var(--color-almond);padding:1px 6px;border-radius:5px}
+    .g pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.7;background:var(--color-bg-contrast);color:#fff;padding:16px 18px;border-radius:var(--radius-m);overflow:auto;margin:10px 0}
+    .g .note{border:var(--border-m) solid var(--color-midnight);border-radius:var(--radius-m);background:var(--color-fill-pure);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow-hard-s)}
+    .g .note.warn{background:var(--color-peach)}
+    .g .note .t{font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+    .g .eyebrow{font-family:var(--font-heading);font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--color-text-link)}
+  </style>
+</helmet>
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="letter" margin="0.8in" hint-size="820px,1200px">
+  <div class="g">
+    <span class="eyebrow">Nibble</span>
+    <h1>Go-live guide</h1>
+    <p class="lead">How to run the files in VS Code, publish the site on GitHub, and add your market data after launch. Written for a non-developer — follow it top to bottom.</p>
+
+    <h2><span class="n">1</span>What you're publishing</h2>
+    <p>Nibble is the <strong>front-end</strong> of your food-stall app — the homepage, browsing, stall pages, profiles and the admin CMS. It runs entirely in the web browser.</p>
+    <ul>
+      <li>For a quick <strong>pilot or preview</strong>, you can host it for free as a static site on GitHub Pages (this guide).</li>
+      <li>For the <strong>full company launch</strong> — Google sign-in, one shared database everyone sees, photo uploads visible to all — you'll need the backend from your original brief (Supabase). That's covered in step 7.</li>
+    </ul>
+
+    <h2><span class="n">2</span>What you'll need (once)</h2>
+    <ul>
+      <li>A computer running Chrome or Edge.</li>
+      <li><strong>Visual Studio Code</strong> — free, from <code>code.visualstudio.com</code>.</li>
+      <li><strong>Git</strong> — free, from <code>git-scm.com</code> (accept the defaults during install).</li>
+      <li>A free <strong>GitHub account</strong> — <code>github.com</code>.</li>
+    </ul>
+
+    <h2><span class="n">3</span>Get the files onto your computer</h2>
+    <ol>
+      <li>Download this project as a <strong>.zip</strong> (use the download option in the toolbar, or ask me to hand you a download).</li>
+      <li>Unzip it to a folder you'll remember, e.g. <code>Documents/nibble</code>.</li>
+      <li>Open VS Code → <strong>File → Open Folder…</strong> → choose that folder.</li>
+      <li>You should see <code>Nibble.dc.html</code>, <code>StallCard.dc.html</code>, <code>image-slot.js</code>, <code>support.js</code> and a <code>_ds</code> folder.</li>
+    </ol>
+
+    <h2><span class="n">4</span>Preview it on your machine</h2>
+    <ol>
+      <li>In VS Code, open the <strong>Extensions</strong> panel (the squares icon on the left), search <strong>“Live Server”</strong>, and click <strong>Install</strong>.</li>
+      <li>Right-click <code>Nibble.dc.html</code> in the file list → <strong>“Open with Live Server”</strong>.</li>
+      <li>Your browser opens the working app at an address like <code>http://127.0.0.1:5500/Nibble.dc.html</code>.</li>
+    </ol>
+    <div class="note"><div class="t">Why not just double-click the file?</div><p style="margin:0">Always open it through Live Server. The app loads other files (the design system, components), and browsers block those when a page is opened straight from disk — so double-clicking shows a blank page.</p></div>
+
+    <h2><span class="n">5</span>Publish it on GitHub Pages</h2>
+    <ol>
+      <li>On <code>github.com</code>, click <strong>New</strong> to create a repository. Name it <code>nibble</code>, keep it <strong>Public</strong>, and click <strong>Create repository</strong>.</li>
+      <li>Back in VS Code, open <strong>Terminal → New Terminal</strong> and run these lines one at a time (replace <code>YOUR-USERNAME</code>):</li>
+    </ol>
+    <pre>git init
+git add .
+git commit -m "First version of Nibble"
+git branch -M main
+git remote add origin https://github.com/YOUR-USERNAME/nibble.git
+git push -u origin main</pre>
+    <ol start="3">
+      <li>In the repository on GitHub, go to <strong>Settings → Pages</strong>.</li>
+      <li>Under <strong>Source</strong>, choose <strong>“Deploy from a branch”</strong>, set branch to <strong>main</strong> and folder to <strong>/ (root)</strong>, then <strong>Save</strong>.</li>
+      <li>Wait about a minute. Your site is live at:<br><code>https://YOUR-USERNAME.github.io/nibble/Nibble.dc.html</code></li>
+    </ol>
+    <div class="note"><div class="t">Two handy tips</div><p style="margin:0 0 6px">• Rename <code>Nibble.dc.html</code> to <code>index.html</code> and the address shortens to <code>…github.io/nibble/</code>.</p><p style="margin:0">• To update the live site later, just repeat: <code>git add .</code> → <code>git commit -m "update"</code> → <code>git push</code>. Pages redeploys on its own.</p></div>
+
+    <h2><span class="n">6</span>Managing your market data</h2>
+    <p>This build is <strong>pre-loaded with the 24 White Cross Street Market stalls</strong> and their photos, taken from your spreadsheet. Ratings, reviews and visits all start <strong>empty</strong> — they fill in as the office uses the app. You're the only account (Daisy Jones, admin). Manage everything from the <strong>Admin</strong> area:</p>
+    <ul>
+      <li><strong>Market stalls → + Add stall</strong> — name, category, food type, and <strong>tags</strong> (pick dietary presets like Vegan or Halal, or type your own); then <strong>Edit</strong> to drop in a photo.</li>
+      <li><strong>Food items → + Add food item</strong> — dishes and prices per stall.</li>
+      <li><strong>Featured stall</strong> — choose the Stall of the Week and its reason badge.</li>
+      <li><strong>Settings → People &amp; access</strong> — add colleagues by email and grant admin access.</li>
+    </ul>
+    <div class="note warn"><div class="t">Important — read before you rely on this</div><p style="margin:0 0 6px">On a static GitHub Pages site there is <strong>no shared database</strong>. Anything an admin adds is saved only in <strong>that person's browser</strong> — other visitors won't see it, and it's lost if the browser data is cleared. Photo uploads behave the same way.</p><p style="margin:0">So GitHub Pages is perfect for a <strong>demo or single-machine pilot</strong>, but not for a real shared launch across the office. For that, use the backend below.</p></div>
+
+    <h2><span class="n">7</span>The full production version (recommended for a real launch)</h2>
+    <p>Your original brief already specifies the right architecture. The screens in this prototype stay the same — they sit on top of a shared backend:</p>
+    <ul>
+      <li><strong>Supabase Auth</strong> with Google, restricted to <code>@selinafinance.co.uk</code> — the “no anonymous, company-only” sign-in you asked for (step-by-step in section 10).</li>
+      <li><strong>Supabase Database</strong> — one shared Postgres database, so every employee sees the same stalls, ratings and visit counts.</li>
+      <li><strong>Supabase Storage</strong> — stall photos uploaded by admins are stored centrally and visible to everyone.</li>
+      <li><strong>Row-Level Security</strong> — employees can browse, review and upvote; only admins can edit stalls, moderate reviews and open the CMS.</li>
+      <li><strong>Analytics in BigQuery</strong> — the stall catalogue and all reporting are modelled with <strong>dbt</strong> into <code>selina-bq-unsec-dev.nibble</code>, matching your existing stack (see section 11).</li>
+    </ul>
+    <p>Deploying that means creating a Supabase project and hosting the app on a platform like Vercel or Netlify (a similar “push to Git” flow). It's more setup than GitHub Pages, but it's the version that supports real logins, shared data and uploads. Happy to scope or build this as the next step.</p>
+
+    <h2><span class="n">8</span>Republishing after a change</h2>
+    <p>Whenever you (or I) change the files — new copy, a fix, a design tweak — the live site doesn't update on its own. Push the change and GitHub Pages redeploys within a minute. Do this in the VS Code <strong>Terminal</strong>:</p>
+    <ol>
+      <li>Make sure you're in the project folder (the terminal prompt shows it). If not: <code>cd Documents/nibble</code>.</li>
+      <li>Run these three lines, one at a time:</li>
+    </ol>
+    <pre>git add .
+git commit -m "Describe what changed"
+git push</pre>
+    <ol start="3">
+      <li>Wait ~1 minute, then hard-refresh the live page (<strong>Ctrl/Cmd + Shift + R</strong>) to see the update.</li>
+    </ol>
+    <div class="note"><div class="t">If I hand you a new version</div><p style="margin:0">Download the updated files, drop them into the same folder (replacing the old ones — say <strong>yes</strong> to overwrite), then run the three lines above. That's the whole loop.</p></div>
+
+    <h2><span class="n">9</span>Switch the weekly email to a Slack alert</h2>
+    <p>Instead of a Monday email to the whole workspace, Nibble can post to a <strong>public Slack channel</strong> — e.g. <code>#nibble</code>. Slack does this with an <strong>Incoming Webhook</strong> (a private URL you post messages to). Set it up once:</p>
+    <ol>
+      <li>In Slack, create the public channel you want alerts in (e.g. <code>#nibble</code>).</li>
+      <li>Go to <code>api.slack.com/apps</code> → <strong>Create New App</strong> → <strong>From scratch</strong>. Name it “Nibble”, pick your Selina workspace.</li>
+      <li>Open <strong>Incoming Webhooks</strong> → toggle <strong>On</strong> → <strong>Add New Webhook to Workspace</strong> → choose <code>#nibble</code> → <strong>Allow</strong>.</li>
+      <li>Copy the webhook URL (it looks like <code>https://hooks.slack.com/services/T000/B000/xxxx</code>). Treat it like a password.</li>
+    </ol>
+    <p>That URL is where a message gets posted. Because a static GitHub Pages site can't run scheduled jobs or keep a secret, the posting itself lives in the <strong>production version</strong> (section 7) — a small scheduled function that fires the same events the in-app toggles list:</p>
+    <ul>
+      <li><strong>Stall of the week</strong> — every Monday 9am, posts the featured stall.</li>
+      <li><strong>New stall added</strong> — posts when an admin adds a stall.</li>
+      <li><strong>Trending dish</strong> — posts the week's most-upvoted dish.</li>
+    </ul>
+    <p>In Supabase this is a <strong>Scheduled Edge Function</strong> that reads the data and does a single <code>POST</code> to your webhook URL (stored as a secret). Rough shape of the message call:</p>
+    <pre>await fetch(SLACK_WEBHOOK_URL, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    text: "🍜 Stall of the week: *Sawadee Thai Food Van* — go say hi!"
+  })
+});</pre>
+    <div class="note"><div class="t">What changes in the app</div><p style="margin:0">The <strong>Settings</strong> panel keeps the same three switches, relabelled from “Weekly email” to “Slack alerts”, so admins still choose which events post. Give me the webhook URL when you're ready and I'll wire the function up as part of the production build.</p></div>
+
+    <h2><span class="n">10</span>Restrict the live site to <code>@selinafinance.co.uk</code></h2>
+    <p>For the real launch, only people with a Selina email should get in — using their work Google login (SSO), no passwords, no outsiders. This needs the backend from section 7 (a static site can't enforce logins). Once the app is on Supabase + Vercel/Netlify:</p>
+    <ol>
+      <li>In your Supabase project → <strong>Authentication → Providers → Google</strong>, toggle it on.</li>
+      <li>In the <strong>Google Cloud Console</strong>, create an OAuth client (Web application), add your site URL and the Supabase callback URL it shows you, then paste the Client ID &amp; Secret back into Supabase.</li>
+      <li>Lock it to your domain so only Selina emails can sign in. Two layers, use both:
+        <ul>
+          <li><strong>At sign-in:</strong> pass Google the hosted-domain hint <code>hd=selinafinance.co.uk</code> so the picker only offers Selina accounts.</li>
+          <li><strong>On the server (the one that counts):</strong> a database rule / Auth Hook that rejects any account whose email doesn't end in <code>@selinafinance.co.uk</code>. This is what actually keeps outsiders out.</li>
+        </ul>
+      </li>
+      <li>Set <strong>admins</strong> (like you) in the database; everyone else signs in as an employee and can browse, review and upvote but not open the CMS.</li>
+    </ol>
+    <div class="note warn"><div class="t">One thing to decide</div><p style="margin:0">Your prototype currently uses <code>selina.co</code> for the demo login (Daisy Jones is <code>daisy@selina.co</code>). For the real SSO launch we'll switch the allowed domain to <code>@selinafinance.co.uk</code> — tell me if any other domains (contractors, a second brand) should also be let in.</p></div>
+
+    <h2><span class="n">11</span>The data layer: dbt → BigQuery</h2>
+    <p>The Nibble data is modelled with <strong>dbt</strong> and built into BigQuery, in the project <code>selina-bq-unsec-dev</code> under its own dataset <code>nibble</code> — the same VS Code → dbt → BigQuery flow you already use. The dbt project ships in the <code>dbt/</code> folder; its <code>README.md</code> has the full setup, but in short:</p>
+    <ol>
+      <li>Install the adapter and authenticate with your own Google login:
+        <pre>pip install dbt-bigquery
+gcloud auth application-default login
+gcloud config set project selina-bq-unsec-dev</pre>
+      </li>
+      <li>Copy <code>dbt/profiles.example.yml</code> to <code>~/.dbt/profiles.yml</code> (it already targets <code>selina-bq-unsec-dev</code> / dataset <code>nibble</code>).</li>
+      <li>Build it:
+        <pre>dbt deps
+dbt seed     # loads the 24 stalls
+dbt build    # runs every model + test</pre>
+      </li>
+    </ol>
+    <p>What lands in <code>selina-bq-unsec-dev.nibble</code>:</p>
+    <ul>
+      <li><strong>nibble_stalls</strong> — the 24 market stalls, seeded from your spreadsheet. dbt owns this as the canonical catalogue.</li>
+      <li><strong>dim_stalls / dim_dishes</strong> — each stall and dish with live rating, review and upvote rollups.</li>
+      <li><strong>fct_reviews / fct_visits</strong> — one row per review and per visit, for analysis.</li>
+      <li><strong>stall_leaderboard</strong> — ranked stalls that power the admin dashboard.</li>
+    </ul>
+    <div class="note"><div class="t">How it fits together</div><p style="margin:0 0 6px">dbt seeds the <strong>stall list</strong>, so BigQuery is the source of truth for the catalogue. The app's own events — reviews, upvotes, visits, users — are written by the live backend (section 7) into a <code>nibble_raw</code> dataset, and dbt shapes them into the tables above. Until that ingestion is connected the raw tables are empty and the rollups simply read zero — every model still builds.</p><p style="margin:0">Deploy the same project through dbt Cloud, Airflow or a GitHub Action (swap the <code>oauth</code> method for a service account in CI); the job is just <code>dbt deps &amp;&amp; dbt build</code>.</p></div>
+  </div>
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:880,&quot;height&quot;:1200}}"></script>
+</body>
+</html>

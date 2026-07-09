@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: stg_stalls
+    description: "Cleaned stall catalogue from the seed."
+    columns:
+      - name: stall_id
+        tests: [unique, not_null]
+  - name: stg_reviews
+    description: "Typed review events."
+  - name: stg_dishes
+    description: "Typed menu items."
+  - name: stg_dish_upvotes
+    description: "Typed dish upvote events."
+  - name: stg_visits
+    description: "Typed visit events."
+  - name: stg_users
+    description: "Typed user records from SSO."

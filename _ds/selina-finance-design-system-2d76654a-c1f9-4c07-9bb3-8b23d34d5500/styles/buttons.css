@@ -1,0 +1,88 @@
+/* =================================================================
+   Selina Finance — Button (flagship component)
+   The signature chunky, pressable button: thick navy border, notched
+   bottom-right corner, hard 0-blur offset shadow. Sora Bold label,
+   sentence case. Source: components.md / Figma 69:852 (480 variants).
+
+   Class API:  .sel-btn .sel-btn--{primary|secondary|tertiary|outline|inverted}
+               .sel-btn--{xl|l|m|s}  .sel-btn--flat  [disabled]
+   ================================================================= */
+
+.sel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-s);
+  font-family: var(--font-heading);
+  font-weight: var(--fw-bold);            /* Sora Bold */
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  border: var(--border-m) solid var(--color-btn-primary-border);
+  border-radius: var(--radius-button);    /* 16 16 4 16 — notched */
+  box-shadow: var(--shadow-hard-m);
+  transition: background .12s ease, box-shadow .12s ease, transform .12s ease;
+  -webkit-font-smoothing: antialiased;
+}
+.sel-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-hard-m), 0 0 0 3px var(--color-periwinkle);
+}
+.sel-btn svg { display: block; flex: none; }
+
+/* ---- Sizes ---- */
+.sel-btn--xl { font-size: 20px; line-height: 24px; padding: 20px 32px; border-radius: var(--radius-button); }
+.sel-btn--l  { font-size: 18px; line-height: 20px; padding: 16px 28px; border-radius: var(--radius-button); }
+.sel-btn--m  { font-size: 16px; line-height: 20px; padding: 12px 24px; border-radius: var(--radius-button-m); }
+.sel-btn--s  { font-size: 14px; line-height: 18px; padding: 8px 16px;  border-radius: var(--radius-button-s); }
+
+/* ---- Flat style (no hard shadow) ---- */
+.sel-btn--flat { box-shadow: none; }
+.sel-btn--flat:focus-visible { box-shadow: 0 0 0 3px var(--color-periwinkle); }
+
+/* ---- Primary (mint) ---- */
+.sel-btn--primary { background: var(--color-btn-primary-bg); color: var(--color-btn-primary-text); }
+.sel-btn--primary:hover  { background: var(--color-btn-primary-bg-hover);  box-shadow: var(--shadow-hard-s); transform: translateY(1px); }
+.sel-btn--primary.sel-btn--flat:hover { box-shadow: none; transform: none; }
+.sel-btn--primary:active { background: var(--color-btn-primary-bg-active); box-shadow: 0 0 0 0 var(--color-midnight); transform: translateY(4px); }
+
+/* ---- Secondary (lilac) ---- */
+.sel-btn--secondary { background: var(--color-btn-secondary-bg); color: var(--color-btn-primary-text); }
+.sel-btn--secondary:hover  { background: var(--color-btn-secondary-bg-hover);  box-shadow: var(--shadow-hard-s); transform: translateY(1px); }
+.sel-btn--secondary.sel-btn--flat:hover { box-shadow: none; transform: none; }
+.sel-btn--secondary:active { background: var(--color-btn-secondary-bg-active); box-shadow: 0 0 0 0 var(--color-midnight); transform: translateY(4px); }
+
+/* ---- Tertiary (almond) ---- */
+.sel-btn--tertiary { background: var(--color-btn-tertiary-bg); color: var(--color-btn-primary-text); }
+.sel-btn--tertiary:hover  { background: var(--color-btn-tertiary-bg-hover);  box-shadow: var(--shadow-hard-s); transform: translateY(1px); }
+.sel-btn--tertiary.sel-btn--flat:hover { box-shadow: none; transform: none; }
+.sel-btn--tertiary:active { background: var(--color-btn-tertiary-bg-active); box-shadow: 0 0 0 0 var(--color-midnight); transform: translateY(4px); }
+
+/* ---- Outline (transparent + navy border, green fill on hover) ---- */
+.sel-btn--outline { background: var(--color-btn-outline-bg); color: var(--color-btn-outline-text); }
+.sel-btn--outline:hover  { background: var(--color-btn-outline-bg-hover);  color: var(--color-btn-primary-text); box-shadow: var(--shadow-hard-s); transform: translateY(1px); }
+.sel-btn--outline.sel-btn--flat:hover { box-shadow: none; transform: none; }
+.sel-btn--outline:active { background: var(--color-btn-outline-bg-active); box-shadow: 0 0 0 0 var(--color-midnight); transform: translateY(4px); }
+
+/* ---- Inverted (for dark surfaces: dark fill, almond border/text) ---- */
+.sel-btn--inverted { background: var(--color-btn-inverted-bg); color: var(--color-btn-inverted-text); border-color: var(--color-btn-inverted-border); }
+.sel-btn--inverted:hover  { background: var(--color-btn-inverted-bg-hover);  box-shadow: var(--shadow-hard-s); transform: translateY(1px); }
+.sel-btn--inverted.sel-btn--flat:hover { box-shadow: none; transform: none; }
+.sel-btn--inverted:active { background: var(--color-btn-inverted-bg-active); box-shadow: 0 0 0 0 var(--color-text-light); transform: translateY(4px); }
+
+/* ---- Disabled — per-variant tinted fill, light-grey text, no border/shadow ---- */
+.sel-btn:disabled, .sel-btn[aria-disabled="true"] {
+  cursor: not-allowed;
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+  color: var(--color-btn-primary-text-disabled);
+}
+.sel-btn--primary:disabled   { background: var(--color-btn-primary-bg-disabled); }
+.sel-btn--secondary:disabled { background: var(--color-btn-secondary-bg-disabled); }
+.sel-btn--tertiary:disabled  { background: var(--color-btn-tertiary-bg-disabled); }
+.sel-btn--outline:disabled   { background: var(--color-btn-outline-bg-disabled); }
+.sel-btn--inverted:disabled  { background: var(--color-btn-inverted-bg-disabled); }
+
+/* full-width modifier (common in form pages) */
+.sel-btn--block { width: 100%; }

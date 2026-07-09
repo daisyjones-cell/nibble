@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: dim_stalls
+    description: "One row per stall (from the seed) with live rating/review/visit rollups."
+    columns:
+      - name: stall_id
+        tests: [unique, not_null]
+      - name: stall_name
+        tests: [not_null]
+      - name: avg_rating
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 5
+              config:
+                where: "avg_rating is not null"
+  - name: dim_dishes
+    description: "Menu items per stall with upvote counts."
+    columns:
+      - name: dish_id
+        tests: [unique, not_null]
+      - name: stall_id
+        tests:
+          - relationships:
+              to: ref('dim_stalls')
+              field: stall_id
+  - name: fct_reviews
+    description: "One row per review, joined to its stall."
+    columns:
+      - name: review_id
+        tests: [unique, not_null]
+      - name: rating
+        tests:
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+  - name: fct_visits
+    description: "One row per logged visit with week/weekday for demand analysis."
+  - name: stall_leaderboard
+    description: "Ranked stalls for the admin dashboard leaderboards."
+    columns:
+      - name: stall_id
+        tests: [unique, not_null]
